@@ -53,9 +53,10 @@ class RoleController extends CI_Controller{
         $this->load->model('RoleModel');
          //set selected country id from POST
         $id = $this->input->post('id',TRUE);
+        $RId = $this->input->post('RId',TRUE);
 
         //run the query for the cities we specified earlier
-        $districtData['districtDrop']=$this->RoleModel->viewtablewith_page($id);
+        $districtData['districtDrop']=$this->RoleModel->viewtablewith_page($id,$RId);
           
         //$districtData['output'] = 
         print_r(json_encode($districtData['districtDrop']->result()));

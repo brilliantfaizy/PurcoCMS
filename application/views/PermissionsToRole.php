@@ -52,6 +52,8 @@
                     
                     
                    if($(this).val() != "" || $(this).val() != null){
+                    
+                    $("#Role_ID").val($(this).val());
                    
                      /*dropdown post */
                     $.ajax({
@@ -150,23 +152,19 @@
                 
 
             });
-	</script>
-     <script type="text/javascript">
-   
-   
-   
+
     var myobj1;
         
         
             $(document).ready(function() { 
 
-                
+               
                 $("#page").change(function(){
-                   
+                    
                      /*dropdown post */
                     $.ajax({
                     url:"<?php echo $base; ?>/index.php/RoleController/role_table",    
-                    data: {id: $(this).val()},
+                    data: {id: $(this).val(),RId : $("#Role_ID").val()},
                     type: "POST",
                     success: function(data){
                       
@@ -350,6 +348,6 @@
 
         </table>
     </div>
-
+<input type='hidden' id="Role_ID" value="" />
 </div>
 <?php $this->load->view('footer'); ?>

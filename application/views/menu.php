@@ -1,6 +1,8 @@
 <?php 
          
          $roleID = $this->session->userdata['Rid'];
+         
+         
          //print_r($this->mainModel->GetMenus($roleID));
          $actual_link = "$_SERVER[REQUEST_URI]";
          $Redirect = true;
@@ -93,6 +95,7 @@
 </style>
 
 <div class="als-container" id="demo1">
+
     <?php if(count($this->mainModel->GetMenus($roleID)) > 10){ ?>
     <span class="als-prev"><img src="<?php echo $base."/images/prevBtnImg.png" ?>" alt="prev" title="previous" /></span>
     <?php } ?>
