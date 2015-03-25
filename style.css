@@ -1,0 +1,600 @@
+ 
+ @font-face {
+  font-family: 'HelveticaLTStd';
+  src: url('fonts/HelveticaLTStd-Light.otf'),url('fonts/HelveticaLTStd-Light.otf');
+}
+
+input:disabled, textarea:disabled {
+    
+  color: #B3B2B2 !important;
+  
+}
+ 
+ #header{
+    
+    height: 50px;
+ }
+ 
+table.FieldsTable td {
+    
+    vertical-align: middle;
+  
+}
+
+table.FieldsTable td img{
+    
+    vertical-align: middle;
+}
+ 
+ table{
+    
+    font-size: 12px;
+ }
+ 
+.FieldsTable td{
+    
+    padding-left: 20px !important;
+ }
+ 
+.FieldsTable th{
+    
+    padding-left: 20px !important;
+ }
+ 
+ body{
+        
+         margin: 16px;
+         background-color: #fff;
+         font-family:  'HelveticaLTStd', Fallback, sans-serif;
+         font-size: 12px;
+        
+        }
+        
+        #login{
+            
+            
+            background-color: #ffffff;
+            -webkit-box-shadow: 1px 1px 8px 0px rgba(50, 50, 50, 0.75);
+            -moz-box-shadow:    1px 1px 8px 0px rgba(50, 50, 50, 0.75);
+            box-shadow:         1px 1px 8px 0px rgba(50, 50, 50, 0.75);
+            width: 400px;
+            height: 300px;
+            margin: auto;
+            position: absolute;
+            top: 35%;
+            left: 35%;
+            
+        }   
+
+
+.myfield{
+    
+    -webkit-box-shadow:inset 1px 1px 6px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:inset 1px 1px 6px 0px rgba(50, 50, 50, 0.75);
+    box-shadow:inset 1px 1px 6px 0px rgba(50, 50, 50, 0.75);
+    border: none;
+    width: 310px;
+    height: 22px;
+    text-indent: 6px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius:2px;
+    border-radius: 2px;
+    background-color: #f8f8f8;
+
+}
+
+.button{
+    
+    background-color: #34457d;
+    border: none;
+    color: #fff;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    font-size: 12px;
+    padding-left: 16px;
+    padding-right: 16px;
+    
+}
+
+.button:hover{
+    
+    text-decoration: underline;
+    
+}
+
+.loginBtn{
+    
+    width: 310px;
+    height: 30px;
+    margin-top: 34px;
+}
+
+.reset{
+    
+    height: 30px;
+    width: 155px;
+    float: right;
+    background-color: #464646;
+    margin-top: 16px;
+    
+}
+
+.medium{
+    
+    height: 24px;
+    float: right;
+    margin-top: 16px;
+    
+}
+
+
+#menu{
+    
+    
+    background-color: #34457e;
+    -webkit-box-shadow: 1px 1px 8px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    1px 1px 8px 0px rgba(50, 50, 50, 0.75);
+    box-shadow:         1px 1px 8px 0px rgba(50, 50, 50, 0.75);
+    height: 40px;
+    width: 100%;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    clear: both;
+    margin: inherit;
+    
+    
+}
+
+#menu ul{
+    
+      margin-left: 20px;
+      margin: 0;
+}
+
+#menu li{
+    
+    list-style: none;
+    float: left;
+    padding: 0 20px 0 20px;
+    line-height: 40px;
+    
+}
+
+#menu a{
+    
+    color:#fff;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+.activeMenu a {
+  color: #34457e !important;
+  
+}
+
+.activeMenu div{
+    
+    background-image:url('images/activeMenuArrow.png');
+    width: 11px;
+    height: 10px;
+    margin: auto;
+    margin-top: 0px;
+}
+
+.activeMenu {
+  background-color: #fff;
+  height: 41px;
+}
+
+#menu a:hover{
+    
+    text-decoration: underline;
+    
+}
+
+
+#innerMenu{
+    
+     -webkit-box-shadow: 1px 1px 8px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    1px 1px 8px 0px rgba(50, 50, 50, 0.75);
+    box-shadow:         1px 1px 8px 0px rgba(50, 50, 50, 0.75);
+    
+    
+    background-color: #34457e;
+    height: 36px;
+    width: 100%;
+   
+    
+}
+
+#innerMenu li{
+    
+    list-style: none;
+    float: left;
+    
+    
+}
+
+#innerMenu a{
+    
+    color:#fff;
+    text-decoration: none;
+    font-size: 12px;
+    display: block;
+    padding-left: 20px;
+    padding-right: 20px;
+    line-height: 36px;
+    border-right: 1px solid #fff;
+}
+
+#innerMenu a:hover{
+    
+    text-decoration: underline;
+    
+}
+
+#innerMenu li:last-child a{
+    
+    border: none;
+}
+
+.innerMenuActive{
+    
+    background-color: #ffffff;
+    color: #34457e !important;
+    font-weight: bold;
+}
+
+
+#innerTabs{
+    
+    
+   
+    height: 70px;
+    width: 41%;
+    clear: both;
+    
+    
+}
+
+#innerTabs li{
+    
+    list-style: none;
+    float: left;
+    background-color: #34457e;
+    margin-right: 20px;
+    
+}
+
+ul{
+    
+    padding: 0;
+}
+
+#innerTabs a{
+    
+    color:#fff;
+    text-decoration: none;
+    font-size: 10px;
+    font-weight: bold;
+    width: 78px;
+    height: 66px;
+    display: block;
+    text-align: center;
+    padding-top: 12px;
+    
+}
+
+
+
+.smallBtn{
+    
+    
+    height: 30px;
+    background-color: #464646;
+    display: block;
+    text-align: center;
+    line-height: 30px;
+    text-decoration: none;
+}
+
+.FormFields{
+    
+   
+    background-color: #ffffff;
+    -webkit-box-shadow: 1px 1px 8px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    1px 1px 8px 0px rgba(50, 50, 50, 0.75);
+    box-shadow:         1px 1px 8px 0px rgba(50, 50, 50, 0.75);
+    width: 100%;
+    margin-top: 10px;
+    padding-bottom: 10px;
+    display: inline-table;
+    
+   
+    
+           
+}
+
+.FormFields table td, .FormFields table th {
+    padding: 2px;
+}
+
+
+
+.Grid{
+    
+    
+    background-color: #ffffff;
+    -webkit-box-shadow: 1px 1px 8px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    1px 1px 8px 0px rgba(50, 50, 50, 0.75);
+    box-shadow:         1px 1px 8px 0px rgba(50, 50, 50, 0.75);
+    width: 100%;
+    
+    margin-top: 20px;
+    padding-bottom: 10px;
+    
+           
+}
+
+.Grid table{
+    
+    width: 100%;
+}
+
+.ContainerDiv{
+    
+    
+    background-color: #ffffff;
+    -webkit-box-shadow: 1px 1px 8px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    1px 1px 8px 0px rgba(50, 50, 50, 0.75);
+    box-shadow:         1px 1px 8px 0px rgba(50, 50, 50, 0.75);
+    width: 100%;
+    
+    margin-top: 20px;
+    padding-bottom: 10px;
+    display: table;
+    
+           
+}
+
+.FieldsTable{
+    
+    margin: auto;
+    padding-top: 10px;
+    float: left;
+    
+    
+}
+
+.innerTabsActive{
+    
+    background-color: #464646 !important;
+}
+
+.FieldsTable th{
+    
+    text-align: left;
+    color: #34457e !important;
+    font-size: 16px;
+}
+
+
+.Grid table th{
+    
+    background-color: #464646;
+    border: none;
+    color:#fff;
+    text-align: left;
+}
+
+.Grid table tr:nth-child(odd) td{
+    background-color: #efefef; 
+}
+.Grid table tr:nth-child(even) td{
+    
+    
+}
+
+.dashboardTable{
+    
+   
+    width: 100%;
+    
+   
+}
+
+.dashboardDIv{
+    
+     background-color: #ffffff;
+    -webkit-box-shadow: 1px 1px 8px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    1px 1px 8px 0px rgba(50, 50, 50, 0.75);
+    box-shadow:         1px 1px 8px 0px rgba(50, 50, 50, 0.75);
+    float: left;
+    height: 370px;
+    width: 100%;
+   
+}
+
+.dashboardTable th{
+    
+    background-color: #464646;
+    color: #fff;
+    font-size: 16px;
+    text-transform: uppercase;
+    height: 36px;
+    
+}
+
+.dashboardTable td{
+    
+    font-size: 14px;
+    padding: 12px;
+    
+}
+
+
+
+.FormFields td{
+    
+    font-size:12px;
+    font-weight: bold;
+    color: #464646;
+    
+}
+
+.Grid td a {
+    
+    text-decoration: none;
+    color:#464646;
+    margin-right: 10px;
+    
+    
+}
+
+.Grid td a:hover {
+    
+    text-decoration: underline;
+   
+}
+
+
+#PurcoLogo{
+    
+    background-image: url('images/purcoLogo.png');
+    width: 105px;
+    height: 54px;
+    background-repeat: no-repeat;
+    float: left;
+    background-size: 100%;
+}
+
+#ControllerBtns{
+    
+    float: right;
+}
+
+#footer{
+    
+    background-color: #34457e;
+    height: 40px;
+    width: 100%;
+    text-align: center;
+}
+
+#footer p{
+    
+      color: #ffffff;
+      font-size: 14px;
+      padding-top: 12px;
+    
+}
+
+.checkBoxAlign{
+    
+      vertical-align: inherit;
+      margin-right: 10px;
+}
+
+
+.SearchIcon{
+    
+    background-image: url('images/searchIcon.png');
+    background-repeat: no-repeat;
+    background-size: 19px 19px;
+    background-position: 10px;
+    text-indent: 20px;
+}
+
+.BtnBlack{
+    
+    background-color: #464646;
+}
+
+#content{
+    
+    min-height: 800px;
+}
+
+.CalenderHead{
+    
+    background-color: #464646;
+    height: 45px;
+    color:#fff;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 45px;
+    margin-bottom: 36px;
+}
+
+.calender th{
+    
+    background-color: #34457e !important;
+    text-align: center !important;
+    font-size: 14px;
+    height: 35px;
+    width: 13.5%;
+
+   
+}
+
+.calender td{
+    
+   height: 80px;
+   vertical-align: top;
+   text-indent: 10px;
+   padding-top: 10px;
+   border: 1px solid #9a9a9a;
+}
+
+.calender .notes{
+    
+    font-size: 13px;
+    font-weight: bold;
+    color:#34457e;
+}
+
+.calenderRefreshBtn{
+    
+    background-image: url('images/refreshIcon.png');
+    background-size: 30px 28px;
+    background-repeat: no-repeat;
+    width: 98px;
+    height: 34px;
+    display: block;
+    text-decoration: none;
+    font-size: 13px;
+    color:#34457e;
+    float: right;
+    background-position: 50px 0;
+    line-height: 34px;
+    font-weight: bold;
+    margin-top: 60px;
+    
+    
+}
+
+.templatesDiv{
+    
+    
+    background-color: #f9f6fa;
+    -webkit-box-shadow:inset 1px 1px 6px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:inset 1px 1px 6px 0px rgba(50, 50, 50, 0.75);
+    box-shadow:inset 1px 1px 6px 0px rgba(50, 50, 50, 0.75);
+    -webkit-border-radius: 10px;
+    -moz-border-radius:10px;
+    border-radius: 10px;
+    height: 578px;
+    line-height: 578px;
+    font-size: 38px;
+    color:#d0cece;
+    text-align: center;
+    margin: 40px;
+}
+
+.Grid table td, .Grid table th{
+    
+    padding: 6px !important;
+}
+
