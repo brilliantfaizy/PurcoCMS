@@ -130,12 +130,26 @@ class RoleController extends CI_Controller{
     //$this->form_validation->set_rules('privileges', 'Privileges', 'required');
     
     
-    if ($this->form_validation->run() == FALSE)
+     if ($this->form_validation->run() == FALSE)
     {
        $this->permsrole();
     }
     else
     {
+        $sub=$this->input->post('submenu');
+        $role=$this->input->post('role');
+        $page=$this->input->post('page');
+        $sql="select * from tbl_action_perm where RId=$role and Page_Id=$page and sub_page_Id=$sub";
+       $query2=$this->db->query($sql);
+        if($query2->num_rows > 0)
+        { 
+    
+            echo "<script>alert('You are already asign page and menu to this role');</script>";
+          //  $this->getall2(); 
+          $this->permsrole();    
+        }
+         
+        else{
 		 $data = array(
      'RId' => $this->input->post('role'),
      'Page_Id' => $this->input->post('page'),
@@ -151,6 +165,7 @@ class RoleController extends CI_Controller{
   $this->db->insert('tbl_action_perm',$data);
   $this->permsrole();
  	}
+    }
     }
 function insertview()
 {

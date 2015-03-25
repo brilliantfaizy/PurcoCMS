@@ -32,7 +32,7 @@
 
 <ul>
 
-<?php foreach($this->mainModel->GetSubMenus($pageID) as $allmenus){ ?>
+<?php foreach($this->mainModel->GetSubMenus($pageID,$roleID) as $allmenus){ ?>
 <li><a <?php echo $innerMenuActive==$allmenus->Menu_Function ? "class=\"innerMenuActive\"" : ""; ?> href='<?php echo "$base/index.php/$allmenus->Menu_Controller/$allmenus->Menu_Function"; ?>'><?php echo $allmenus->Menu_Title; ?></a></li>
 <?php } ?>
 

@@ -262,7 +262,7 @@
 			<td></td>
 			<td></td>
                      <td>
-                        <input class="button medium BtnBlack" style="margin:0;" type="submit" name="submit" value="Edit" />
+                        <input class="button medium BtnBlack" style="margin:0;" type="submit" name="submit" value="Update" />
                     </td></tr>
 
 
@@ -282,6 +282,7 @@
             <tr>
                 <th style="width: 10%;">Role</th>
                 <th style="width: 10%;">Page</th>
+                <th style="width: 10%;">Menu</th>
                <th style="width: 10%;">Insert</th>
                <th style="width: 10%;">Update</th>
                <th style="width: 10%;">View</th>
@@ -300,6 +301,7 @@
                </td>
                 <td><?php echo $row5->Page; ?>
                   </td>
+                  <td><?php echo $row5->Menu_Title; ?></td>
                 <?php if($row5->ContentAdd == 1) { ?>
 
                 <td>
@@ -309,6 +311,7 @@
                 <?php } else { ?>
 
                 <td>
+                
                     <?php echo "Not Allowed"; ?>
                 </td>
 

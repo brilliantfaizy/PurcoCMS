@@ -78,10 +78,10 @@ class mainModel extends CI_Model{
     
   }
   
-  function GetSubMenus($Page_Id){
+  function GetSubMenus($Page_Id,$roleID){
          
     $this->load->database();
-    $query = $this->db->query(" SELECT tbl_action_perm.*,tbl_sub_menus.* FROM tbl_action_perm INNER JOIN tbl_sub_menus ON tbl_action_perm.sub_page_Id = tbl_sub_menus.Menu_Id where tbl_action_perm.Page_Id=$Page_Id");
+    $query = $this->db->query(" SELECT tbl_action_perm.*,tbl_sub_menus.* FROM tbl_action_perm INNER JOIN tbl_sub_menus ON tbl_action_perm.sub_page_Id = tbl_sub_menus.Menu_Id where tbl_action_perm.Page_Id=$Page_Id and tbl_action_perm.RId=$roleID");
     
    
     //$query = $this->db->query("SELECT tbl_action_perm.*,tbl_sub_menus.* FROM tbl_action_perm INNER JOIN tbl_sub_menus ON tbl_action_perm.Page_Id=tbl_sub_menus.Page_Id where tbl_sub_menus.Page_Id=$Page_Id");
