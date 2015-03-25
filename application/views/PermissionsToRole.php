@@ -110,7 +110,7 @@
                     type: "POST",
                     success: function(data){
                         
-                        console.log(data);
+                        //console.log(data);
                         
                       var myobj;
                       var html = '<option value>Select Sub Menu</option>';
@@ -151,6 +151,89 @@
 
             });
 	</script>
+     <script type="text/javascript">
+   
+   
+   
+    var myobj1;
+        
+        
+            $(document).ready(function() { 
+
+                
+                $("#page").change(function(){
+                   
+                     /*dropdown post */
+                    $.ajax({
+                    url:"<?php echo $base; ?>/index.php/RoleController/role_table",    
+                    data: {id: $(this).val()},
+                    type: "POST",
+                    success: function(data){
+                      
+                      if(data != null || data != ""){
+                        
+                       myobj1 = JSON.parse(data);
+                       $("#table1111").html(' ');
+                       var html = '<tr> <th style="width: 10%;">Role</th> <th style="width: 10%;">Page</th><th style="width: 10%;">Menu</th><th style="width: 10%;">Insert</th><th style="width: 10%;">Update</th><th style="width: 10%;">View</th><th style="width: 10%;">Delete</th><th style="width: 10%;">Start Date</th><th style="width: 10%;">End Date</th><th style="width: 10%;">Action</th></tr>';
+                       
+                           for(var i = 0; i < myobj1.length; i++){
+                            
+                                var ContentAdd;
+                                var ContentUpdate;
+                                var ContentView;
+                                var ContentDelete;
+                                
+                                if(myobj1[i].ContentAdd == 1){
+                                    
+                                    ContentAdd = "Allowed";
+                                    
+                                } else  {
+                                    
+                                    ContentAdd = "Not Allowed";
+                                }
+                               if(myobj1[i].ContentUpdate == 1){
+                                    
+                                    ContentUpdate = "Allowed";
+                                    
+                                } else {
+                                    
+                                    ContentUpdate = "Not Allowed";
+                                }
+                                 if(myobj1[i].ContentView == 1){
+                                    
+                                    ContentView = "Allowed";
+                                    
+                                } else  {
+                                    
+                                    ContentView = "Not Allowed";
+                                }
+                                  if(myobj1[i].ContentDelete == 1){
+                                    
+                                    ContentDelete = "Allowed";
+                                    
+                                } else  {
+                                    
+                                    ContentDelete = "Not Allowed";
+                                }
+                                html += '<tr><td>'+myobj1[i].RoleTitle+'</td><td>'+myobj1[i].Page+'</td><td>'+myobj1[i].Menu_Title+'</td><td>'+ContentAdd+'</td><td>'+ContentUpdate+'</td><td>'+ContentView+'</td><td>'+ContentDelete+'</td><td>'+myobj1[i].StartDate+'</td><td>'+myobj1[i].EndDate+'</td><td><a  href="viewupdaterole\/'+myobj1[i].sub_page_Id+'\">Edit</a></td></tr>';
+                               
+                           }
+                           
+                           $("#table1111").html(html);
+                          
+                       
+                       } 
+                       
+                       
+                    }
+                    
+                    });
+               
+                });
+
+            });
+            
+        </script>
 	<style>
 
 	
@@ -259,93 +342,9 @@
 
 
 
-        <table  cellspacing="0" cellpadding="10">
-
-            <tr>
-                <th style="width: 10%;">Role</th>
-                <th style="width: 10%;">Page</th>
-               <th style="width: 10%;">Insert</th>
-               <th style="width: 10%;">Update</th>
-               <th style="width: 10%;">View</th>
-               <th style="width: 10%;">Delete</th>
-                <th style="width: 10%;">Start Date</th>
-				 <th style="width: 10%;">End Date</th>
-                 <th style="width: 10%;">Action</th>
-            </tr>
+        <table id="table1111" cellspacing="0" cellpadding="10">
 
            
-		<?php foreach($data as $row5){
-		?>
-            <tr>
-
-                <td><?php echo $row5->RoleTitle; ?>
-               </td>
-                <td><?php echo $row5->Page; ?>
-                  </td>
-                <?php if($row5->ContentAdd == 1) { ?>
-
-                <td>
-                    <?php echo "Allowed"; ?>
-                </td>
-
-                <?php } else { ?>
-
-                <td>
-                    <?php echo "Not Allowed"; ?>
-                </td>
-
-                <?php } ?>
-                <?php if($row5->ContentUpdate == 1) { ?>
-
-                <td>
-                    <?php echo "Allowed"; ?>
-                </td>
-
-                <?php } else { ?>
-
-                <td>
-                    <?php echo "Not Allowed"; ?>
-                </td>
-
-                <?php } ?>
-                <?php if($row5->ContentView == 1) { ?>
-
-                <td>
-                    <?php echo "Allowed"; ?>
-                </td>
-
-                <?php } else { ?>
-
-                <td>
-                    <?php echo "Not Allowed"; ?>
-                </td>
-
-                <?php } ?>
-                <?php if($row5->ContentDelete == 1) { ?>
-
-                <td>
-                    <?php echo "Allowed"; ?>
-                </td>
-
-                <?php } else { ?>
-
-                <td>
-                    <?php echo "Not Allowed"; ?>
-                </td>
-
-                <?php } ?>
-				  <td><?php echo $row5->StartDate; ?>
-                  </td>
-                <td><?php echo $row5->EndDate; ?>
-                  </td>
-                <td><a href="viewupdaterole/<?php echo $row5->sub_page_Id; ?>">Edit</a></td>
-
-
-
-               
-            </tr>
-
-           <?php } ?>
 
 
 

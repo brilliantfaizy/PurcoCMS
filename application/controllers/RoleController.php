@@ -48,6 +48,20 @@ class RoleController extends CI_Controller{
  	$this->load->view('EditPermissionToRole',$query);
     
   }
+  public function role_table()
+    {
+        $this->load->model('RoleModel');
+         //set selected country id from POST
+        $id = $this->input->post('id',TRUE);
+
+        //run the query for the cities we specified earlier
+        $districtData['districtDrop']=$this->RoleModel->viewtablewith_page($id);
+          
+        //$districtData['output'] = 
+        print_r(json_encode($districtData['districtDrop']->result()));
+
+
+    }
   
   function editpermrole()
   {
