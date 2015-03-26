@@ -62,6 +62,7 @@
                         console.log(JSON.parse(data).msg);
                         
                        alert('Updated...');
+                       $("#myDiv").html(resp);
                        
                     }
                     
@@ -72,8 +73,13 @@
                     }
 	
 		});
+        
+        function tableabc()
+        {
+            
+        }
 	});
-	</script>
+	</script> 
 	<style>
 
 	
@@ -199,7 +205,7 @@
                 
             </div>
             
-            <div class="Grid">
+            <div class="Grid" id="myDiv">
            
                 
                 

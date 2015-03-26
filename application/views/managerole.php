@@ -43,6 +43,8 @@
 				}
 			},submitHandler:  function insertrole(){
 			 
+             
+			 var myobj;
                     $.ajax({
                     url:"<?php echo $base; ?>/index.php/RoleController/insert",    
                     data: {roleid: $("#roleid").val(),roletitle: $("#roletitle").val(),roledec: $("#roledec").val()},
@@ -52,6 +54,20 @@
                         console.log(JSON.parse(data).msg);
                         
                        alert('inserted...');
+                        if(data != null || data != ""){
+                        
+                       myobj = JSON.parse(data);
+                       $("#table1111").html(' ');
+                       var html = '<tr> <th style="width: 10%;">Role ID</th><th style="width: 10%;">Role Title</th> <th style="width: 10%;">Description</th> <th style="width: 10%;">Action</th></tr>';
+                       
+                           for(var i = 0; i < myobj.length; i++){
+                            
+                                
+                                html += '<tr><td>'+myobj[i].RId+'</td><td>'+myobj[i].RoleTitle+'</td><td>'+myobj[i].Description+'</td></tr>';
+                               
+                           }
+                           
+                           $("#table1111").html(html);
                        
                     }
                     
@@ -63,6 +79,8 @@
 }
 			
 		});
+        
+        
       
 	});
   
@@ -141,38 +159,9 @@
 
 
 
-        <table  cellspacing="0" cellpadding="10">
+        <table  id="table1111" cellspacing="0" cellpadding="10">
 
-            <tr>
-                <th style="width: 10%;">Role ID</th>
-                <th style="width: 10%;">Role Title</th>
-               <th style="width: 10%;">Description</th>
-                <th style="width: 10%;">Action</th>
-
-            </tr>
-
-            <?php foreach($query as $student){ ?>
-
-            <tr>
-
-                <td>
-                    <?php echo $student->RId; ?></td>
-                <td>
-                    <?php echo $student->RoleTitle; ?></td>
-                <td>
-                    <?php echo $student->Description; ?></td>
-
-                <td>
-                 <?php if($this->SubMenus->ContentUpdate == 1){ ?>
-                <a href="viewupdate/<?php echo $student->RId ?>">Edit</a>
-                    <a onclick="userdeleteConfirm('delete/<?php echo $student->RId ?>'); return false;" href="delete/<?php echo $student->RId ?>">Delete</a>
-               <?php }?> </td>
-            </tr>
-
-            <?php } ?>
-
-
-
+           
         </table>
     </div>
     <?php }?>
