@@ -173,14 +173,16 @@
     </div>
     <div class="FormFields">
 <?php
+          
           foreach ($data as $row1){  ?>
+
         <form id="signupForm" action="../../editpermrole" method="post">
 
             <table class="FieldsTable" cellpadding="6">
 
                 <tr>
 				<td>Roles :</td>
-                    <td><input type="hidden" id="id"  name="id" value="<?php echo $row1->Menu_Id; ?>" />
+                    <td><input type="hidden" id="id"  name="id" value="<?php echo $row1->Action_Id; ?>" />
                     
                     <select id="selectRoles" name="role" class="myfield" disabled="">
                               <option value>Select</option>

@@ -72,19 +72,8 @@ class RoleController extends CI_Controller{
 	   $this->load->model('RoleModel');
         $this->load->library('form_validation');
         $id=$this->input->post('id');
-    $this->form_validation->set_rules('role', 'Role', 'required|int');
-    $this->form_validation->set_rules('page', 'Page', 'required');
-    $this->form_validation->set_rules('start', 'Start Date', 'required');
-      $this->form_validation->set_rules('end', 'End Date', 'required');
-    //$this->form_validation->set_rules('privileges', 'Privileges', 'required');
+   
     
-    
-    if ($this->form_validation->run() == FALSE)
-    {
-       $this->permsrole();
-    }
-    else
-    {
         
 		 $data = array(
     
@@ -99,8 +88,8 @@ class RoleController extends CI_Controller{
     $this->RoleModel->updaterole($id,$data);
     echo "<script> alert('Updated');</script>";
    	$this->permsrole();
-     redirect('RoleController/viewupdaterole/'.$id.'', 'refresh'); 
-    }
+     //redirect('RoleController/viewupdaterole/'.$id.'', 'refresh'); 
+    
   }
   
  function permsrole()
