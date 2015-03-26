@@ -88,6 +88,8 @@
             <?php $this->load->view('admininner'); ?>
 
         </div>
+        
+        <?php if($this->SubMenus->ContentAdd == 1){ ?>
     <div class="FormFields">
        
         <form  id="signupForm" action="getall" method="post">
@@ -172,10 +174,13 @@
         </form>
 
     </div>
+    
+    <?php } ?>
 
     <div class="Grid">
 
 
+     <?php  print_r($this->SubMenus->ContentAdd); ?>
 
         <table  cellspacing="0" cellpadding="10">
 

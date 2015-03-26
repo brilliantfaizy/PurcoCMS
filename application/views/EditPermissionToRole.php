@@ -110,7 +110,7 @@
                     type: "POST",
                     success: function(data){
                         
-                        console.log(data);
+                        //console.log(data);
                         
                       var myobj;
                       var html = '<option value>Select Sub Menu</option>';
@@ -174,7 +174,7 @@
     <div class="FormFields">
 <?php
           foreach ($data as $row1){  ?>
-        <form id="signupForm" action="../editpermrole" method="post">
+        <form id="signupForm" action="../../editpermrole" method="post">
 
             <table class="FieldsTable" cellpadding="6">
 

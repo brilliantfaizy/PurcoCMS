@@ -213,7 +213,7 @@
                                     
                                     ContentDelete = "Not Allowed";
                                 }
-                                html += '<tr><td>'+myobj1[i].RoleTitle+'</td><td>'+myobj1[i].Page+'</td><td>'+myobj1[i].Menu_Title+'</td><td>'+ContentAdd+'</td><td>'+ContentUpdate+'</td><td>'+ContentView+'</td><td>'+ContentDelete+'</td><td>'+myobj1[i].StartDate+'</td><td>'+myobj1[i].EndDate+'</td><td><a  href="viewupdaterole\/'+myobj1[i].sub_page_Id+'\">Edit</a></td></tr>';
+                                html += '<tr><td>'+myobj1[i].RoleTitle+'</td><td>'+myobj1[i].Page+'</td><td>'+myobj1[i].Menu_Title+'</td><td>'+ContentAdd+'</td><td>'+ContentUpdate+'</td><td>'+ContentView+'</td><td>'+ContentDelete+'</td><td>'+myobj1[i].StartDate+'</td><td>'+myobj1[i].EndDate+'</td><td><a  href="viewupdaterole\/'+myobj1[i].sub_page_Id+'\/'+myobj1[i].RId+'\">Edit</a></td></tr>';
                                
                            }
                            

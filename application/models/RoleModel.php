@@ -119,13 +119,13 @@ class RoleModel extends CI_Model{
                 return $query->result();
  	}
  
- function allviewrole($id)
+ function allviewrole($id,$RId)
  	{
 		$this->load->database();
 			$sql="SELECT tbl_action_perm.*, tbl_roles.*,tbl_pages.*,tbl_sub_menus.* FROM tbl_action_perm Inner join tbl_roles 
 			ON tbl_action_perm.RId = tbl_roles.RId Inner join tbl_pages ON 
 			tbl_action_perm.Page_Id = tbl_pages.Page_Id Inner join tbl_sub_menus ON 
-            tbl_action_perm.sub_page_Id=tbl_sub_menus.Menu_Id where tbl_action_perm.sub_page_Id=".$id."";
+            tbl_action_perm.sub_page_Id=tbl_sub_menus.Menu_Id where tbl_action_perm.sub_page_Id=".$id." AND tbl_action_perm.RId=".$RId."";
 				 $query=$this->db->query($sql);
                 return $query->result();
  	}

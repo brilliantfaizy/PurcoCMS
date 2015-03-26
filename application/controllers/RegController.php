@@ -9,6 +9,7 @@ class RegController extends CI_Controller{
         $this->load->model('mainModel');
         $this->load->helper('url');
         $this->mainModel->checkSession();
+        
     }
     
     

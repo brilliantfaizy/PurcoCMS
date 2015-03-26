@@ -32,8 +32,23 @@
 
 <ul>
 
-<?php foreach($this->mainModel->GetSubMenus($pageID,$roleID) as $allmenus){ ?>
+<?php
+    
+    //print_r($this->mainModel->GetSubMenus($pageID,$roleID));
+    
+    
+
+ foreach($this->mainModel->GetSubMenus($pageID,$roleID) as $allmenus){
+    
+    if(explode("/", $actual_link)[3]."/".explode("/", $actual_link)[4] == $allmenus->Menu_Controller."/".$allmenus->Menu_Function){
+    
+         $this->SubMenus = $allmenus;
+       
+    }
+    ?>
+
 <li><a <?php echo $innerMenuActive==$allmenus->Menu_Function ? "class=\"innerMenuActive\"" : ""; ?> href='<?php echo "$base/index.php/$allmenus->Menu_Controller/$allmenus->Menu_Function"; ?>'><?php echo $allmenus->Menu_Title; ?></a></li>
+
 <?php } ?>
 
 </ul>

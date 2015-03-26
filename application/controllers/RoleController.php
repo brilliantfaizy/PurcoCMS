@@ -37,13 +37,15 @@ class RoleController extends CI_Controller{
         $this->load->helper('url');
          
        $id = $this->uri->segment(3);
+       $RId = $this->uri->segment(4);
+       
         $query['base'] = $this->config->item('base_url');
         $query['css'] = $this->config->item('css');
  	 $query['innerMenuActive'] = 'permsrole';
 	  $this->load->model('RoleModel');
 	 $query['role'] = $this->RoleModel->getRole(); 
 	  $query['page'] = $this->RoleModel->getpage();
-	  $query['data']=$this->RoleModel->allviewrole($id);
+	  $query['data']=$this->RoleModel->allviewrole($id,$RId);
       $query['single_student'] = $this->RoleModel->allview();
  	$this->load->view('EditPermissionToRole',$query);
     

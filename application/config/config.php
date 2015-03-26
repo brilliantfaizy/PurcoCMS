@@ -29,6 +29,7 @@ $config['css']	= 'style.css';
 */
 $config['index_page'] = 'index.php';
 
+
 /*
 |--------------------------------------------------------------------------
 | URI PROTOCOL
