@@ -231,6 +231,9 @@
 
             });
             
+            
+            
+            
         </script>
 	<style>
 
@@ -252,6 +255,7 @@
         <?php $this->load->view('admininner'); ?>
 
     </div>
+     <?php if($this->SubMenus->ContentAdd == 1){ ?>
     <div class="FormFields">
 
         <form id="signupForm" action="insertperm" method="post">
@@ -336,6 +340,9 @@
 
     </div>
 
+<?php } ?>
+
+ <?php if($this->SubMenus->ContentView == 1){ ?>
     <div class="Grid">
 
 
@@ -348,6 +355,8 @@
 
         </table>
     </div>
+    
+    <?php } ?>
 <input type='hidden' id="Role_ID" value="" />
 </div>
 <?php $this->load->view('footer'); ?>

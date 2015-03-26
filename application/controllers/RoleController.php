@@ -52,6 +52,8 @@ class RoleController extends CI_Controller{
   }
   public function role_table()
     {
+         $this->load->model('mainModel');
+        $this->load->helper('url');
         $this->load->model('RoleModel');
          //set selected country id from POST
         $id = $this->input->post('id',TRUE);
@@ -68,6 +70,8 @@ class RoleController extends CI_Controller{
   
   function editpermrole()
   {
+     $this->load->model('mainModel');
+        $this->load->helper('url');
     $this->load->database();
 	   $this->load->model('RoleModel');
         $this->load->library('form_validation');
@@ -112,6 +116,8 @@ class RoleController extends CI_Controller{
 
  function insertperm()
  	{
+ 	   $this->load->model('mainModel');
+        $this->load->helper('url');
 	  $this->load->database();
 	   $this->load->model('RoleModel');
         $this->load->library('form_validation');
@@ -169,22 +175,26 @@ function insertview()
 
 function insert() {
     
-   
+    $msg = array();
     
+   
+     $this->load->model('mainModel');
+        $this->load->helper('url');
     
     $this->load->database();
     $this->load->model('RoleModel');
     $this->load->library('form_validation');
     $this->form_validation->set_rules('roleid', 'Role Id', 'required|int');
-    $this->form_validation->set_rules('roletitle', 'Role Title', 'required|min_length[5]|max_length[25]');
-    $this->form_validation->set_rules('roledec', 'Role Description', 'required|min_length[5]');
+    $this->form_validation->set_rules('roletitle', 'Role Title', 'required');
+    
     //$this->form_validation->set_rules('privileges', 'Privileges', 'required');
     
     
     if ($this->form_validation->run() == FALSE)
     {
-      echo '<script>alert("Fill the data properly");</script>';
-      $this->getall2();
+      
+      $msg['msg'] = 'Fill the data properly';
+      //$this->getall2();
     }
     else
     {
@@ -195,14 +205,14 @@ function insert() {
         if($query->num_rows > 0 )
         { 
     
-            echo "<script>alert('This Role Id already exists');</script>";
-            $this->getall2();     
+            $msg['msg'] = "This Role Id already exists";
+            //$this->getall2();     
         }
          elseif($query1->num_rows > 0 )
         { 
     
-            echo "<script>alert('This Role already exists');</script>";
-            $this->getall2();     
+            $msg['msg'] = "This Role already exists";
+            //$this->getall2();     
         }
         else{
     //$this->load->library('form_validation');
@@ -213,11 +223,14 @@ function insert() {
     );
 
   $this->db->insert('tbl_roles',$data);
+  $msg['msg'] = 'Record inserted...';
   //$this->load->view('myInsert');
   //return $this->db->insert_id();
-  $this->getall2();
+  //$this->getall2();
  }
   }
+  
+  echo json_encode($msg);
 }
  
  
@@ -242,6 +255,8 @@ function insert() {
  }
 
 function viewupdate1(){
+     $this->load->model('mainModel');
+        $this->load->helper('url');
     $id = $this->uri->segment(3);
     $this->load->model('RoleModel');
 
@@ -252,24 +267,16 @@ function viewupdate1(){
     
  }
 function update() {
-   
+    $this->load->model('mainModel');
+        //$this->load->helper('url');
         
     $this->load->database();
     $this->load->helper('url');
     $this->load->model('RoleModel');
     $id= $this->input->post('id');
-     $this->load->library('form_validation');
-
-$this->form_validation->set_rules('roletitle', 'Role Title', 'required|min_length[2]|max_length[15]');
-$this->form_validation->set_rules('roledec', 'Role Description', 'required|min_length[5]');
-if ($this->form_validation->run() == FALSE)
-{
-    echo '<script>alert("Fill the data properly");</script>';
-   $this->load->view('RoleUpdateView');
   
-}
-else
-{
+
+
     $data = array(
     'RoleTitle' => $this->input->post('roletitle'),
    'Description' => $this->input->post('roledec')
@@ -278,14 +285,15 @@ else
     );
     $this->RoleModel->update($id,$data);
     echo "<script> alert('Updated');</script>";
-    $this->viewupdate();
+    $this->getall2();
  
 }
 
-redirect('RoleController/getall2');
-}
+
  
 function delete(){
+     $this->load->model('mainModel');
+        $this->load->helper('url');
     $this->load->helper('url');
     $this->load->database();
     $this->load->model('RoleModel');

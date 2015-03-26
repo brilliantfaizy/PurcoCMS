@@ -171,6 +171,7 @@
         <?php $this->load->view('admininner'); ?>
 
     </div>
+    
     <div class="FormFields">
 <?php
           
@@ -275,6 +276,8 @@
 
     </div>
 
+
+
     <div class="Grid">
 
 
@@ -372,6 +375,7 @@
 
         </table>
     </div>
+   
 
 </div>
 <?php $this->load->view('footer'); ?>

@@ -51,7 +51,26 @@
                 
 			
               
-			}
+			},submitHandler: function insertrole(){
+    
+                   $.ajax({
+                    url:"<?php echo $base; ?>/index.php/RoleController/update",    
+                   data: {id: $("#id").val(),username: $("#username").val(),fname: $("#fname").val(),password: $("#password").val(),conf: $("#conf").val(),rId: $("#rId").val(),status: $("#status").val(),email: $("#email").val()},
+                    type: "POST",
+                    success: function(data){
+                        
+                        console.log(JSON.parse(data).msg);
+                        
+                       alert('inserted...');
+                       
+                    }
+                    
+                    });
+                    
+                    
+                    return false;
+                    }
+	
 		});
 	});
 	</script>
@@ -88,19 +107,19 @@
                         <tr>
                             <td>Username :</td>
                             <td><input type="hidden" id="id"  name="id" value="<?php echo $row->UId; ?>" />
-                            <input disabled="true" class="myfield" placeholder="" value="<?php echo $row->Username; ?>" name="username" type="text" /></td>
+                            <input disabled="true" class="myfield" placeholder="" value="<?php echo $row->Username; ?>" name="username" id="username" type="text" /></td>
                             
                             <td>Email :</td>
-                            <td><input disabled="true" class="myfield" value="<?php echo $row->Email; ?>" placeholder="" name="email" type="email" /></td>
+                            <td><input disabled="true" class="myfield" value="<?php echo $row->Email; ?>" placeholder="" name="email" id="email" type="email" /></td>
                             
                            
                         </tr>
                         
                         <tr>
                             <td>Full Name :</td>
-                            <td><input class="myfield" value="<?php echo $row->Full_name; ?>" placeholder="" name="fname" type="text" /></td>
+                            <td><input class="myfield" value="<?php echo $row->Full_name; ?>" placeholder="" name="fname" id="fname"  type="text" /></td>
                              <td>Password :</td>
-                            <td><input id="password" value="<?php echo $row->Password; ?>" class="myfield" placeholder="" name="password" type="password" /></td>
+                            <td><input id="password" value="<?php echo $row->Password; ?>" class="myfield" placeholder="" id="password" name="password" type="password" /></td>
                             
                           
                         </tr>
@@ -108,7 +127,7 @@
                         <tr>
                            
                             <td>Confirm Password :</td>
-                            <td><input value="<?php echo $row->Password; ?>" class="myfield" placeholder="" name="conf" type="password" /></td>
+                            <td><input value="<?php echo $row->Password; ?>" class="myfield" placeholder="" name="conf" id="conf" type="password" /></td>
                              <td>Role :</td>
                             <td><select class="myfield" id="rId" name="rId">
                               <option value>Select</option>

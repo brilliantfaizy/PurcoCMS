@@ -176,12 +176,12 @@
     </div>
     
     <?php } ?>
-
+<?php if($this->SubMenus->ContentView == 1){ ?>
     <div class="Grid">
 
 
-     <?php  print_r($this->SubMenus->ContentAdd); ?>
-
+    
+ 
         <table  cellspacing="0" cellpadding="10">
 
             <tr>
@@ -232,10 +232,17 @@
                     <?php echo $row->CreationDate; ?></td>
  <td>
                     <?php echo $row->DateModified; ?></td>
-               
-                <td><a href="viewupdate/<?php echo $row->UId ?>">Edit</a>
+             
+                <td>
+                  <?php if($this->SubMenus->ContentUpdate == 1){ ?>
+                <a href="viewupdate/<?php echo $row->UId ?>">Edit</a>  <?php }?>
+                
+                
+                 <?php if($this->SubMenus->ContentDelete == 1){ ?>
                     <a style="display: none;" onclick="userdeleteConfirm('delete/<?php echo $row->UId ?>'); return false;" href="">Delete</a>
+               <?php }?>
                 </td>
+              
             </tr>
 
             <?php } ?>
@@ -243,7 +250,8 @@
 
 
         </table>
+    
     </div>
-
+    <?php } ?>
 </div>
  <?php $this->load->view('footer'); ?>

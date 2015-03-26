@@ -2,9 +2,11 @@
 <script>
 	$().ready(function() {
 		// validate the comment form when it is submitted
-
+//var $form = $(this);
 		// validate signup form on keyup and submit
-		$("#signupForm").validate({
+	$("#signupForm").validate({
+		  
+          
 			rules: {
 			     roleid:{
 			         number:true,
@@ -25,7 +27,8 @@
 				 roleid: "Please must enter Role Id",
                  roleid:{
                     required:"Please must enter Role Id",
-                    number: "Please enter Role Id in numberic form."
+                    number: "Please enter Role Id in numberic form.",
+                    
                  },
                 roletitle: "Please enter  Role Title",
                 roletitle: {
@@ -38,13 +41,33 @@
 				
 					minlength: "Role description must be at least 8 characters long"
 				}
+			},submitHandler:  function insertrole(){
+			 
+                    $.ajax({
+                    url:"<?php echo $base; ?>/index.php/RoleController/insert",    
+                    data: {roleid: $("#roleid").val(),roletitle: $("#roletitle").val(),roledec: $("#roledec").val()},
+                    type: "POST",
+                    success: function(data){
+                        
+                        console.log(JSON.parse(data).msg);
+                        
+                       alert('inserted...');
+                       
+                    }
+                    
+                    });
+                    
+                    
+                    return false;
+    
+}
 			
-                
-			
-              
-			}
 		});
+      
 	});
+  
+    
+   
 	</script>
 	<style>
 
@@ -66,6 +89,7 @@
         <?php $this->load->view('admininner'); ?>
 
     </div>
+     <?php if($this->SubMenus->ContentAdd == 1){ ?>
     <div class="FormFields">
 
         <form id="signupForm" action="insert" method="post">
@@ -75,11 +99,11 @@
                 <tr>
                     <td>Role ID:</td>
                     <td>
-                        <input class="myfield" placeholder="" name="roleid" type="text" />
+                        <input id="roleid" class="myfield" placeholder="" name="roleid" type="text" />
                     </td>
                     <td>Role Title :</td>
                     <td>
-                        <input class="myfield" placeholder="" name="roletitle" type="text" />
+                        <input id="roletitle" class="myfield" placeholder="" name="roletitle" type="text" />
                     </td>
 
                    
@@ -88,7 +112,7 @@
                 <tr>
                  <td>Description:</td>
                     <td>
-                        <input class="myfield" placeholder="" name="roledec" type="text" />
+                        <input id="roledec" class="myfield" placeholder="" name="roledec" type="text" />
                     </td>
                    
 
@@ -110,7 +134,9 @@
         </form>
 
     </div>
+<?php }?>
 
+ <?php if($this->SubMenus->ContentView == 1){ ?>
     <div class="Grid">
 
 
@@ -136,9 +162,11 @@
                 <td>
                     <?php echo $student->Description; ?></td>
 
-                <td><a href="viewupdate/<?php echo $student->RId ?>">Edit</a>
+                <td>
+                 <?php if($this->SubMenus->ContentUpdate == 1){ ?>
+                <a href="viewupdate/<?php echo $student->RId ?>">Edit</a>
                     <a onclick="userdeleteConfirm('delete/<?php echo $student->RId ?>'); return false;" href="delete/<?php echo $student->RId ?>">Delete</a>
-                </td>
+               <?php }?> </td>
             </tr>
 
             <?php } ?>
@@ -147,6 +175,7 @@
 
         </table>
     </div>
+    <?php }?>
 
 </div>
 <?php $this->load->view('footer'); ?>

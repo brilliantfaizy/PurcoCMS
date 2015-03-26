@@ -1,31 +1,5 @@
 <?php $this->load->view('header'); ?>
-<script>
-	$().ready(function() {
-	
-		$("#signupForm").validate({
-			rules: {
-			
-		
-                permissions:{
-                  required:true
-                },
-                pages:{
-                  required:true
-                }
-			
-			
-			},
-			messages: {
-			
-                permissions:"Select Roles must.",
-                 pages:"Select Pages must."
-                
-			
-              
-			}
-		});
-	});
-	</script>
+
 	<style>
 
 	
@@ -83,6 +57,36 @@
                     });
                
                 });
+                
+                
+                $("#signupForm").validate({
+			rules: {
+			
+		
+                permissions:{
+                  required:true
+                },
+                pages:{
+                  required:true
+                }
+			
+			
+			},
+			messages: {
+			
+                permissions:"Select Roles must.",
+                 pages:"Select Pages must."
+                
+			
+              
+			},submitHandler:  function insertrole(){
+    
+                  
+                    
+                    alert('test');
+    
+                }
+		});
 
             });
             
@@ -93,6 +97,7 @@
         <?php $this->load->view('admininner'); ?>
 
     </div>
+    
      <div class="FormFields">
      
      
@@ -123,6 +128,9 @@
 
     </div>
     
+    
+     <?php if($this->SubMenus->ContentAdd == 1){ ?>
+    
     <div class="FormFields">
 
             <table class="FieldsTable" cellpadding="6">
@@ -152,6 +160,9 @@
         </form>
 
     </div>
+    <?php }?>
+    
+     <?php if($this->SubMenus->ContentView == 1){ ?>
 
     <div class="Grid">
 
@@ -161,6 +172,7 @@
         </table>
         
     </div>
+    <?php }?>
      
 
 </div>

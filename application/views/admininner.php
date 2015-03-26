@@ -40,8 +40,9 @@
 
  foreach($this->mainModel->GetSubMenus($pageID,$roleID) as $allmenus){
     
-    if(explode("/", $actual_link)[3]."/".explode("/", $actual_link)[4] == $allmenus->Menu_Controller."/".$allmenus->Menu_Function){
-    
+    //if(explode("/", $actual_link)[3]."/".explode("/", $actual_link)[4] == $allmenus->Menu_Controller."/".$allmenus->Menu_Function){
+    if(explode("/", $actual_link)[3] == $allmenus->Menu_Controller){
+        
          $this->SubMenus = $allmenus;
        
     }

@@ -41,6 +41,8 @@ class PagesController extends CI_Controller{
 
 
 function insert() {
+     $this->load->model('mainModel');
+        $this->load->helper('url');
     $this->load->database();
     $this->load->model('PageModel');
     $this->load->library('form_validation');
@@ -95,7 +97,8 @@ else
 
 function update() {
    
-        
+         $this->load->model('mainModel');
+        $this->load->helper('url');
     $this->load->database();
     $this->load->helper('url');
     $this->load->model('PageModel');
@@ -129,6 +132,8 @@ redirect('PagesController/getallpage');
 }
  
 function delete(){
+     $this->load->model('mainModel');
+       // $this->load->helper('url');
     $this->load->helper('url');
     $this->load->database();
     $this->load->model('PageModel');
@@ -163,6 +168,8 @@ public function buildDropCities()
     
     public function SubMenusCon()
     {
+         $this->load->model('mainModel');
+        $this->load->helper('url');
          $this->load->model('PageModel');
          //set selected country id from POST
         //$id_country = $this->input->post('id',TRUE);
@@ -199,6 +206,8 @@ public function buildDropCities()
   }
   
   function insertpages() {
+     $this->load->model('mainModel');
+        $this->load->helper('url');
     $this->load->database();
     $this->load->model('PageModel');
    
@@ -228,6 +237,8 @@ else
   }
 }
 function deletepage(){
+     $this->load->model('mainModel');
+        //$this->load->helper('url');
     $this->load->helper('url');
     $this->load->database();
     $this->load->model('PageModel');
@@ -263,7 +274,8 @@ function viewupdatepage(){
 
 function updatepage() {
    
-        
+         $this->load->model('mainModel');
+        //$this->load->helper('url');
     $this->load->database();
     $this->load->helper('url');
     $this->load->model('PageModel');

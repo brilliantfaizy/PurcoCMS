@@ -121,6 +121,8 @@ class RegController extends CI_Controller{
 
     function insertview()
     {
+         $this->load->model('mainModel');
+        $this->load->helper('url');
       $this->load->database();
       $this->load->model('RegModel');
       //$data['dep_list']= $this->RegModel->getDepartment();
@@ -229,6 +231,8 @@ class RegController extends CI_Controller{
 
     function viewdelete()
     {
+         $this->load->model('mainModel');
+        $this->load->helper('url');
         $id = $this->uri->segment(3);
         $this->load->model('RegModel');
         $data['base'] = $this->config->item('base_url');
@@ -238,46 +242,16 @@ class RegController extends CI_Controller{
     
     }
     function update() 
-    {    
+    {     $this->load->model('mainModel');
+        $this->load->helper('url');
         $this->load->database();
         $this->load->model('RoleModel');
         $id= $this->input->post('id');
-        $this->load->library('form_validation');
-       if ($this->input->post('submit')) { 
-            
-         
-      $this->form_validation->set_rules('username', 'Username', 'required|min_length[4]|max_length[15]|alpha');
-      $this->form_validation->set_rules('password', 'Password', 'required|min_length[5]|max_length[15]|matches[conf]');
-      $this->form_validation->set_rules('conf', 'Confirm Password', 'required');
-      $this->form_validation->set_rules('fname', 'Full Name', 'required');
-     
-      $this->form_validation->set_rules('email', 'Email', 'required|email');
-     
-   
-     if ($this->form_validation->run() == FALSE)
-     {
-        echo '<script>alert("Fill the data properly");</script>';
-       // $this->getall();
+        
        
-     }
-    elseif($this->input->post('rId')=='empty')
-    {
-        echo '<script>alert("Select the Role First");</script>';
-        //$this->getall();
-    }
-   
-     elseif($this->input->post('status')=='empty')
-    {
-        echo '<script>alert("Select the Status First");</script>';
-        //$this->getall();
-    }
-    
-    
-    
     
         
-       else
-       {
+      
      $a = $this->input->post('rId');
         $b = $this->input->post('username');
         $c = $this->input->post('password');
@@ -289,13 +263,15 @@ class RegController extends CI_Controller{
         $sql="update tbl_user set Password='".$c."',RId='".$a."',Full_name='".$d."',Status='".$f."',DateModified='".$g."' where UId='".$id."'";
         $this->db->query($sql);
             echo "<script> alert('Updated');</script>";
-            $this->viewupdate();
+            $this->getall();
         }
-}
-    }
+
+    
  
     function delete($id)
     {
+         $this->load->model('mainModel');
+        //$this->load->helper('url');
         $this->load->helper('url');
         $this->load->database();
         //$this->load->model('RegModel');
