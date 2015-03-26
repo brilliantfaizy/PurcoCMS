@@ -242,7 +242,9 @@ class RegController extends CI_Controller{
     
     }
     function update() 
-    {     $this->load->model('mainModel');
+    {  $msg=array();
+        
+        $this->load->model('mainModel');
         $this->load->helper('url');
         $this->load->database();
         $this->load->model('RoleModel');
@@ -262,8 +264,10 @@ class RegController extends CI_Controller{
                 
         $sql="update tbl_user set Password='".$c."',RId='".$a."',Full_name='".$d."',Status='".$f."',DateModified='".$g."' where UId='".$id."'";
         $this->db->query($sql);
-            echo "<script> alert('Updated');</script>";
-            $this->getall();
+          $msg['msg'] = 'Updated.....';
+          //  $this->getall();
+          
+           echo json_encode($msg);
         }
 
     

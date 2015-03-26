@@ -51,17 +51,17 @@
                 
 			
               
-			},submitHandler: function insertrole(){
+			},submitHandler: function updateuser(){
     
                    $.ajax({
-                    url:"<?php echo $base; ?>/index.php/RoleController/update",    
-                   data: {id: $("#id").val(),username: $("#username").val(),fname: $("#fname").val(),password: $("#password").val(),conf: $("#conf").val(),rId: $("#rId").val(),status: $("#status").val(),email: $("#email").val()},
+                    url:"<?php echo $base; ?>/index.php/RegController/update",    
+                   data: {id: $("#id").val(),fname: $("#fname").val(),password: $("#password").val(),conf: $("#conf").val(),rId: $("#rId").val(),status: $("#status").val()},
                     type: "POST",
                     success: function(data){
                         
                         console.log(JSON.parse(data).msg);
                         
-                       alert('inserted...');
+                       alert('Updated...');
                        
                     }
                     
@@ -100,7 +100,7 @@
         
             foreach ($single_student as $row){  ?>
                 
-                <form id="signupForm"  action="" method="post">
+                <form id="signupForm"  action="../update" method="post">
                 
                     <table class="FieldsTable" cellpadding="6">
                         
