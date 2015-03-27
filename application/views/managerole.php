@@ -70,16 +70,7 @@
 
 function getRoleList() {
     
-    var ActionHeading = "";
-    
-    if($("#ContentUpdate").val() == 1 && $("#ContentDelete").val() == 1) { 
-        
-        ActionHeading = 'Action';
-        
-    }
-
-
-    var TableData = '<tr><th style="width: 10%;">Role ID</th><th style="width: 10%;">Role Title</th> <th style="width: 10%;">Description</th><th style="width: 10%;">'+ActionHeading+'</th></tr>';
+    var TableData = '<tr><th style="width: 10%;">Role ID</th><th style="width: 10%;">Role Title</th> <th style="width: 10%;">Description</th><th style="width: 10%;"></th></tr>';
 
 
     $.ajax({
