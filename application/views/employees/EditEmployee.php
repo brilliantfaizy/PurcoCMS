@@ -142,12 +142,12 @@
                 <tr>
                     <td>First Name:</td>
                     <td>
-                        <input class="myfield" placeholder="" name="fname" type="text" value="<?php echo $row->Firstname;?>"/>
+                        <input class="myfield" placeholder="" name="fname" type="text" value="<?php echo $row->Firstname;?>" disabled=""/>
                     </td>
                     
                     <td>Middle Name:</td>
                     <td>
-                        <input class="myfield" placeholder="" name="mname" type="text" value="<?php echo $row->Middlename;?>" />
+                        <input class="myfield" placeholder="" name="mname" type="text" value="<?php echo $row->Middlename;?>" disabled="" />
                     </td>
 
                 </tr>
@@ -157,11 +157,11 @@
 
                     <td>Last Name:</td>
                     <td>
-                        <input class="myfield" placeholder="" name="lname" type="text" value="<?php echo $row->Lastname;?>" />
+                        <input class="myfield" placeholder="" name="lname" type="text" value="<?php echo $row->Lastname;?>" disabled=""/>
                     </td>
                     <td>Employee Manager:</td>
                     <td>
-                         <input class="myfield" placeholder="" name="empmanager" type="text" value="<?php echo $row->Firstname;?>" />
+                         <input class="myfield" placeholder="" name="empmanager" type="text" value="<?php echo $row->Firstname;?>" disabled=""/>
                     </td>
                     
                 </tr>
@@ -170,7 +170,7 @@
                 <tr>
                 <td>Active Status:</td>
                     <td>
-                       <select class="myfield" name="status" id="status">
+                       <select class="myfield" name="status" id="status" disabled="">
                              <option value>Select</option>
                             <?php
                                 

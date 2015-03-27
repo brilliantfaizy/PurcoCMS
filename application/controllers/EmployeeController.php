@@ -49,7 +49,7 @@ class EmployeeController extends CI_Controller{
         $data['css'] = $this->config->item('css');
         $id = $this->uri->segment(3);
         $data['innerTabsActive'] = '';
-        $data['innerMenuActive'] = '';
+        $data['innerMenuActive'] = 'EmployeeAll';
          $this->load->model('EmployeeModel');
           $data['single_student2'] = $this->EmployeeModel->edit_employee($id);
         $this->load->view('employees/EditEmployee',$data);
@@ -147,7 +147,32 @@ class EmployeeController extends CI_Controller{
   
   //////////Perfect working method   
   
-  
+  function EmployeeEdit()
+  {
+    $this->load->model('mainModel');
+         $this->load->helper('url');
+         
+        
+        $data['base'] = $this->config->item('base_url');
+        $data['css'] = $this->config->item('css');
+      $emp_id=$this->input->post('EId');
+        $this->load->database();
+        $a = $this->input->post('dob');
+        $b = $this->input->post('ssn');
+        $c = $this->input->post('licenseno');
+        $d = $this->input->post('licensedate');
+        $e = $this->input->post('hiredate');
+        $f = $this->input->post('termidate');
+        $g = $this->input->post('rehiredate');
+        $h = $this->input->post('retermidate');
+       
+      $sql= "update tbl_employee_details set 
+        Birthdate='".$a."',SSN='".$b."',LisenceNO='".$c."',LisenceDate='".$d."',HireDate='".$e."',
+		TerminationDate='".$f."',ReHireDate='".$g."',ReTerminationDate='".$h."',LastModified=DATE_FORMAT(NOW(),'%Y-%m-%d %h:%i:%s') where Emp_Id='".$emp_id."'" ;
+        $this->db->query($sql);
+        $this->employeeall();
+        
+  }
   
   
   
