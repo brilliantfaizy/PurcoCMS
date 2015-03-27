@@ -1,90 +1,131 @@
 <?php $this->load->view('header'); ?>
 <script>
 	$().ready(function() {
-		// validate the comment form when it is submitted
-//var $form = $(this);
-		// validate signup form on keyup and submit
-	$("#signupForm").validate({
-		  
-          
-			rules: {
-			     roleid:{
-			         number:true,
-                     required:true
-                     
-			     },
-				roletitle: {
-					required: true,
-					minlength: 4
-				},
-                roledec:{
-                    minlength:8
-                }
-			
-			
-			},
-			messages: {
-				 roleid: "Please must enter Role Id",
-                 roleid:{
-                    required:"Please must enter Role Id",
-                    number: "Please enter Role Id in numberic form.",
-                    
-                 },
-                roletitle: "Please enter  Role Title",
-                roletitle: {
-					required: "Please enter a Role Title",
-					minlength: "Your Role Title must consist of at least 4 characters"
-                    
-				},
-               
-				roledec: {
-				
-					minlength: "Role description must be at least 8 characters long"
-				}
-			},submitHandler:  function insertrole(){
-			 
-             
-			 var myobj;
-                    $.ajax({
-                    url:"<?php echo $base; ?>/index.php/RoleController/insert",    
-                    data: {roleid: $("#roleid").val(),roletitle: $("#roletitle").val(),roledec: $("#roledec").val()},
-                    type: "POST",
-                    success: function(data){
-                        
-                        console.log(JSON.parse(data).msg);
-                        
-                       alert('inserted...');
-                        if(data != null || data != ""){
-                        
-                       myobj = JSON.parse(data);
-                       $("#table1111").html(' ');
-                       var html = '<tr> <th style="width: 10%;">Role ID</th><th style="width: 10%;">Role Title</th> <th style="width: 10%;">Description</th> <th style="width: 10%;">Action</th></tr>';
-                       
-                           for(var i = 0; i < myobj.length; i++){
-                            
-                                
-                                html += '<tr><td>'+myobj[i].RId+'</td><td>'+myobj[i].RoleTitle+'</td><td>'+myobj[i].Description+'</td></tr>';
-                               
-                           }
-                           
-                           $("#table1111").html(html);
-                       
+
+        $("#signupForm").validate({
+
+
+                rules: {
+                    roleid: {
+                        number: true,
+                        required: true
+
+                    },
+                    roletitle: {
+                        required: true,
+                        minlength: 4
+                    },
+                    roledec: {
+                        minlength: 8
                     }
+
+
+                },
+                messages: {
+                    roleid: "Please must enter Role Id",
+                    roleid: {
+                        required: "Please must enter Role Id",
+                        number: "Please enter Role Id in numberic form.",
+
+                    },
+                    roletitle: "Please enter  Role Title",
+                    roletitle: {
+                        required: "Please enter a Role Title",
+                        minlength: "Your Role Title must consist of at least 4 characters"
+
+                    },
+
+                    roledec: {
+
+                        minlength: "Role description must be at least 8 characters long"
+                    }
+                }, submitHandler: function insertrole() {
                     
-                    });
+                    $.ajax({
+                        url: "<?php echo $base; ?>/index.php/RoleController/insert",
+                            data: {
+                                roleid: $("#roleid").val(),
+                                roletitle: $("#roletitle").val(),
+                                roledec: $("#roledec").val()
+                            },
+                            type: "POST",
+                            success: function(data) {
+                                
+                                alert(JSON.parse(data).msg);
+                                getRoleList();
+                                
+                                }
+                            });
+                            
+                            
                     
-                    
-                    return false;
+                }
+
+
+        });
+
+});
+
+
+
+function getRoleList() {
     
+    var ActionHeading = "";
+    
+    if($("#ContentUpdate").val() == 1 && $("#ContentDelete").val() == 1) { 
+        
+        ActionHeading = 'Action';
+        
+    }
+
+
+    var TableData = '<tr><th style="width: 10%;">Role ID</th><th style="width: 10%;">Role Title</th> <th style="width: 10%;">Description</th><th style="width: 10%;">'+ActionHeading+'</th></tr>';
+
+
+    $.ajax({
+        url: "<?php echo $base; ?>/index.php/RoleController/getRoleList",
+        success: function(data) {
+           
+           var EditBtn = "";
+           var DeleteBtn = "";
+
+                
+                for (var i = 0; i < JSON.parse(data).length; i++) {
+                    
+                if($("#ContentUpdate").val() == 1) {
+                
+                    EditBtn = "<a href=\"viewupdate\/"+JSON.parse(data)[i].RId+"\">Edit</a>";
+                
+                }
+                
+                if($("#ContentDelete").val() == 1) {
+                
+                    DeleteBtn = "<a href=\"delete\/"+JSON.parse(data)[i].RId+"\">Delete</a>";
+                
+                }
+
+
+                    TableData += '<tr><td>' + JSON.parse(data)[i].RId + '</td><td>' + JSON.parse(data)[i].RoleTitle + '</td><td>' + JSON.parse(data)[i].Description + '</td><td>'+EditBtn+''+DeleteBtn+'</td></tr>';
+
+                }
+            
+
+            $(".Grid table").html(TableData);
+
+            //alert("Submitted successfully");
+
+        },
+        error: function() {
+
+            alert("There is error while fetch");
+
+        }
+    });
+
+
 }
-			
-		});
-        
-        
-      
-	});
-  
-    
+
+getRoleList();
    
 	</script>
 	<style>
@@ -144,8 +185,6 @@
                 </tr>
                 
 
-
-
             </table>
 
         </form>
@@ -156,9 +195,7 @@
  <?php if($this->SubMenus->ContentView == 1){ ?>
     <div class="Grid">
 
-
-
-        <table  id="table1111" cellspacing="0" cellpadding="10">
+         <table cellspacing="0" cellpadding="10">
 
            
         </table>
@@ -166,4 +203,6 @@
     <?php }?>
 
 </div>
+
+
 <?php $this->load->view('footer'); ?>

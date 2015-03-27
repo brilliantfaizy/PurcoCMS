@@ -12,6 +12,13 @@ class RegController extends CI_Controller{
         
     }
     
+    function getUsersList(){
+        
+        $this->load->model('RegModel');
+        echo json_encode($this->RegModel->allrecord());
+        
+    }
+    
     
     
     function getall() 
