@@ -124,7 +124,6 @@
                         <input id="roletitle" class="myfield" placeholder="" name="roletitle" type="text" />
                     </td>
 
-                   
                 </tr>
 
                 <tr>

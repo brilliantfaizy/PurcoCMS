@@ -74,8 +74,39 @@
                 
                 
               
-			}
+			},submitHandler: function AddEmployee(){
+    
+                   $.ajax({
+                    url:"<?php echo $base; ?>/index.php/EmployeeController/insert",    
+                   data: {firstname: $("#firstname").val(),midname: $("#midname").val(),lastname: $("#lastname").val(),loginname: $("#loginname").val(),password: $("#password").val(),email: $("#email").val()},
+                    type: "POST",
+                    success: function(data){
+                        
+                        console.log(data);
+                          $("#success").html(JSON.parse(data).msg);
+                          $("#success").show();
+                          clearall();
+                    }
+                    
+                    });
+                    
+                    
+                    return false;
+                    }
 		});
+        
+        function clearall()
+        {
+            $("#firstname").val('');
+            $("#midname").val('');
+            $("#lastname").val('');
+            $("#loginname").val('');
+            $("#password").val('');
+            $("#conf").val('');
+            $("#email").val('');
+        
+            }
+            
 	});
 	</script>
 	<style>
@@ -118,12 +149,12 @@
                 <tr>
                     <td>First Name:</td>
                     <td>
-                        <input class="myfield" placeholder="" name="firstname" type="text" />
+                        <input class="myfield" placeholder="" name="firstname" id="firstname" type="text" />
                     </td>
                     
                     <td>Middle Name:</td>
                     <td>
-                        <input class="myfield" placeholder="" name="midname" type="text" />
+                        <input class="myfield" placeholder="" name="midname" id="midname" type="text" />
                     </td>
 
                 </tr>
@@ -133,24 +164,24 @@
 
                     <td>Last Name:</td>
                     <td>
-                        <input class="myfield" placeholder="" name="lastname" type="text" />
+                        <input class="myfield" placeholder="" name="lastname" id="lastname" type="text" />
                     </td>
                     
                     <td>Login Name:</td>
                     <td>
-                        <input class="myfield" placeholder="" name="loginname" type="text" />
+                        <input class="myfield" placeholder="" name="loginname"  id="loginname" type="text" />
                     </td>
                 </tr>
 
                 <tr>
                     <td>Password:</td>
                     <td>
-                        <input class="myfield" placeholder="" name="password" id="password" type="password" />
+                        <input class="myfield" placeholder="" name="password" id="password"   type="password" />
                     </td>
                     
                     <td>Confirm Password:</td>
                     <td>
-                        <input class="myfield" placeholder="" name="conf" type="password" />
+                        <input class="myfield" placeholder="" name="conf"  id="conf" type="password" />
                     </td>
 
 
@@ -160,7 +191,7 @@
                 <tr>
                     <td>Email Address:</td>
                     <td>
-                        <input class="myfield" placeholder="" name="email" type="email" />
+                        <input class="myfield" placeholder="" name="email"  id="email" type="email" />
                     </td>
                     
                     <td></td>
@@ -178,6 +209,7 @@
 
                     <td colspan="4">
                         <input class="button medium" type="submit" value="Save" />
+                         <span id="success" style="display:none; color:#0C0">All the records are Updated!</span>
                         <input class="button medium" style="margin-right: 13px;" type="reset" value="Cancel" />
                     </td>
                 </tr>

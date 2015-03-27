@@ -25,9 +25,7 @@ class EmployeeController extends CI_Controller{
 		  $data['single_student'] = $this->EmployeeModel->updateall($id);
 		   $data['single_student1'] = $this->EmployeeModel->updateall2($id);
         $this->load->view('employees/Employee',$data);
-      
-
-
+    
     }
     
     function employeeall()
@@ -83,13 +81,11 @@ class EmployeeController extends CI_Controller{
 	   
    function insert()
    {
+        $msg=array();
         $this->load->model('mainModel');
-       $this->load->helper('url');
-       
-        
+        $this->load->helper('url');
         $data['base'] = $this->config->item('base_url');
         $data['css'] = $this->config->item('css');
-      
         $this->load->database();
         $this->load->model('EmployeeModel');
         $EId=random_string('alnum',3);
@@ -100,6 +96,26 @@ class EmployeeController extends CI_Controller{
         $e = $this->input->post('password');
         $f = $this->input->post('email');
         
+        
+        $this->db->where('LoginName ', $d);
+        $query1 = $this->db->get('tbl_employee_details');
+          $this->db->where('Email ', $f);
+        $query = $this->db->get('tbl_user');
+      
+        if($query1->num_rows > 0 )
+        { 
+    
+            $msg['msg'] = "This Login Name already exists.";
+            //$this->getall2();     
+        }
+        else  if($query->num_rows > 0 )
+        { 
+    
+            $msg['msg'] = "This Email address already exists.";
+            //$this->getall2();     
+        }
+    
+        else{
        
         $sql= "insert into tbl_employee_details
         (Firstname,Middlename,Lastname,ActiveStatus,Emp_Id,Password,LastModified,LoginName) 
@@ -138,17 +154,18 @@ class EmployeeController extends CI_Controller{
         values('".$EId."','Residential Address','','','','','','',DATE_FORMAT(NOW(),'%Y-%m-%d %h:%i:%s'))";
         $this->db->query($sql5);
         
-        echo "<script>alert('Added');</script>";
-       
+        $msg['msg'] = "Records Inserted successfully.";
         
-        redirect('EmployeeController/employeecreate', 'refresh'); 
        
         }
-  
+        
+        echo json_encode($msg);
+  }
   //////////Perfect working method   
   
   function EmployeeEdit()
   {
+    $msg=array();
     $this->load->model('mainModel');
          $this->load->helper('url');
          
@@ -170,7 +187,9 @@ class EmployeeController extends CI_Controller{
         Birthdate='".$a."',SSN='".$b."',LisenceNO='".$c."',LisenceDate='".$d."',HireDate='".$e."',
 		TerminationDate='".$f."',ReHireDate='".$g."',ReTerminationDate='".$h."',LastModified=DATE_FORMAT(NOW(),'%Y-%m-%d %h:%i:%s') where Emp_Id='".$emp_id."'" ;
         $this->db->query($sql);
-        $this->employeeall();
+        
+       $msg['msg'] = "All records updated. ";
+        echo json_encode($msg);
         
   }
   
@@ -179,6 +198,7 @@ class EmployeeController extends CI_Controller{
   /////////working here now
          function insertallinfo()
         {
+             $msg=array();
          $this->load->model('mainModel');
          $this->load->helper('url');
          
@@ -235,13 +255,16 @@ class EmployeeController extends CI_Controller{
 		Country='".$w."',Postal_code='".$f."',Last_modified=DATE_FORMAT(NOW(),'%Y-%m-%d %h:%i:%s') where  Main_Id='".$emp_id."' 
 		and  Address_name='Residential Address'";
         $this->db->query($sql3);
+           
+       $msg['msg'] = "All records updated. ";
+        echo json_encode($msg);
         
      
         
-        echo "<script>alert('Added');</script>";
+        //echo "<script>alert('Added');</script>";
        
         
-        redirect('EmployeeController/employee/'.$emp_id.'', 'refresh'); 
+        //redirect('EmployeeController/employee/'.$emp_id.'', 'refresh'); 
         // $this->load->view('RegAllView',$data);
       
     } 

@@ -88,11 +88,28 @@
                 
 				
 				pemail: "Please enter a valid email address"
-                
-                
-              
-			}
+             
+			},submitHandler: function Employee(){
+    
+                   $.ajax({
+                    url:"<?php echo $base; ?>/index.php/EmployeeController/insertallinfo",    
+                    data: {Empid: $("#Empid").val(),legalname: $("#legalname").val(),paddress1: $("#paddress1").val(),paddress2: $("#paddress2").val(),pcity: $("#pcity").val(),pstate: $("#pstate").val(),pcountry: $("#pcountry").val(),pzip: $("#pzip").val(),pphn: $("#pphn").val(),pemail: $("#pemail").val(),pmobile: $("#pmobile").val(),emgcontactname: $("#emgcontactname").val(),Emgcontactno: $("#Emgcontactno").val(),spouse: $("#spouse").val(),emailsign: $("#emailsign").val(),nphn: $("#nphn").val(),mfax: $("#mfax").val(),maddress1: $("#maddress1").val(),maddress2: $("#maddress2").val(),mcity: $("#mcity").val(),mstate: $("#mstate").val(),ncountry: $("#ncountry").val(),zipcode: $("#zipcode").val(),memail: $("#memail").val()},
+                    type: "POST",
+                    success: function(data){
+                         console.log(data);
+                         $("#success").html(JSON.parse(data).msg);
+                         $("#success").show();
+                         setTimeout(function(){ window.location.href="<?php echo $base; ?>/index.php/EmployeeController/employeecreate";}, 1000);
+                    }
+                    
+                    });
+                    
+                    
+                    return false;
+                    }
 		});
+        
+        
 	});
 	</script>
 	<style>
@@ -145,12 +162,12 @@
                 <tr>
                     <td>Legal Name:</td>
                     <td>
-                        <input class="myfield" placeholder="" name="legalname" type="text" value="<?php echo $row->LegalName; ?>"/>
+                        <input class="myfield" placeholder="" name="legalname" id="legalname" type="text" value="<?php echo $row->LegalName; ?>"/>
                     </td>
                     
                     <td>Residential Address Line1:</td>
                     <td>
-                        <input class="myfield" placeholder="" name="paddress1" type="text" value="<?php echo $row->Address1; ?>" />
+                        <input class="myfield" placeholder="" name="paddress1"  id="paddress1" type="text" value="<?php echo $row->Address1; ?>" />
                     </td>
 
                 </tr>
@@ -160,24 +177,24 @@
 
                     <td>Residential Address Line2:</td>
                     <td>
-                        <input class="myfield" placeholder="" name="paddress2" type="text" value="<?php echo $row->Address2; ?>" />
+                        <input class="myfield" placeholder="" name="paddress2" id="paddress2" type="text" value="<?php echo $row->Address2; ?>" />
                     </td>
                     
                     <td>City:</td>
                     <td>
-                        <input class="myfield" placeholder="" name="pcity" type="text" value="<?php echo $row->City; ?>" />
+                        <input class="myfield" placeholder="" name="pcity" id="pcity" type="text" value="<?php echo $row->City; ?>" />
                     </td>
                 </tr>
 
                 <tr>
                     <td>State:</td>
                     <td>
-                        <select name="pstate" class="myfield">
+                        <select name="pstate" class="myfield" id="pstate">
                         <option>select</option>
 						<option></option></select>
                     </td>
                     <td>Country:</td>
-                    <td>  <select name="pcountry" class="myfield"><option>select</option>
+                    <td>  <select name="pcountry" class="myfield" id="pcountry"><option>select</option>
 											<option></option></select></td>
                     
 
@@ -188,11 +205,11 @@
                 <tr>
                 <td>Zip:</td>
                     <td>
-                        <input class="myfield" placeholder="" name="pzip" type="text" value="<?php echo $row->Postal_code; ?>"/>
+                        <input class="myfield" placeholder="" name="pzip" id="pzip" type="text" value="<?php echo $row->Postal_code; ?>"/>
                     </td>
                     <td>Phone No.:</td>
                     <td>
-                        <input class="myfield" placeholder="" name="pphn" type="text" value="<?php echo $row->Phone; ?>"/>
+                        <input class="myfield" placeholder="" name="pphn" id="pphn" type="text" value="<?php echo $row->Phone; ?>"/>
                     </td>
                     
                    
@@ -204,11 +221,11 @@
                 <tr>
                  <td>Mobile No.:</td>
                     <td>
-                        <input class="myfield" placeholder="" name="pmobile" type="text" value="<?php echo $row->Mobile_no; ?>"/>
+                        <input class="myfield" placeholder="" name="pmobile" id="pmobile" type="text" value="<?php echo $row->Mobile_no; ?>"/>
                     </td>
                     <td>Email Address:</td>
                     <td>
-                        <input class="myfield" placeholder="" name="pemail" type="text" value="<?php echo $row->Email; ?>"/>
+                        <input class="myfield" placeholder="" name="pemail" id="pemail" type="text" value="<?php echo $row->Email; ?>"/>
                     </td>
                     
                    
@@ -220,11 +237,11 @@
                 <tr>
                  <td>Emergency Contact Name:</td>
                     <td>
-                        <input class="myfield" placeholder="" name="emgcontactname" type="text" value="<?php echo $row->EmergencyContactName; ?>" />
+                        <input class="myfield" placeholder="" name="emgcontactname" id="emgcontactname" type="text" value="<?php echo $row->EmergencyContactName; ?>" />
                     </td>
                     <td>Emergency Contact No.:</td>
                     <td>
-                        <input class="myfield" placeholder="" name="Emgcontactno" type="text" value="<?php echo $row->EmergencyContactNo; ?>" />
+                        <input class="myfield" placeholder="" name="Emgcontactno" id="Emgcontactno" type="text" value="<?php echo $row->EmergencyContactNo; ?>" />
                     </td>
                    
                     
@@ -235,11 +252,11 @@
                 <tr>
                 <td>Spouse:</td>
                     <td>
-                        <input class="myfield" placeholder="" name="spouse" type="text" value="<?php echo $row->Spouse; ?>" />
+                        <input class="myfield" placeholder="" name="spouse" id="spouse" type="text" value="<?php echo $row->Spouse; ?>" />
                     </td>
                     <td>Email Signature:</td>
                     <td>
-                        <input class="myfield" placeholder="" name="emailsign" type="text" value="<?php echo $row->EmailSignature; ?>" />
+                        <input class="myfield" placeholder="" name="emailsign" id="emailsign" type="text" value="<?php echo $row->EmailSignature; ?>" />
                     </td>
 
 
@@ -272,12 +289,12 @@
                 <tr>
                     <td>Phone No.:</td>
                     <td>
-                        <input class="myfield" placeholder="" name="nphn" type="text" value="<?php echo $row1->Phone_no; ?>"  />
+                        <input class="myfield" placeholder="" name="nphn" id="nphn" type="text" value="<?php echo $row1->Phone_no; ?>"  />
                     </td>
                    
                     <td>Fax No.:</td>
                     <td>
-                        <input class="myfield" placeholder="" name="mfax" type="text" value="<?php echo $row1->Fax_no; ?>"  />
+                        <input class="myfield" placeholder="" name="mfax" id="mfax" type="text" value="<?php echo $row1->Fax_no; ?>"  />
                     </td>
 
                 </tr>
@@ -285,12 +302,12 @@
                 <tr>
                     <td>Address Line1:</td>
                     <td>
-                        <input class="myfield" placeholder="" name="maddress1" type="text" value="<?php echo $row1->Address1; ?>"  />
+                        <input class="myfield" placeholder="" name="maddress1" id="maddress1" type="text" value="<?php echo $row1->Address1; ?>"  />
                     </td>
                     
                     <td>Address Line2:</td>
                     <td>
-                        <input class="myfield" placeholder="" name="maddress2" type="text" value="<?php echo $row1->Address2; ?>" />
+                        <input class="myfield" placeholder="" name="maddress2" id="maddress2" type="text" value="<?php echo $row1->Address2; ?>" />
                     </td>
 
                 </tr>
@@ -298,12 +315,12 @@
                 <tr>
                     <td>City:</td>
                     <td>
-                        <input class="myfield" placeholder="" name="mcity" type="text" value="<?php echo $row1->City; ?>" />
+                        <input class="myfield" placeholder="" name="mcity" id="mcity" type="text" value="<?php echo $row1->City; ?>" />
                     </td>
                    
                     <td>State:</td>
                     <td>
-                        <select name="mstate" class="myfield"><option>select</option></select>
+                        <select name="mstate"  id="mstate" class="myfield"><option>select</option></select>
                     </td>
 
 
@@ -311,10 +328,10 @@
                 </tr>
                 <tr>
                 <td>Country:</td>
-                <td>  <select name="ncountry" class="myfield"><option>select</option></select></td>
+                <td>  <select name="ncountry"  id="ncountry" class="myfield"><option>select</option></select></td>
                  <td>Zip:</td>
                     <td>
-                        <input class="myfield" placeholder="" name="zipcode" type="text" value="<?php echo $row->Postal_code; ?>" />
+                        <input class="myfield" placeholder="" name="zipcode" id="zipcode" type="text" value="<?php echo $row->Postal_code; ?>" />
                     </td>
                 </tr>
 
@@ -323,7 +340,7 @@
                     
                     <td>Email:</td>
                     <td>
-                        <input class="myfield" placeholder="" name="memail" type="email" value="<?php echo $row->Email_address; ?>"  />
+                        <input class="myfield" placeholder="" name="memail" id="memail" type="email" value="<?php echo $row->Email_address; ?>"  />
                     </td>
 
 
@@ -334,7 +351,8 @@
 
 
                     <td colspan="5">
-                    <input type="hidden" name="Empid" value="<?php echo $Eid; ?>" />
+                    <input type="hidden" name="Empid" id="Empid" value="<?php echo $Eid; ?>" />
+                     <span id="success" style="display:none; color:#0C0">All the records are Updated!</span>
                         <input class="button medium" type="submit" value="Save" />
                        
                     </td>

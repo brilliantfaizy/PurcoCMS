@@ -91,8 +91,27 @@
                 
                 
               
-			}
+			},submitHandler: function AddEmployee(){
+    
+                   $.ajax({
+                    url:"<?php echo $base; ?>/index.php/EmployeeController/EmployeeEdit",    
+                    data: {EId: $("#EId").val(),login: $("#login").val(),fname: $("#fname").val(),mname: $("#mname").val(),lname: $("#lname").val(),empmanager: $("#empmanager").val(),status: $("#status").val(),dob: $("#dob").val(),ssn: $("#ssn").val(),licenseno: $("#licenseno").val(),licensedate: $("#licensedate").val(),hiredate: $("#hiredate").val(),termidate: $("#termidate").val(),rehiredate: $("#rehiredate").val(),retermidate: $("#retermidate").val()},
+                    type: "POST",
+                    success: function(data){
+                         console.log(data);
+                         $("#success").html(JSON.parse(data).msg);
+                         $("#success").show();
+                         setTimeout(function(){ window.location.href="<?php echo $base; ?>/index.php/EmployeeController/employeeall";}, 1000);
+                    }
+                    
+                    });
+                    
+                    
+                    return false;
+                    }
 		});
+        
+        
 	});
 	</script>
 	<style>
@@ -142,12 +161,12 @@
                 <tr>
                     <td>First Name:</td>
                     <td>
-                        <input class="myfield" placeholder="" name="fname" type="text" value="<?php echo $row->Firstname;?>" disabled=""/>
+                        <input class="myfield" placeholder="" name="fname" type="text" id="fname" value="<?php echo $row->Firstname;?>" disabled=""/>
                     </td>
                     
                     <td>Middle Name:</td>
                     <td>
-                        <input class="myfield" placeholder="" name="mname" type="text" value="<?php echo $row->Middlename;?>" disabled="" />
+                        <input class="myfield" placeholder="" name="mname"  id="mname" type="text" value="<?php echo $row->Middlename;?>" disabled="" />
                     </td>
 
                 </tr>
@@ -157,11 +176,11 @@
 
                     <td>Last Name:</td>
                     <td>
-                        <input class="myfield" placeholder="" name="lname" type="text" value="<?php echo $row->Lastname;?>" disabled=""/>
+                        <input class="myfield" placeholder="" name="lname"  id="lname" type="text" value="<?php echo $row->Lastname;?>" disabled=""/>
                     </td>
                     <td>Employee Manager:</td>
                     <td>
-                         <input class="myfield" placeholder="" name="empmanager" type="text" value="<?php echo $row->Firstname;?>" disabled=""/>
+                         <input class="myfield" placeholder="" name="empmanager"  id="empmanager" type="text" value="<?php echo $row->Firstname;?>" disabled=""/>
                     </td>
                     
                 </tr>
@@ -193,7 +212,7 @@
                     </td>
                     <td>Date Of Birth:</td>
                     <td>
-                        <input onClick="showpicker();" class="myfield fdatepicker" placeholder="" name="dob" type="text" value="<?php echo $row->Birthdate;?>" />
+                        <input onClick="showpicker();" class="myfield fdatepicker" placeholder="" name="dob"  id="dob" type="text" value="<?php echo $row->Birthdate;?>" />
                     </td>
                     
                    
@@ -205,11 +224,11 @@
                 <tr>
                  <td>SSN:</td>
                     <td>
-                        <input class="myfield" placeholder="" name="ssn" type="text" value="<?php echo $row->SSN;?>"/>
+                        <input class="myfield" placeholder="" name="ssn"  id="ssn" type="text" value="<?php echo $row->SSN;?>"/>
                     </td>
                     <td>License Number:</td>
                     <td>
-                        <input class="myfield" placeholder="" name="licenseno" type="text" value="<?php echo $row->LisenceDate;?>"/>
+                        <input class="myfield" placeholder="" name="licenseno"  id="licenseno" type="text" value="<?php echo $row->LisenceDate;?>"/>
                     </td>
                     
                    
@@ -221,11 +240,11 @@
                 <tr>
                  <td>License Date:</td>
                     <td>
-                         <input onClick="showpicker();" class="myfield fdatepicker" placeholder="" name="licensedate" type="text"  value="<?php echo $row->LisenceNO;?>"/>
+                         <input onClick="showpicker();" class="myfield fdatepicker" placeholder="" name="licensedate"  id="licensedate" type="text"  value="<?php echo $row->LisenceNO;?>"/>
                     </td>
                     <td>Hire Date:</td>
                     <td>
-                         <input onClick="showpicker();" class="myfield fdatepicker" placeholder="" name="hiredate" type="text" value="<?php echo $row->HireDate;?>" />
+                         <input onClick="showpicker();" class="myfield fdatepicker" placeholder="" name="hiredate"  id="hiredate" type="text" value="<?php echo $row->HireDate;?>" />
                     </td>
                    
                     
@@ -236,11 +255,11 @@
                 <tr>
                 <td>Termination Date:</td>
                     <td>
-                         <input onClick="showpicker();" class="myfield fdatepicker" placeholder="" name="termidate" type="text" value="<?php echo $row->TerminationDate;?>" />
+                         <input onClick="showpicker();" class="myfield fdatepicker" placeholder="" name="termidate"  id="termidate" type="text" value="<?php echo $row->TerminationDate;?>" />
                     </td>
                     <td>Re-Hire Date:</td>
                     <td>
-                         <input onClick="showpicker();" class="myfield fdatepicker" placeholder="" name="rehiredate" type="text" value="<?php echo $row->ReHireDate;?>" />
+                         <input onClick="showpicker();" class="myfield fdatepicker" placeholder="" name="rehiredate"  id="rehiredate" type="text" value="<?php echo $row->ReHireDate;?>" />
                     </td>
 
 
@@ -249,14 +268,15 @@
               <tr>
                 <td>Re-Termination Date:</td>
                     <td>
-                         <input onClick="showpicker();" class="myfield fdatepicker" placeholder="" name="retermidate" type="text" value="<?php echo $row->ReTerminationDate;?>" />
+                         <input onClick="showpicker();" class="myfield fdatepicker" placeholder="" name="retermidate"  id="retermidate" type="text" value="<?php echo $row->ReTerminationDate;?>" />
                     </td>
                     <td></td>
                     <td>
                         <input type="submit" name="updateemp" style="margin: 0px;" value="Save" class="button medium BtnBlack" />
-                    </td>
-                <input type="hidden" value="<?php echo $row->Emp_Id; ?>" name="EId"/> 
-                  <input type="hidden" value="<?php echo $row->LoginName; ?>" name="login"/> 
+                   <span id="success" style="display:none; color:#0C0">All the records are Updated!</span>
+                   </td>
+                <input type="hidden" value="<?php echo $row->Emp_Id; ?>" name="EId" id="EId"/> 
+                  <input type="hidden" value="<?php echo $row->LoginName; ?>" name="login" id="login"/> 
 
                 </tr>
 				</table>
