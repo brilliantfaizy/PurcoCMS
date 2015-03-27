@@ -126,7 +126,7 @@
  
      
         <form id="signupForm" action="../EmployeeEdit" method="post">
-            <?php foreach($single_student as $row){ ?>
+            <?php foreach($single_student2 as $row){ ?>
             
             <table class="FieldsTable" cellpadding="6">
 		

@@ -31,6 +31,7 @@
                 <th>Creation date</th>
                 <th>Date Modified</th>
                 <th>Status</th>
+                <th>Action</th>
                
             </tr>
   <?php 
@@ -58,7 +59,7 @@
                 </td>
 
                 <?php } ?>
-              
+              <td><a href="<?php echo $base; ?>/index.php/EmployeeController/editemployee/<?php echo $row->Emp_Id ?>">Edit</a></td>
             </tr>
 
            <?php }?>

@@ -36,11 +36,23 @@ class EmployeeController extends CI_Controller{
         $data['base'] = $this->config->item('base_url');
         $data['css'] = $this->config->item('css');
         $data['innerTabsActive'] = '';
-        $data['innerMenuActive'] = 'employeeall';
-         $this->load->model('EmployeeModel');
-		 $data['single_student2'] = $this->EmployeeModel->viewall();
-        $this->load->view('employees/employeeall',$data);
+        $data['innerMenuActive'] = 'EmployeeAll';
+        $this->load->model('EmployeeModel');
+	    $data['single_student2'] = $this->EmployeeModel->viewall();
+        $this->load->view('employees/EmployeeAll',$data);
      
+    }
+    
+    function editemployee()
+    {
+         $data['base'] = $this->config->item('base_url');
+        $data['css'] = $this->config->item('css');
+        $id = $this->uri->segment(3);
+        $data['innerTabsActive'] = '';
+        $data['innerMenuActive'] = '';
+         $this->load->model('EmployeeModel');
+          $data['single_student2'] = $this->EmployeeModel->edit_employee($id);
+        $this->load->view('employees/EditEmployee',$data);
     }
     
     function system1()

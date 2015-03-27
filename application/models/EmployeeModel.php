@@ -63,6 +63,16 @@ class EmployeeModel extends CI_Model{
 				 $query=$this->db->query($sql);
                 return $query->result();
 		}
+        
+        
+		function edit_employee($id)
+		{
+			$this->load->database();
+			$sql="SELECT  tbl_employee_details.* from tbl_employee_details
+			where tbl_employee_details.Emp_Id='".$id."'";
+				 $query=$this->db->query($sql);
+                return $query->result();
+		}
 }
 ?>
      
