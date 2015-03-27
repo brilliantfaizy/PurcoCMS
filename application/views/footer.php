@@ -2,8 +2,6 @@
 <input id="ContentUpdate" type="hidden" value="<?php echo $this->SubMenus->ContentUpdate; ?>" />
 <input id="ContentDelete" type="hidden" value="<?php echo $this->SubMenus->ContentDelete; ?>" />
 
-<?php print_r($this->SubMenus); ?>
-
         <div id="footer"><p>Copyrights 2015. All Rights Reserved</p> </div>
         
         </div>
