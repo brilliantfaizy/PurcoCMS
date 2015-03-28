@@ -55,3 +55,7 @@
 <?php } ?>
 
 </ul>
+
+<!-- Hidden Fields -->
+<input id="ContentUpdate" type="hidden" value="<?php echo $this->SubMenus->ContentUpdate; ?>" />
+<input id="ContentDelete" type="hidden" value="<?php echo $this->SubMenus->ContentDelete; ?>" />
