@@ -76,28 +76,37 @@
 function getUsersList() {
 
 
-    var TableData = '<tr><th style="width: 10%;">User ID</th><th>Username</th><th>Full Name</th><th>Email</th><th>Role</th><th style="width: 10%;">Status</th><th>Creation Date</th><th>Date Modified</th><th style="width: 10%;">Action</th></tr>';
-
 
     $.ajax({
         url: "<?php echo $base; ?>/index.php/RegController/getUsersList",
         success: function(data) {
+            
+            var Status = "Inactive";
 
             if ($("#ContentUpdate").val() == 1) {
                 
+                var TableData = '<tr><th style="width: 10%;">User ID</th><th>Username</th><th>Full Name</th><th>Email</th><th>Role</th><th style="width: 10%;">Status</th><th>Creation Date</th><th>Date Modified</th><th style="width: 10%;">Action</th></tr>';
+                
                 for (var i = 0; i < JSON.parse(data).length; i++) {
 
-
-                    TableData += '<tr><td>' + JSON.parse(data)[i].UId + '</td><td>' + JSON.parse(data)[i].Username + '</td><td>' + JSON.parse(data)[i].Full_name + '</td><td>' + JSON.parse(data)[i].Email + '</td><td>' + JSON.parse(data)[i].RoleTitle + '</td><td>' + JSON.parse(data)[i].Status + '</td><td>' + JSON.parse(data)[i].CreationDate + '</td><td>' + JSON.parse(data)[i].DateModified + '</td><td><a href="viewupdate/' + JSON.parse(data)[i].UId + '">Edit</a><a style="display:none" onclick="userdeleteConfirm(\'delete/' + JSON.parse(data)[i].UId + '\'); return false;" href="">Delete</a></td></tr>';
+                    if(JSON.parse(data)[i].Status == 1){
+                        Status = "Active";
+                    }
+                    TableData += '<tr><td>' + JSON.parse(data)[i].UId + '</td><td>' + JSON.parse(data)[i].Username + '</td><td>' + JSON.parse(data)[i].Full_name + '</td><td>' + JSON.parse(data)[i].Email + '</td><td>' + JSON.parse(data)[i].RoleTitle + '</td><td>' + Status + '</td><td>' + JSON.parse(data)[i].CreationDate + '</td><td>' + JSON.parse(data)[i].DateModified + '</td><td><a href="viewupdate/' + JSON.parse(data)[i].UId + '">Edit</a><a style="display:none" onclick="userdeleteConfirm(\'delete/' + JSON.parse(data)[i].UId + '\'); return false;" href="">Delete</a></td></tr>';
 
                 }
                 
             } else {
+                
+                var TableData = '<tr><th style="width: 10%;">User ID</th><th>Username</th><th>Full Name</th><th>Email</th><th>Role</th><th style="width: 10%;">Status</th><th>Creation Date</th><th>Date Modified</th></tr>';
 
                 for (var i = 0; i < JSON.parse(data).length; i++) {
+                    
+                    if(JSON.parse(data)[i].Status == 1){
+                        Status = "Active";
+                    }
 
-
-                    TableData += '<tr><td>' + JSON.parse(data)[i].UId + '</td><td>' + JSON.parse(data)[i].Username + '</td><td>' + JSON.parse(data)[i].Full_name + '</td><td>' + JSON.parse(data)[i].Email + '</td><td>' + JSON.parse(data)[i].RoleTitle + '</td><td>' + JSON.parse(data)[i].Status + '</td><td>' + JSON.parse(data)[i].CreationDate + '</td><td>' + JSON.parse(data)[i].DateModified + '</td><td><a style="display:none" onclick="userdeleteConfirm(\'delete/' + JSON.parse(data)[i].UId + '\'); return false;" href="">Delete</a></td></tr>';
+                    TableData += '<tr><td>' + JSON.parse(data)[i].UId + '</td><td>' + JSON.parse(data)[i].Username + '</td><td>' + JSON.parse(data)[i].Full_name + '</td><td>' + JSON.parse(data)[i].Email + '</td><td>' + JSON.parse(data)[i].RoleTitle + '</td><td>' + Status + '</td><td>' + JSON.parse(data)[i].CreationDate + '</td><td>' + JSON.parse(data)[i].DateModified + '</td></tr>';
 
                 }
 
