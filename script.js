@@ -37,3 +37,31 @@ function userdeleteConfirm(id){
         }
             
         }
+        
+function GetFormValues(FormID){
+    
+    
+                var FormValues = {};
+                var FormInput = $("#"+FormID).find('input');
+                var FormSelect = $("#"+FormID).find('select');
+                
+                if(FormInput.length != 0){
+                    
+                    for(var i = 0; i < FormInput.length; i++){
+                    
+                        FormValues[FormInput[i].name] = FormInput[i].value;
+                    
+                    }
+                }
+                
+                if(FormSelect.length != 0){
+                    
+                    for(var i = 0; i < FormSelect.length; i++){
+                    
+                        FormValues[FormSelect[i].name] = $("#"+FormSelect[i].id+" option:selected" ).val();
+                        
+                    }
+                }
+                
+            return FormValues;
+}          

@@ -64,13 +64,35 @@
                 rId: "Select Role must."
 
 
-            }
+            }, submitHandler: function insertUser() {
+                        
+                         $.ajax({
+                            url: "<?php echo $base; ?>/index.php/RegController/insertUser",
+                            data: GetFormValues('signupForm'),
+                            type: "POST",
+                            success: function(data) {
+                                
+                                    alert(JSON.parse(data).msg);
+                                    getUsersList();
+                                
+                                }, error: function(data){
+                                    
+                                    alert(data);  
+                                    
+                                }
+                            }); 
+                      
+                      return false;
+                }
         });
         
         
         
      
     });
+    
+    
+ 
     
     
 function getUsersList() {
@@ -152,7 +174,7 @@ getUsersList();
     <?php if ($this->SubMenus->ContentAdd == 1) { ?>
     <div class="FormFields">
 
-        <form id="signupForm" action="getall" method="post">
+        <form id="signupForm" method="post">
 
             <table class="FieldsTable" cellpadding="6">
 
@@ -196,9 +218,7 @@ getUsersList();
                         <select class="myfield" id="rId" name="rId">
                             <option value>Select</option>
                             <?php foreach ($role_list as $row) { ?>
-                            <option value="<?php
-                             echo $row->RId;
-?>">
+                            <option value="<?php echo $row->RId; ?>">
                                 <?php echo $row->RoleTitle; ?>
                             </option>
                             <?php } ?>
