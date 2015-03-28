@@ -1,5 +1,150 @@
 <?php $this->load->view('header'); ?>
+<script>
+    $().ready(function() {
+        // validate the comment form when it is submitted
 
+
+        // validate signup form on keyup and submit
+        $("#signupForm").validate({
+            rules: {
+                //clientname: "required",
+                clientname: {
+                    required: true,
+                    minlength: 4
+                },
+                website: {
+                    required: true
+                  
+                },
+                clientpriority: {
+                    required: true
+                },
+                fleetsize: {
+                    required: true
+                    
+                },
+                emp_contact: {
+                    required: true
+                   
+                },
+
+                mdayphone: {
+                    required: true
+                },
+                mfaxno: {
+                    required: true
+                },
+                
+                 maddress1: {
+                    required: true
+                },
+                 maddress2: {
+                    required: true
+                },
+                 mcity: {
+                    required: true
+                },
+                 mzip: {
+                    required: true
+                },
+                 mmobileno: {
+                    required: true
+                },
+                 firstname: {
+                    required: true
+                },
+                 lastname: {
+                    required: true
+                },
+                 pmobileno: {
+                    required: true
+                },
+                 pemail: {
+                    required: true
+                },
+                 paddress1: {
+                    required: true
+                },
+                 paddress2: {
+                    required: true
+                },
+                 pcity: {
+                    required: true
+                },
+                 pzip: {
+                    required: true
+                },
+                 pfaxno: {
+                    required: true
+                },
+                 pphone: {
+                    required: true
+                }
+            },
+            messages: {
+                clientname: "Please enter Client Name",
+                website: "Please enter Website",
+                clientpriority: "Must Fill it.",
+                fleetsize:"Must Fill it.",
+                emp_contact: "Must Fill it.",
+                mdayphone:"Must Fill it.",
+                mfaxno: "Must Fill it.",
+                maddress1:"Must Fill it.",
+                maddress2: "Must Fill it.",
+                mcity: "Must Fill it.",
+                mzip: "Must Fill it.",
+                mmobileno: "Must Fill it.",
+                firstname: "Must Fill it.",
+                lastname: "Must Fill it.",
+                pmobileno: "Must Fill it.",
+                pemail: "Must Fill it.",
+                paddress1: "Must Fill it.",
+                paddress2: "Must Fill it.",
+                pcity: "Must Fill it.",
+                pzip: "Must Fill it.",
+                pfaxno: "Must Fill it.",
+                pphone: "Must Fill it."
+
+
+            }, submitHandler: function insertClient() {
+                        
+                         $.ajax({
+                            url: "<?php echo $base; ?>/index.php/ClientController/insert",
+                            data: GetFormValues('signupForm'),
+                            type: "POST",
+                            success: function(data) {
+                                
+                                    alert(JSON.parse(data).msg);
+                                    
+                                
+                                }, error: function(data){
+                                    
+                                    alert(data);  
+                                    
+                                }
+                            }); 
+                      
+                      return false;
+                }
+        });
+        
+        
+        
+     
+    });
+    
+    
+    </script>
+    <style>
+    #signupForm label.error {
+        display: table;
+        color: red;
+    }
+    
+    #signupForm input.error {
+        border: red;
+    }
+</style>
 <div id="content">
 
     <div id="innerMenu">
@@ -10,7 +155,7 @@
 
     <div class="FormFields">
 
-        <form action="" method="post">
+        <form action="insert" id="signupForm" method="post">
 
             <table class="FieldsTable" cellpadding="6">
                 <tr>
@@ -23,7 +168,7 @@
                 <tr>
                     <td>Client Code:</td>
                     <td>
-                     <input class="myfield" placeholder="" type="hidden" name="client_code" id="client_code" value="<?php echo $ClientCode; ?>" disabled="" />
+                     <input class="myfield"  type="hidden" name="client_code" id="client_code" value="<?php echo $ClientCode; ?>"  />
                   
                         <input class="myfield" placeholder=""  type="text" value="<?php echo $ClientCode; ?>" disabled="" />
                     </td>
@@ -38,7 +183,7 @@
                 <tr>
                     <td>Client Type:</td>
                     <td>
-                        <select name="type" class="myfield" id="type">
+                        <select name="type1" class="myfield" id="type1">
                             <option>select</option>
                         </select>
                     </td>

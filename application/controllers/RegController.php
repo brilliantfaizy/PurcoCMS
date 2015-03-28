@@ -181,7 +181,7 @@ class RegController extends CI_Controller
                 $d = $this->input->post('fname');
                 // $e = $this->input->post('email');
                 $f = $this->input->post('status');
-                $g = date("Y/m/d");
+                $g = date("Y/m/d H:M:S");
                 
                 $sql = "update tbl_user set Password='" . $c . "',RId='" . $a . "',Full_name='" . $d . "',Status='" . $f . "',DateModified=DATE_FORMAT(NOW(),'%Y-%m-%d %h:%i:%s') where UId='" . $id . "'";
                 $this->db->query($sql);
