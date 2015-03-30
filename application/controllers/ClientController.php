@@ -109,6 +109,7 @@ class ClientController extends CI_Controller
     
     public function insert()
     {    
+        $msg=array();
         $data['base']            = $this->config->item('base_url');
         $data['css']             = $this->config->item('css');
         $data['innerMenuActive'] = 'client';
@@ -118,7 +119,7 @@ class ClientController extends CI_Controller
          $date = date("Y-m-d h:i:s");
         //$date=DATE_FORMAT(NOW(),'%Y-%m-%d %h:%i:%s');
         $details = array(
-             'Cient_code'               => $this->input->post('client_code'),
+             'Client_code'               => $this->input->post('client_code'),
              'Client_name'              => $this->input->post('clientname'),
              'Client_website'           => $this->input->post('website'),
              'Client_type'              => $this->input->post('type1'),
@@ -169,7 +170,8 @@ class ClientController extends CI_Controller
         );    
 
         $this->ClientModel->insert_users($details,$info,$contact,$address1,$address2);
-
+        $msg['msg']="Record Inserted Successfully";
+         echo json_encode($msg);
    
     }
 
@@ -192,12 +194,17 @@ class ClientController extends CI_Controller
     }
     function getClientType()
     {
-        
-        
         $this->load->model('ClientModel');
         $data= $this->ClientModel->getType();
         echo json_encode($data);
           
+    }
+    function getClientAll()
+    {
+        $this->load->model('ClientModel');
+        $data=$this->ClientModel->getAllClient();
+        echo json_encode($data);
+        
     }
     function delete()
     {
@@ -206,6 +213,63 @@ class ClientController extends CI_Controller
         $id = $this->uri->segment(3);
         $this->ClientModel->ClientTypeDelete($id);
         $this->clienttype();        
+    }
+    
+    function getClientAllSorted()
+    {
+        $this->load->model('ClientModel');
+        $data=array(
+        'Client_name'=>$this->input->post('clientname'),
+        'Client_code'=>$this->input->post('clientcode'),
+        'City'=>$this->input->post('city'),
+        'State'=>$this->input->post('state'),
+        'Client_status'=>$this->input->post('status'),
+        'Client_priority'=>$this->input->post('priority'),
+        'Client_employee_contact'=>$this->input->post('contact')
+        );
+        //print_r($data);
+        $data=$this->ClientModel->getClientAllSorted($data);
+        echo json_encode($data);
+        
+        //echo $this->input->post('clientcode');
+    }
+    function getClientAllSearch()
+    {
+        $this->load->model('ClientModel');
+        $data=array(
+        'Client_name'=>$this->input->post('clientname'),
+        'Client_code'=>$this->input->post('clientcode'),
+        'Client_type'=>$this->input->post('clienttype'),
+        'Client_priority'=>$this->input->post('clientpriority'),
+        'Client_fleet_size'=>$this->input->post('fleetsize'),
+        'FirstName'=>$this->input->post('firstname'),
+        'LastName'=>$this->input->post('lastname'),
+        'Client_status'=>$this->input->post('clientstatus'),
+        'Address1'=>$this->input->post('streetaddress'),
+        'City'=>$this->input->post('city'),
+        'Postal_code'=>$this->input->post('zip'),
+        'State'=>$this->input->post('state'),
+        'Fax_No'=>$this->input->post('faxno')
+        );
+        
+         $data=$this->ClientModel->getClientAllSearch($data);
+        //print_r($data);
+        echo json_encode($data);
+    }
+    
+    function getclientActive()
+    {
+        $this->load->model('ClientModel');
+        $data=$this->ClientModel->getclientActive();
+        echo json_encode($data);
+        
+    }
+     function getclientInactive()
+    {
+        $this->load->model('ClientModel');
+        $data=$this->ClientModel->getclientInactive();
+        echo json_encode($data);
+        
     }
     
     

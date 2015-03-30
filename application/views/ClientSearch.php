@@ -1,5 +1,40 @@
-
 <?php $this->load->view('header'); ?>
+<script>
+function getClientAllSearch() {
+  
+    var TableData = '<tr><th style="width: 10%;">Client Name</th><th style="width: 10%;">Client Code</th> <th style="width: 10%;">Region</th><th style="width: 10%;">Last File</th> <th style="width: 10%;">File/Month</th> <th style="width: 10%;">Last Journal</th></tr>';
+    $.ajax({
+        url:"<?php echo $base; ?>/index.php/ClientController/getClientAllSearch",
+        data: GetFormValues('signupForm'),
+        type: "POST",
+        success: function(data) {
+          
+          console.log(JSON.parse(data));
+          
+                for (var i = 0; i < JSON.parse(data).length; i++) {
+                 
+                    TableData += '<tr><td>' + JSON.parse(data)[i].Client_name + '</td><td>' + JSON.parse(data)[i].Client_code + '</td><td>' + JSON.parse(data)[i].City +' , '+ JSON.parse(data)[i].State +'</td><td></td><td></td><td></td></tr>';
+
+                }
+            
+
+            $(".Grid table").html(TableData);
+
+            //alert("Submitted successfully");
+           
+           
+
+        }, 
+        error: function() {
+
+            alert("There is error while fetch");
+
+        }
+    });
+ 
+
+}
+</script>
 <div id="content">
 
 <div id="innerMenu">
@@ -10,29 +45,33 @@
         
             <div class="FormFields">
                 
-                <form action="" method="post">
+                <form id="signupForm" action="" method="post">
               
                     <table class="FieldsTable" cellpadding="6">
                         
                         <tr>
                             <td>Client Name :</td>
-                            <td><input class="myfield" placeholder="" name="firstname" type="text" /></td>
+                            <td><input class="myfield" placeholder="" name="clientname" type="text" /></td>
                             
                             <td>Client Code :</td>
-                             <td><input class="myfield" placeholder="" name="firstname" type="text" /></td>
+                             <td><input class="myfield" placeholder="" name="clientcode" type="text" /></td>
                         </tr>
                         
                         <tr>
                             <td> Client Type:</td>
-                            <td><select name="title" class="myfield"></select></td>
+                            <td><select name="clienttype" id="clienttype" class="myfield"><option value="3">Select</option>
+                            <option value="0">Select</option>
+                            <option value="1">Select</option></select></td>
                             
                             <td>Client Priority :</td>
-                             <td><select name="title" class="myfield"></select></td>
+                             <td><select name="clientpriority" id="clientpriority" class="myfield"><option value="3">Select</option>
+                             <option value="0">Select</option>
+                            <option value="1">Select</option></select></td>
                         </tr>
                         
                          <tr>
                             <td>Fleet size :</td>
-                             <td><input class="myfield" placeholder="" name="firstname" type="text" /></td>
+                             <td><input class="myfield" placeholder="" name="fleetsize" type="text" /></td>
                             
                             <td>Contact First Name:</td>
                              <td><input class="myfield" placeholder="" name="firstname" type="text" /></td>
@@ -40,49 +79,45 @@
                         </tr>
                          <tr>
                             <td> Contact Last Name:</td>
-                             <td><input class="myfield" placeholder="" name="firstname" type="text" /></td>
+                             <td><input class="myfield" placeholder="" name="lastname" type="text" /></td>
                             
                             <td>Client Status :</td>
-                             <td><input class="myfield" placeholder="" name="firstname" type="text" /></td>
+                             <td><select name="clientstatus" id="clientstatus" class="myfield"><option value="3">Select</option>
+                             <option value="0">Select</option>
+                            <option value="1">Select</option></select></td>
                             
                         </tr>
                         
                          <tr>
                             <td> Street Address:  </td>
-                             <td><input class="myfield" placeholder="" name="firstname" type="text" /></td>
+                             <td><input class="myfield" placeholder="" name="streetaddress" type="text" /></td>
                             
                              <td> City:  </td>
-                             <td><input class="myfield" placeholder="" name="firstname" type="text" /></td>
+                             <td><input class="myfield" placeholder="" name="city" type="text" /></td>
                                 </tr>
                         
                          <tr>
                             <td> Zip:  </td>
-                             <td><input class="myfield" placeholder="" name="firstname" type="text" /></td>
+                             <td><input class="myfield" placeholder="" name="zip" type="text" /></td>
                             <td> State:  </td>
-                             <td><input class="myfield" placeholder="" name="firstname" type="text" /></td>
+                             <td><input class="myfield" placeholder="" name="state" type="text" /></td>
                             <td><input type="checkbox" name="chk1" /></td>
                             </tr>
                         
                         
                              <tr>
-                               <td> Country:  </td>
-                             <td><input class="myfield" placeholder="" name="firstname" type="text" /></td>
                              
                              <td> Fax/Phone:  </td>
-                             <td><input class="myfield" placeholder="" name="firstname" type="text" /></td>
-                            
+                             <td><input class="myfield" placeholder="" name="faxno" type="text" /></td>
+                             <td>Contact Last Name:</td>
+                            <td><input type="checkbox" name="chk2"/></td>
                              
                             </tr>
                             
-                            <tr>
-                            <td>Contact Last Name:</td>
-                            <td><input type="checkbox" name="chk2"/></td>
-                            <td colspan="2"></td>
                             
-                            </tr>
                             
                             <tr>
-                                <td colspan="4"><input class="button medium" type="submit" value="Go" /></td>
+                                <td colspan="4"><input class="button medium" onclick="getClientAllSearch();  return false;" type="submit" value="Go" /></td>
                             </tr>
                         
                     </table>
@@ -102,44 +137,7 @@
 
         <table cellspacing="0" cellpadding="10">
 
-           <tr>
-                <th>Claim Name</th>
-                <th>Code</th>
-                <th>Region</th>
-                <th>Last File</th>
-                <th>Files/Month</th>
-                <th>Last Journal</th>
-                
-            </tr>
-
-            <tr>
-                <td>3D Auto Rental LLC</td>
-                <td>RW3D</td>
-                <td>Sebring,Florida</td>
-                <td>22/10/2012</td>
-                <td>0</td>
-                <td></td>
-                
-            </tr>
-            
-            <tr>
-                <td>83 RV,Inc.</td>
-                <td>RV83</td>
-                <td>Mundelein,Illinois</td>
-                <td>07/11/2012</td>
-                <td>0</td>
-                <td></td>
-                
-            </tr>
-            <tr>
-                 <td>4 Rent Inc.</td>
-                <td>IN4R</td>
-                <td>Hobart IN</td>
-                <td>11/26/2012</td>
-                <td>0</td>
-                <td></td>
-                
-            </tr>
+           
  
 
         </table>

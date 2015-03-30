@@ -114,7 +114,10 @@
                             type: "POST",
                             success: function(data) {
                                 
-                                    alert(JSON.parse(data).msg);
+                                    //alert(JSON.parse(data).msg);
+                                    $("#success").show();
+                         setTimeout(function(){ window.location.href="<?php echo $base; ?>/index.php/ClientController/clientall";}, 1000);
+                    
                                     
                                 
                                 }, error: function(data){
@@ -400,7 +403,9 @@
                 <tr>
                     <td colspan="4" style="text-align: right;">
                         <input class="button medium BtnBlack" type="submit" value="Save" />
+                        
                         <input class="button medium BtnBlack" style="margin-right: 12px;" type="reset" value="Clear" />
+                        <span id="success" style="display:none; color:#0C0">All the records are Updated!</span>
                     </td>
                 </tr>
             </table>
