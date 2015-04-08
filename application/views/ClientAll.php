@@ -4,7 +4,7 @@
 
 function getclientall() {
     
-    var TableData = '<tr><th style="width: 10%;">Client Name</th><th style="width: 10%;">Client Code</th> <th style="width: 10%;">Region</th><th style="width: 10%;">Last File</th> <th style="width: 10%;">File/Month</th> <th style="width: 10%;">Last Journal</th></tr>';
+    var TableData = '<tr><th style="width: 10%;">Client Name</th><th style="width: 10%;">Client Code</th> <th style="width: 10%;">Region</th><th style="width: 10%;">Last File</th> <th style="width: 10%;">File/Month</th> <th style="width: 10%;">Last Journal</th><th>Action</th></tr>';
 
 
     $.ajax({
@@ -15,7 +15,7 @@ function getclientall() {
           
                 for (var i = 0; i < JSON.parse(data).length; i++) {
                  
-                    TableData += '<tr><td>' + JSON.parse(data)[i].Client_name + '</td><td>' + JSON.parse(data)[i].Client_code + '</td><td>' + JSON.parse(data)[i].City +' , '+ JSON.parse(data)[i].State +'</td><td></td><td></td><td></td></tr>';
+                    TableData += '<tr><td>' + JSON.parse(data)[i].Client_name + '</td><td>' + JSON.parse(data)[i].Client_code + '</td><td>' + JSON.parse(data)[i].City +' , '+ JSON.parse(data)[i].State +'</td><td></td><td></td><td></td><td><a href="editClientview/' + JSON.parse(data)[i].Client_code + '/'+ JSON.parse(data)[i].ContactId +'/'+ JSON.parse(data)[i].Id +'">Edit</a></td></tr>';
 
                 }
             
@@ -102,26 +102,42 @@ getclientall() ;
                 <tr>
                     <td>Client City:</td>
                     <td>
-                        <select name="city" id="city"  class="myfield"><option value="123">select</option></select>
+                        <input class="myfield" placeholder="" name="city" type="text" />
                     </td>
 
                     <td>Client State:</td>
                     <td>
-                        <select name="state" id="state" class="myfield"><option value="123">select</option></select>
+                      <select name="state" id="state" class="myfield"><option value="100">select</option>
+                         <?php foreach($query as $row){?>
+                            <option value="<?php  echo $row->Id?>">
+                                <?php echo $row->State_full?></option>
+                            <?php }?></select>
                     </td>
                 </tr>
 
                 <tr>
                     <td>Client Status :</td>
                      <td>
-                        <select name="status" id="status"  class="myfield"><option value="3">select</option>
+                        <select name="status" id="status"  class="myfield"><option value="5">select</option>
                         <option value="1">Active</option>
-                        <option value="0">Inactive</option></select>
+                        <option value="0">Inactive</option>
+                        <option value="3">Lead</option>
+                        </select>
                     </td>
 
                     <td>Client Priority :</td>
                     <td>
-                        <input class="myfield" placeholder="" name="priority" type="text" />
+                      
+                        <select name="priority" id="priority"  class="myfield"><option value="9">select</option>
+                         <option>1 - Hot</option>
+                         <option>2</option>
+                         <option>3</option>
+                         <option>4</option>
+                         <option>5 - Medium</option>
+                         <option>6</option>
+                         <option>7</option>
+                         <option>8</option>
+                         <option>9 - Cold</option></select>
                     </td>
                     <td>
                         <input type="checkbox" name="chk1" />
@@ -131,7 +147,12 @@ getclientall() ;
                 <tr>
                     <td>Employee Contact : </td>
                     <td>
-                        <input class="myfield" placeholder="" name="contact" type="text" />
+                       
+                         <select name="contact" id="contact"  class="myfield"><option value="0">select</option>
+                        <?php foreach($employee as $row){?>
+                            <option value="<?php  echo $row->Id?>">
+                                <?php echo $row->LegalName?></option>
+                            <?php }?></select>
                     </td>
 
                     <td colspan="2"></td>

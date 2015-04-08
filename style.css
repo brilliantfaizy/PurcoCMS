@@ -248,6 +248,10 @@ table.FieldsTable td img{
 }
 
 
+
+
+
+
 #innerTabs{
     
     
@@ -596,5 +600,50 @@ ul{
 .Grid table td, .Grid table th{
     
     padding: 6px !important;
+}
+
+#innerMenu1{
+    
+     -webkit-box-shadow: 1px 1px 8px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    1px 1px 8px 0px rgba(50, 50, 50, 0.75);
+    box-shadow:         1px 1px 8px 0px rgba(50, 50, 50, 0.75);
+    
+    
+    background-color: #454545;
+    height: 36px;
+    width: 100%;
+   
+    
+}
+
+#innerMenu1 li{
+    
+    list-style: none;
+    float: left;
+    
+    
+}
+
+#innerMenu1 a{
+    
+    color:#fff;
+    text-decoration: none;
+    font-size: 12px;
+    display: block;
+    padding-left: 20px;
+    padding-right: 20px;
+    line-height: 36px;
+    border-right: 1px solid #fff;
+}
+
+#innerMenu1 a:hover{
+    
+    text-decoration: underline;
+    
+}
+
+#innerMenu1 li:last-child a{
+    
+    border: none;
 }
 

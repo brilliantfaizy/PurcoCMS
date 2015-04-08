@@ -8,13 +8,16 @@
     <link rel="stylesheet" type="text/css" href="<?php echo "$base/$css";?>"/>
     <link rel="stylesheet" type="text/css" href="<?php echo "$base/foundation-datepicker.css";?>"/>
     <link rel="stylesheet" type="text/css" href="<?php echo "$base/style1.css"?>"/>
-    <!--<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>-->
+   	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="<?php echo "$base/jquery-2.1.3.min.js"?>"></script>
     <script src="<?php echo "$base/foundation-datepicker.js"; ?>"></script>
     <script type="text/javascript" src="<?php echo "$base/jquery.als-1.7.js"; ?>"></script>
     <script src="<?php echo "$base/multiupload.js" ?>"></script>
     <script src="<?php echo "$base/dist/jquery.validate.js"; ?>"></script>
+     
+ 
    
+
     
     
 </head>

@@ -65,9 +65,7 @@
                  paddress1: {
                     required: true
                 },
-                 paddress2: {
-                    required: true
-                },
+                
                  pcity: {
                     required: true
                 },
@@ -90,7 +88,6 @@
                 mdayphone:"Must Fill it.",
                 mfaxno: "Must Fill it.",
                 maddress1:"Must Fill it.",
-                maddress2: "Must Fill it.",
                 mcity: "Must Fill it.",
                 mzip: "Must Fill it.",
                 mmobileno: "Must Fill it.",
@@ -129,15 +126,17 @@
                       
                       return false;
                 }
+                 
         });
         
-        
-        
+      
+ 
      
     });
     
-    
+ 
     </script>
+   
     <style>
     #signupForm label.error {
         display: table;
@@ -187,8 +186,11 @@
                     <td>Client Type:</td>
                     <td>
                         <select name="type1" class="myfield" id="type1">
-                            <option>select</option>
-                        </select>
+                           <option value=>select</option>
+                        <?php foreach($ctype as $row){?>
+                            <option value="<?php  echo $row->Id?>">
+                                <?php echo $row->Key?></option>
+                            <?php }?></select>
                     </td>
 
                     <td>Client Website:</td>
@@ -201,7 +203,17 @@
                 <tr>
                     <td>Client Priority:</td>
                     <td>
-                        <input class="myfield" placeholder="" name="clientpriority" id="clientpriority" type="text" />
+                        
+                         <select name="clientpriority" id="clientpriority"  class="myfield"><option value>select</option>
+                         <option value="1">1 - Hot</option>
+                         <option value="2">2</option>
+                         <option value="3">3</option>
+                         <option value="4">4</option>
+                         <option value="5">5 - Medium</option>
+                         <option value="6">6</option>
+                         <option value="7">7</option>
+                         <option value="8">8</option>
+                         <option value="9">9 - Cold</option></select>
                     </td>
 
                     <td>Fleet Size:</td>
@@ -216,7 +228,12 @@
                 <tr>
                     <td>Employee Contact :</td>
                     <td>
-                        <input class="myfield" placeholder="" name="emp_contact" id="emp_contact" type="text" />
+                         <select name="emp_contact" id="emp_contact"  class="myfield"><option value=>select</option>
+                        <?php foreach($employee as $row){?>
+                            <option value="<?php  echo $row->Id?>">
+                                <?php echo $row->LegalName?></option>
+                            <?php }?></select>
+                        
                     </td>
                     <td colspan="2"></td>
 
@@ -266,12 +283,19 @@
                 <tr>
                     <td>City:</td>
                     <td>
-                        <input class="myfield" placeholder="" name="mcity" id="mcity" type="text" />
+                        <input class="myfield"  placeholder="" name="mcity" id="mcity" type="text" />
+                      
+</div>
+                    
                     </td>
 
                     <td>State:</td>
                     <td>
-                        <select name="mstate" id="mstate"  class="myfield"><option>select</option></select>
+                        <select name="mstate" id="mstate"  class="myfield"><option value=>select</option>
+                        <?php foreach($query as $row){?>
+                            <option value="<?php  echo $row->Id?>">
+                                <?php echo $row->State_full?></option>
+                            <?php }?></select>
                     </td>
 
 
@@ -306,7 +330,10 @@
                 <tr>
                     <td>Title:</td>
                     <td>
-                        <select name="title" id="title" class="myfield"><option>select</option></select>
+                        <select name="title" id="title" class="myfield"><option>select</option>
+                        <option value="Mr.">Mr.</option>
+                        <option value="Mrs.">Mrs.</option>
+                        <option value="Ms.">Ms.</option></select>
                     </td>
 
                     <td>First Name:</td>
@@ -364,7 +391,11 @@
                 <tr>
                     <td>State:</td>
                     <td>
-                        <select name="pstate" id="pstate" class="myfield"><option>select</option></select>
+                        <select name="pstate" id="pstate" class="myfield"><option value>select</option>
+                         <?php foreach($query as $row){?>
+                            <option value="<?php  echo $row->State_full?>">
+                                <?php echo $row->State_full?></option>
+                            <?php }?></select>
                     </td>
 
                     <td>Zip:</td>
@@ -391,7 +422,11 @@
                 <tr>
                     <td>Status:</td>
                     <td>
-                        <select name="status" id="status" class="myfield"><option>select</option></select>
+                        <select name="status" id="status" class="myfield"><option value>select</option>
+                        <option value="1">Active</option>
+                        <option value="0">Inactive</option>
+                        <option value="3">Lead</option>
+                        </select>
                     </td>
 
                     

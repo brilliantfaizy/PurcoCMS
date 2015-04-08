@@ -14,6 +14,26 @@ class ClientController extends CI_Controller
         $this->mainModel->checkSession();
     }
    
+    function editClientview()
+    {
+      
+        $data['base']            = $this->config->item('base_url');
+       
+        $data['css']             = $this->config->item('css');
+        $data['innerMenuActive'] = 'client';
+        $data['innerTabsActive'] = '';
+        $id = $this->uri->segment(3);
+        $cid=$this->uri->segment(4);
+        $client=$this->uri->segment(5);
+        $cntct=$this->input->post('contactid');
+        $this->load->model('ClientModel');
+        $data['state']=$this->ClientModel->getstates();
+        $data['ctype']=$this->ClientModel->getclienttype();
+        $data['query']=$this->ClientModel->editClient($id,$cid,$client);
+        $data['contact']=$this->ClientModel->getcontactname($id);
+        $data['cntctDetails']=$this->ClientModel->contactdetails($cid);
+        $this->load->view('ClientEdit', $data);
+    }
     function client()
     {
         
@@ -22,6 +42,10 @@ class ClientController extends CI_Controller
         $data['innerMenuActive'] = 'client';
         $data['innerTabsActive'] = '';
         $data['ClientCode']=random_string('alnum',4);
+        $this->load->model('ClientModel');
+        $data['query']=$this->ClientModel->getstates();
+        $data['employee']=$this->ClientModel->getemployee();
+        $data['ctype']=$this->ClientModel->getclienttype();
         $this->load->view('Client', $data);
         
     }
@@ -32,6 +56,9 @@ class ClientController extends CI_Controller
         $data['css']             = $this->config->item('css');
         $data['innerMenuActive'] = 'clientall';
          $data['innerTabsActive'] = '';
+         $this->load->model('ClientModel');
+        $data['query']=$this->ClientModel->getstates();
+        $data['employee']=$this->ClientModel->getemployee();
         $this->load->view('ClientAll', $data);
         
         
@@ -44,6 +71,10 @@ class ClientController extends CI_Controller
         $data['css']             = $this->config->item('css');
         $data['innerMenuActive'] = 'clientsearch';
          $data['innerTabsActive'] = '';
+         $this->load->model('ClientModel');
+        $data['query']=$this->ClientModel->getstates();
+        $data['employee']=$this->ClientModel->getemployee();
+        $data['ctype']=$this->ClientModel->getclienttype();
         $this->load->view('ClientSearch', $data);
         
         
@@ -273,7 +304,333 @@ class ClientController extends CI_Controller
     }
     
     
+    public function upload() {
+		if (!empty($_FILES)) {
+		$tempFile = $_FILES['file']['tmp_name'];
+		$fileName = $_FILES['file']['name'];
+		$targetPath = getcwd() . '/uploads/';
+		$targetFile = $targetPath . $fileName ;
+		move_uploaded_file($tempFile, $targetFile);
+		// if you want to save in db,where here
+		// with out model just for example
+		// $this->load->database(); // load database
+		// $this->db->insert('file_table',array('file_name' => $fileName));
+		}
+    }
+    
+    function editClient() 
+    {
+        $msg=array();
+        $id=$this->input->post('code');
+        $add_id=$this->input->post('add_Id');
+        $contact_id=$this->input->post('Contact_id');
+        $client_id=$this->input->post('client_id');
+        $date = date("Y-m-d h:i:s");
+        $contact=array(
+        'Phone_no'     =>$this->input->post('phone'),
+        'Fax_no'       =>$this->input->post('fax')
+        );
+        $address=array(
+        'Address1'      =>$this->input->post('address1'),
+        'Address2'      =>$this->input->post('address2'),
+        'City'          =>$this->input->post('city'),
+        'State'         =>$this->input->post('state'),
+        'Postal_code'   =>$this->input->post('zip'),
+        'Last_modified'  =>$date
+        );
+        $client=array(
+        'LastModifiedDate'  =>$date
+        );
+        $this->load->model('ClientModel');
+        $this->ClientModel->updateClient($id,$contact,$address);
+        $msg['msg']="Updated";
+        echo json_encode($msg);
+    }
+    public function buildDropCities()
+    {
+        $data= array(); 
+        $this->load->model('ClientModel');
+        $cid=$this->input->post('id');
+        $data['data']=$this->ClientModel->contactdetails($cid);
+        echo json_encode($data);
+
+    }
+    
+    public function addnewcontact()
+    {    
+        $msg=array();
+        $data['base']            = $this->config->item('base_url');
+        $data['css']             = $this->config->item('css');
+        $data['innerMenuActive'] = 'client';
+        $data['innerTabsActive'] = '';
+        $this->load->database();
+        $this->load->model('ClientModel');
+         $date = date("Y-m-d h:i:s");
+       
+       
+
+        $info = array(
+             'Client_code'      => $this->input->post('code'),
+             'FirstName'        => $this->input->post('Cname'),
+             'Phone_No'         => $this->input->post('dphn'),
+             'Fax_No'           => $this->input->post('fax'),
+             'Mobile_no'        => $this->input->post('mobile'),
+             'LastModifiedDate' => $date
+        );  
+        $contact = array(
+            'Main_Id'          => $this->input->post('code'),
+            'Phone_no'         => $this->input->post('dphn'),
+            'Fax_no'           => $this->input->post('fax'),
+            'Email_address'    => $this->input->post('email'),
+            'Mobile'           => $this->input->post('mobile')
+         );  
+        $address1 = array(
+            'Main_Id'        => $this->input->post('code'),
+            'Address1'       => $this->input->post('address1'),
+            'Address2'       => $this->input->post('address2'),
+            'City'           => $this->input->post('city'),
+            'State'          => $this->input->post('state'),
+            'Postal_code'    => $this->input->post('zip'),
+            'Last_modified'  => $date
+          
+         );  
+           
+
+        $this->ClientModel->addnewcontact($info,$contact,$address1);
+        $msg['msg']="Record Inserted Successfully";
+         echo json_encode($msg);
+   
+    }
+    
+    
+    function addclientinfo()
+    {
+        $msg=array();
+        $id=$this->input->post('code');
+        $add_id=$this->input->post('add_Id');
+        $contact_id=$this->input->post('Contact_id');
+        $client_id=$this->input->post('client_id');
+        $date = date("Y-m-d h:i:s");
+          
+        $info = array(
+             'FirstName'        => $this->input->post('Cname'),
+             'Phone_No'         => $this->input->post('dphn'),
+             'Fax_No'           => $this->input->post('fax'),
+             'Mobile_no'        => $this->input->post('mobile'),
+             'LastModifiedDate' => $date
+        );  
+        $contact = array(
+            'Phone_no'         => $this->input->post('dphn'),
+            'Fax_no'           => $this->input->post('fax'),
+            'Email_address'    => $this->input->post('email'),
+            'Mobile'           => $this->input->post('mobile')
+         );  
+        $address=array(
+        'Address1'      =>$this->input->post('address1'),
+        'Address2'      =>$this->input->post('address2'),
+        'City'          =>$this->input->post('city'),
+        'State'         =>$this->input->post('state'),
+        'Postal_code'   =>$this->input->post('zip'),
+        'Last_modified'  => $date
+        );
+        $this->load->model('ClientModel');
+        $this->ClientModel->updateClientcontact($client_id,$id,$contact_id,$add_id,$info,$contact,$address);
+        $msg['msg']="Updated";
+        echo json_encode($msg);
+    }
+    
+    function deleteClient()
+    {
+        
+        $addId=$this->input->post('addId');
+        $contactId=$this->input->post('contactId');
+        $Id=$this->input->post('Id');
+        $this->load->model('ClientModel');
+        $this->ClientModel->deleteClient($contactId,$addId,$Id);
+        // echo json_encode($data);
+        
+    }
+    
+    function addNotes()
+    {
+        $this->load->library('session');
+        $this->load->model('mainModel');
+         $msg=array();
+        $editor=$this->mainModel->checkSession()[1];
+        
+        //$msg['editor']=$this->mainModel->checkSession()[1];
+         $date = date("Y-m-d h:i:s");
+         $addnote = array(
+             'Client_code'                => $this->input->post('code'),
+             'Notes_type_description'     => $this->input->post('notesdis'),
+             'Notes_type_key'             => $this->input->post('dis'),
+             'category'                   => $this->input->post('cat'),
+             'LastModifiedDate'           => $date,
+             'Editor'                     => $editor
+            
+        );  
+        
+        $this->load->model('ClientModel');
+        $this->ClientModel->addNotes($addnote);
+        $msg['msg']="Notes Added";
+        echo json_encode($msg);
+        
+    }
+    
+    function getnotesAll()
+    {
+        $id=$this->input->post('code');
+        $this->load->model('ClientModel');
+        $data=$this->ClientModel->getnotesAll($id);
+         
+        echo json_encode($data);
+        
+    }
+    
+    function getresources()
+    {
+        $id=$this->input->post('code');
+        $this->load->model('ClientModel');
+        $data=$this->ClientModel->getresources($id);
+         
+        echo json_encode($data);
+    }
+    
+    function editnotes()
+    {
+        $id=$this->input->post('id');
+        $this->load->model('ClientModel');
+        $data=$this->ClientModel->editnotes($id);
+         echo json_encode($data);
+    }
+    
+    function updatenotes()
+    {
+        $msg=array();
+        $id=$this->input->post('noteId');
+ 
+        $this->load->library('session');
+        $this->load->model('mainModel');
+        $msg=array();
+        $editor=$this->mainModel->checkSession()[1];
+        $date = date("Y-m-d h:i:s");
+        $notesinfo = array(
+             //'Client_code'                => $this->input->post('code'),
+             'Notes_type_description'     => $this->input->post('notesdis'),
+             'Notes_type_key'             => $this->input->post('dis'),
+             'category'                   => $this->input->post('cat'),
+             'LastModifiedDate'           => $date,
+             'Editor'                     => $editor
+            
+        ); 
+        
+        $this->load->model('ClientModel');
+        $data=$this->ClientModel->updatenotes($id,$notesinfo);
+        print_r($data);
+        $msg['msg']="Updated";
+        echo json_encode($msg);
+    }
+    
+    public function do_upload(){
+     $config =  array(
+                  'upload_path'     => "./uploads/",
+                  'allowed_types'   => "gif|jpg|png|jpeg|pdf|docx",
+                  'overwrite'       => TRUE,
+                  'max_size'        => "2048000",  // Can be set to particular file size
+                  'max_height'      => "768",
+                  'max_width'       => "1024"  
+                );    
+                
+				$this->load->library('upload', $config);
+                $file=$this->upload->do_upload("userfile");
+                
+				if($file)
+				{
+				    $file_info = $this->upload->data();
+					$data1 = array('upload_data' =>$file_info);
+                   $filepath='../../../../../uploads/'. $file_info['file_name'];
+                    $filename = $file_info['file_name'];
+                    
+                     $date = date("Y-m-d h:i:s");
+                    $addjournal = array(
+            
+                        'Client_code'             => $this->input->post('code'),
+                        'Note_type_description'   => $this->input->post('editor'),
+                        'Note_type_key'           => $this->input->post('general'),
+                        'LastModifiedDate'        => $date
+                         ); 
+                         
+                    $file = array(
+            
+                        'filename'      => $filename,
+                        'filepath'      => $filepath,
+                        'Client_code'   => $this->input->post('code')
+                        ); 
+                    
+                    $this->load->model('ClientModel');
+                    $data=$this->ClientModel->addJournalnote($addjournal,$file);
+                    $msg['msg']="Added";
+                    echo json_encode($msg);
+                    
+				}
+				else
+				{
+				$error = array('error' => $this->upload->display_errors());
+			//	$this->load->view('file_view', $error);
+				}    
 }
 
+
+
+public function addclientResources(){
+     $config =  array(
+                  'upload_path'     => "./uploads/resources/",
+                  'allowed_types'   => "gif|jpg|png|jpeg|pdf|doc|docx",
+                  'overwrite'       => TRUE,
+                   // Can be set to particular file size
+                  //'max_height'      => "768",
+                  //'max_width'       => "1024"  
+                );    
+                
+				$this->load->library('upload', $config);
+                
+                
+                $file=$this->upload->do_upload("Rfile");
+                
+				if($file)
+				{
+				    $file_info = $this->upload->data();
+					$data1 = array('upload_data' =>$file_info);
+                   $filepath='../../../../../uploads/resources/'. $file_info['file_name'];
+                    $filename = $file_info['file_name'];
+                    
+                     $date = date("Y-m-d h:i:s");
+                    $addresources = array(
+            
+                        'Type'           => $this->input->post('Rtype'),
+                        'Client_code'    => $this->input->post('code'),
+                        'Rname'          => $this->input->post('Rname'),
+                        'File'           => $filename,
+                        'Filepath'       => $filepath,
+                        'LastModified'   => $date
+                         ); 
+                    $this->load->model('ClientModel');
+                    $this->ClientModel->addclientResource($addresources);
+                    $msg['msg']="Added";
+                    echo json_encode($msg);
+                    
+				}
+				else
+				{
+				$error = array('error' => $this->upload->display_errors());
+			//	$this->load->view('file_view', $error);
+				}    
+}
+
+        
+
+ 
+   
+}
 
 ?>

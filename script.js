@@ -44,12 +44,21 @@ function GetFormValues(FormID){
                 var FormValues = {};
                 var FormInput = $("#"+FormID).find('input');
                 var FormSelect = $("#"+FormID).find('select');
+                  var Formtextarea = $("#"+FormID).find('textarea');
                 
                 if(FormInput.length != 0){
                     
                     for(var i = 0; i < FormInput.length; i++){
                     
                         FormValues[FormInput[i].name] = FormInput[i].value;
+                    
+                    }
+                }
+                 if(Formtextarea.length != 0){
+                    
+                    for(var i = 0; i < Formtextarea.length; i++){
+                    
+                        FormValues[Formtextarea[i].name] = Formtextarea[i].value;
                     
                     }
                 }

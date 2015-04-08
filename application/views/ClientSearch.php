@@ -59,14 +59,23 @@ function getClientAllSearch() {
                         
                         <tr>
                             <td> Client Type:</td>
-                            <td><select name="clienttype" id="clienttype" class="myfield"><option value="3">Select</option>
-                            <option value="0">Select</option>
-                            <option value="1">Select</option></select></td>
+                            <td><select name="clienttype" id="clienttype" class="myfield"> <option value="0">select</option>
+                        <?php foreach($ctype as $row){?>
+                            <option value="<?php  echo $row->Id?>">
+                                <?php echo $row->Key?></option>
+                            <?php }?></select></td>
                             
                             <td>Client Priority :</td>
-                             <td><select name="clientpriority" id="clientpriority" class="myfield"><option value="3">Select</option>
-                             <option value="0">Select</option>
-                            <option value="1">Select</option></select></td>
+                             <td><select name="clientpriority" id="clientpriority" class="myfield"><option value="9">select</option>
+                         <option>1 - Hot</option>
+                         <option>2</option>
+                         <option>3</option>
+                         <option>4</option>
+                         <option>5 - Medium</option>
+                         <option>6</option>
+                         <option>7</option>
+                         <option>8</option>
+                         <option>9 - Cold</option></select></td>
                         </tr>
                         
                          <tr>
@@ -82,9 +91,11 @@ function getClientAllSearch() {
                              <td><input class="myfield" placeholder="" name="lastname" type="text" /></td>
                             
                             <td>Client Status :</td>
-                             <td><select name="clientstatus" id="clientstatus" class="myfield"><option value="3">Select</option>
-                             <option value="0">Select</option>
-                            <option value="1">Select</option></select></td>
+                             <td><select name="clientstatus" id="clientstatus" class="myfield"><option value="5">select</option>
+                        <option value="1">Active</option>
+                        <option value="0">Inactive</option>
+                        <option value="3">Lead</option>
+                        </select></td>
                             
                         </tr>
                         
@@ -100,7 +111,11 @@ function getClientAllSearch() {
                             <td> Zip:  </td>
                              <td><input class="myfield" placeholder="" name="zip" type="text" /></td>
                             <td> State:  </td>
-                             <td><input class="myfield" placeholder="" name="state" type="text" /></td>
+                             <td><select name="state" id="state" class="myfield"><option value="100">select</option>
+                         <?php foreach($query as $row){?>
+                            <option value="<?php  echo $row->Id?>">
+                                <?php echo $row->State_full?></option>
+                            <?php }?></select></td>
                             <td><input type="checkbox" name="chk1" /></td>
                             </tr>
                         

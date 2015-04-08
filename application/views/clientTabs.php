@@ -5,6 +5,6 @@
 <li><a <?php echo $innerMenuActive=="clientactive" ? "class=\"innerMenuActive\"" : ""; ?> href="<?php echo $base; ?>/index.php/ClientController/clientactive">Active</a></li>
 <li><a <?php echo $innerMenuActive=="clientinactive" ? "class=\"innerMenuActive\"" : ""; ?> href="<?php echo $base; ?>/index.php/ClientController/clientinactive">Inactive</a></li>
 <li><a <?php echo $innerMenuActive=="lead" ? "class=\"innerMenuActive\"" : ""; ?> href="<?php echo $base; ?>/index.php/ClientController/client">Lead</a></li>
-<li><a <?php echo $innerMenuActive=="myfolder" ? "class=\"innerMenuActive\"" : ""; ?> href="<?php echo $base; ?>/index.php/ClientController/client">My Folder</a></li>
+
 <li><a <?php echo $innerMenuActive=="clientinfile" ? "class=\"innerMenuActive\"" : ""; ?> href="<?php echo $base; ?>/index.php/ClientController/clientinfile">My File</a></li>
 </ul>
