@@ -14,8 +14,15 @@
 
         <div class="FormFields">
 
-            <form action="<?php echo $base/'upload.php'?>" method="post">
-                <table style="float: inherit;"  class="FieldsTable" cellpadding="6">
+            <form action="" method="post">
+                
+
+            </form>
+
+          
+            
+            <form name="demoFiler" id="demoFiler" enctype="multipart/form-data">
+          <table style="float: inherit;"  class="FieldsTable" cellpadding="6">
 
                     <tr>
                         <td>Client Name :</td>
@@ -27,21 +34,16 @@
                         <td>
                             <input class="myfield" placeholder="" name="firstname" type="text" />
                         </td>
+                        <tr><td></td><td colspan="3"><div id="dragAndDropFiles" class="uploadArea">
+                <h1 style="font-size: 66px;">Drop Files Here</h1>
+            </div></td></tr>
+                        <tr><td></td><td>  <input type="file" name="multiUpload" id="multiUpload" style="float: right;"  multiple /></td>
+                      <td></td>
+                        <td> <input type="submit" name="submitHandler" id="submitHandler" value="Upload" class="button BtnBlack medium" /></td></tr>
                     </tr>
                 </table>
-
             </form>
-
-            <div id="dragAndDropFiles" class="uploadArea">
-                <h1 style="font-size: 66px;">Drop Files Here</h1>
-            </div>
-            
-            <form name="demoFiler" id="demoFiler" enctype="multipart/form-data">
-            <input class="myfield" placeholder="" name="title" id="title" type="text" />
-                <input type="file" name="multiUpload" id="multiUpload" style="float: right;"  multiple />
-                
-               <input type="submit" name="submitHandler" id="submitHandler" value="Upload" class="buttonUpload" />
-            </form>
+              
             <div class="progressBar">
                 <div class="status"></div>
             </div>

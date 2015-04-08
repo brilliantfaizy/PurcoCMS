@@ -236,31 +236,7 @@
                       return false;
                }
                
-               // function addjournal()
-//               {
-               
-//                
-//                   //alert('ok');
-//                    $.ajax({
-//                            url: "<?php echo $base; ?>/index.php/ClientController/do_upload",
-//                            data: GetFormValues('journal'),
-//                            type: "POST",
-//                          
-//                            success: function(data) {
-//                               // console.log(data);
-//                                    $("#journal111").show();          
-//                                }, error: function(data){
-//                                    
-//                                    alert(data);  
-//                                    
-//                                }
-//                            }); 
-//                      
-//                      return false;
-           // }
-               
-               
-             
+         
                function deleteclientdata()
                {
                     var contact_id = $("#Contact_id").val();
@@ -400,7 +376,62 @@
                 $('#btnupdatenote').hide();
                 getnotesall(); 
                 getresources();  
-  
+   $("#journal").on('submit',(function(e) {
+        e.preventDefault();
+        $.ajax({
+            url: "<?php echo $base; ?>/index.php/ClientController/do_upload",
+            type: "POST",
+            data:  new FormData(this),
+            mimeType:"multipart/form-data",
+            contentType: false,
+            cache: false,
+            processData:false,
+            success: function(data)
+            {
+                 $('#journalmsg').show();
+                 setTimeout(function() {
+                                    $("#general").val($("#cat option:first").val());
+                                     $("#editor").val('');
+                                     $("#userImage").val('');
+                                    $("#journalmsg").hide();  
+                                      
+                                    }, 2000);
+            },
+            error: function() 
+            {
+            }           
+       });
+    })); 
+    
+    
+    
+   ////////////////// 
+    $("#resources").on('submit',(function(e) {
+        e.preventDefault();
+        $.ajax({
+            url: "<?php echo $base; ?>/index.php/ClientController/addclientResources",
+            type: "POST",
+            data:  new FormData(this),
+            mimeType:"multipart/form-data",
+            contentType: false,
+            cache: false,
+            processData:false,
+            success: function(data)
+            {
+                 $('#resourcemsg').show();
+                 setTimeout(function() {
+                                    $("#Rtype").val('');
+                                     $("#Rname").val('');
+                                    $("#resourcemsg").hide();  
+                                       $("#Rfile").val('');
+                                    }, 2000);
+                                    getresources();
+            },
+            error: function() 
+            {
+            }           
+       });
+    }));
   
    
 }); 
@@ -458,7 +489,7 @@ function getresources() {
    
             
 	</script>
-    
+  
      <script src="<?php echo "$base/jquery.fwd_tabs.js"?>"></script>
      <div id="innerMenu">
 
@@ -776,7 +807,7 @@ function getresources() {
                     <tr> <td><select class="myfield" id="contacts" style="width:128px;" name="contacts" onchange="dropdown();">
                  <option>Select</option>
                  <?php  foreach($contact as $cname){?>
-                 <option value="<?php echo $cname->ContactId;?>"><?php echo $cname->Client_name;?></option>
+                 <option value="<?php echo $cname->Address_Id;?>"><?php echo $cname->Client_name;?></option>
                  <?php }?>
                </select></td></tr>
                     </table>
@@ -1155,8 +1186,9 @@ function getresources() {
             </tr>
             <tr>
             <td>Attachment:</td>
-            <td><input type="file" name="userfile" size="20" id="file"/></td>
+            <td><input type="file" name="userImage" size="20" id="userImage"/></td>
             </tr>
+            <tr><td><span id="journalmsg" style="display:none; color:#0C0">Journal added...</span></td></tr>
             </table>
             </div>
             
@@ -1195,7 +1227,7 @@ function getresources() {
         <div class="tab-content" id="tab-6">
 		
         <div class="FormFields">
-        <form action="../../../addclientResources" method="post" enctype="multipart/form-data">
+        <form action="ClientController/addclientResources" method="post" id="resources" enctype="multipart/form-data">
       	<table class="FieldsTable" cellpadding="6">
           <tr>
           <td><input  placeholder=""  type="hidden" name="code"  value="<?php  echo $row->Client_code;?>" />
@@ -1211,8 +1243,8 @@ function getresources() {
           <tr>
           <td></td>
           <td></td>
-          <td></td>
-          <td><input type="submit" name="resource" id="resource" value="Upload Resource" class="button BtnBlack medium" />
+          <td> <span id="resourcemsg" style="display:none; color:#0C0">Journal added...</span></td>
+          <td><input type="submit" name="submit" id="resource" value="Upload Resource" class="button BtnBlack medium" />
           </td>
           </tr>
           <tr></tr>

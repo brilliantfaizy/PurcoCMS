@@ -33,6 +33,8 @@ class ClientController extends CI_Controller
         $data['contact']=$this->ClientModel->getcontactname($id);
         $data['cntctDetails']=$this->ClientModel->contactdetails($cid);
         $this->load->view('ClientEdit', $data);
+      //  $this->load->view('fileupload', $data);
+        
     }
     function client()
     {
@@ -92,6 +94,19 @@ class ClientController extends CI_Controller
         
         
     }
+     function clientlead()
+    {
+        
+        $data['base']            = $this->config->item('base_url');
+        $data['css']             = $this->config->item('css');
+        $data['innerMenuActive'] = 'clientlead';
+        $data['innerTabsActive'] = '';
+        $this->load->view('ClientLead', $data);
+        
+        
+        
+    }
+    
     function clientinactive()
     {
         
@@ -295,6 +310,12 @@ class ClientController extends CI_Controller
         echo json_encode($data);
         
     }
+    function getclientLead()
+    {
+         $this->load->model('ClientModel');
+        $data=$this->ClientModel->getclientLead();
+        echo json_encode($data);
+    }
      function getclientInactive()
     {
         $this->load->model('ClientModel');
@@ -342,7 +363,7 @@ class ClientController extends CI_Controller
         'LastModifiedDate'  =>$date
         );
         $this->load->model('ClientModel');
-        $this->ClientModel->updateClient($id,$contact,$address);
+        $this->ClientModel->updateClient($id,$contact,$address,$client,$id);
         $msg['msg']="Updated";
         echo json_encode($msg);
     }
@@ -367,10 +388,10 @@ class ClientController extends CI_Controller
         $this->load->model('ClientModel');
          $date = date("Y-m-d h:i:s");
        
-       
+       $code=$this->input->post('code');
 
         $info = array(
-             'Client_code'      => $this->input->post('code'),
+             'Client_code'      => $code,
              'FirstName'        => $this->input->post('Cname'),
              'Phone_No'         => $this->input->post('dphn'),
              'Fax_No'           => $this->input->post('fax'),
@@ -378,14 +399,14 @@ class ClientController extends CI_Controller
              'LastModifiedDate' => $date
         );  
         $contact = array(
-            'Main_Id'          => $this->input->post('code'),
+            'Main_Id'          => $code,
             'Phone_no'         => $this->input->post('dphn'),
             'Fax_no'           => $this->input->post('fax'),
             'Email_address'    => $this->input->post('email'),
             'Mobile'           => $this->input->post('mobile')
          );  
         $address1 = array(
-            'Main_Id'        => $this->input->post('code'),
+            'Main_Id'        => $code,
             'Address1'       => $this->input->post('address1'),
             'Address2'       => $this->input->post('address2'),
             'City'           => $this->input->post('city'),
@@ -395,8 +416,10 @@ class ClientController extends CI_Controller
           
          );  
            
-
-        $this->ClientModel->addnewcontact($info,$contact,$address1);
+        $clientDetail= array(
+            'LastModifiedDate' =>$date
+        );
+        $this->ClientModel->addnewcontact($info,$contact,$address1,$clientDetail,$code);
         $msg['msg']="Record Inserted Successfully";
          echo json_encode($msg);
    
@@ -536,22 +559,25 @@ class ClientController extends CI_Controller
                   'upload_path'     => "./uploads/",
                   'allowed_types'   => "gif|jpg|png|jpeg|pdf|docx",
                   'overwrite'       => TRUE,
-                  'max_size'        => "2048000",  // Can be set to particular file size
+                  'max_size'        => "2048000",  
                   'max_height'      => "768",
                   'max_width'       => "1024"  
                 );    
                 
 				$this->load->library('upload', $config);
-                $file=$this->upload->do_upload("userfile");
                 
-				if($file)
-				{
-				    $file_info = $this->upload->data();
-					$data1 = array('upload_data' =>$file_info);
-                   $filepath='../../../../../uploads/'. $file_info['file_name'];
-                    $filename = $file_info['file_name'];
-                    
-                     $date = date("Y-m-d h:i:s");
+                 if(is_array($_FILES)) {
+                if(is_uploaded_file($_FILES['userImage']['tmp_name'])) {
+                    $sourcePath = $_FILES['userImage']['tmp_name'];
+                    $targetPath = "./uploads/".$_FILES['userImage']['name'];
+                    $filename=$_FILES['userImage']['name'];
+                if(move_uploaded_file($sourcePath,$targetPath)) {
+    echo '<img src="'.base_url().$targetPath .'" width="100px" height="100px" alt="'.$_POST['image_title'].'"/>';
+            }
+        }
+    }
+                  $date = date("Y-m-d h:i:s");
+                  
                     $addjournal = array(
             
                         'Client_code'             => $this->input->post('code'),
@@ -559,11 +585,11 @@ class ClientController extends CI_Controller
                         'Note_type_key'           => $this->input->post('general'),
                         'LastModifiedDate'        => $date
                          ); 
-                         
-                    $file = array(
+                 
+                          $file = array(
             
                         'filename'      => $filename,
-                        'filepath'      => $filepath,
+                        'filepath'      => $targetPath,
                         'Client_code'   => $this->input->post('code')
                         ); 
                     
@@ -571,60 +597,67 @@ class ClientController extends CI_Controller
                     $data=$this->ClientModel->addJournalnote($addjournal,$file);
                     $msg['msg']="Added";
                     echo json_encode($msg);
-                    
-				}
-				else
-				{
-				$error = array('error' => $this->upload->display_errors());
-			//	$this->load->view('file_view', $error);
-				}    
+           
 }
 
 
 
-public function addclientResources(){
-     $config =  array(
-                  'upload_path'     => "./uploads/resources/",
-                  'allowed_types'   => "gif|jpg|png|jpeg|pdf|doc|docx",
-                  'overwrite'       => TRUE,
-                   // Can be set to particular file size
-                  //'max_height'      => "768",
-                  //'max_width'       => "1024"  
-                );    
-                
-				$this->load->library('upload', $config);
-                
-                
-                $file=$this->upload->do_upload("Rfile");
-                
-				if($file)
-				{
-				    $file_info = $this->upload->data();
-					$data1 = array('upload_data' =>$file_info);
-                   $filepath='../../../../../uploads/resources/'. $file_info['file_name'];
-                    $filename = $file_info['file_name'];
-                    
-                     $date = date("Y-m-d h:i:s");
+public function addclientResources(){           
+                if(is_array($_FILES)) {
+                if(is_uploaded_file($_FILES['Rfile']['tmp_name'])) {
+                    $sourcePath = $_FILES['Rfile']['tmp_name'];
+                    $targetPath = "./uploads/resources/".$_FILES['Rfile']['name'];
+                    $filename=$_FILES['Rfile']['name'];
+                if(move_uploaded_file($sourcePath,$targetPath)) {
+    echo '<img src="'.base_url().$targetPath .'" width="100px" height="100px" alt="'.$_POST['image_title'].'"/>';
+            }
+        }
+         $date = date("Y-m-d h:i:s");
                     $addresources = array(
             
                         'Type'           => $this->input->post('Rtype'),
                         'Client_code'    => $this->input->post('code'),
                         'Rname'          => $this->input->post('Rname'),
                         'File'           => $filename,
-                        'Filepath'       => $filepath,
+                        'Filepath'       => $targetPath,
                         'LastModified'   => $date
                          ); 
                     $this->load->model('ClientModel');
                     $this->ClientModel->addclientResource($addresources);
                     $msg['msg']="Added";
                     echo json_encode($msg);
-                    
-				}
-				else
-				{
-				$error = array('error' => $this->upload->display_errors());
-			//	$this->load->view('file_view', $error);
-				}    
+    }
+                
+                //$file=$this->upload->do_upload("Rfile");
+//                
+//				if($file)
+//				{
+//				    $file_info = $this->upload->data();
+//					$data1 = array('upload_data' =>$file_info);
+//                   $filepath='../../../../../uploads/resources/'. $file_info['file_name'];
+//                    $filename = $file_info['file_name'];
+//                    
+//                     $date = date("Y-m-d h:i:s");
+//                    $addresources = array(
+//            
+//                        'Type'           => $this->input->post('Rtype'),
+//                        'Client_code'    => $this->input->post('code'),
+//                        'Rname'          => $this->input->post('Rname'),
+//                        'File'           => $filename,
+//                        'Filepath'       => $filepath,
+//                        'LastModified'   => $date
+//                         ); 
+//                    $this->load->model('ClientModel');
+//                    $this->ClientModel->addclientResource($addresources);
+//                    $msg['msg']="Added";
+//                    echo json_encode($msg);
+//                    
+//				}
+//				else
+//				{
+//				$error = array('error' => $this->upload->display_errors());
+//			//	$this->load->view('file_view', $error);
+//				}    
 }
 
         

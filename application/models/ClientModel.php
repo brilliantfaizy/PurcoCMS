@@ -35,9 +35,9 @@ class ClientModel extends CI_Model{
     function getcontactname($id)
     {
          $this->load->database();
-      $sql="select tbl_client_details.Client_name,tbl_contact_info.* from tbl_contact_info JOIN 
-      tbl_client_details ON tbl_contact_info.Main_Id=tbl_client_details.Client_code
-      where tbl_contact_info.Main_Id='$id'";
+      $sql="select tbl_client_details.Client_name,tbl_address_all.* from tbl_address_all JOIN 
+      tbl_client_details ON tbl_address_all.Main_Id=tbl_client_details.Client_code
+      where tbl_address_all.Main_Id='$id'";
       $result = $this->db->query($sql);
       $return = array();
       if($result->num_rows() > 0) 
@@ -91,11 +91,12 @@ class ClientModel extends CI_Model{
     function getAllClient()
     {
         $this->load->database();
-        $sql="SELECT tbl_client_info.* , tbl_address_all.*, tbl_contact_info.* FROM tbl_client_info JOIN       
-                tbl_contact_info  ON tbl_client_info.Client_code = tbl_contact_info.Main_Id JOIN 
-                tbl_address_all ON tbl_contact_info.Main_Id = tbl_address_all.Main_Id where 
-                tbl_address_all.Address_name='Mailing Address'  
-                group by tbl_contact_info.ContactId";
+        $sql="SELECT tbl_client_info.* , tbl_address_all.*, tbl_contact_info.*, tbl_client_details.* 
+                FROM tbl_client_info JOIN   tbl_contact_info  ON 
+                tbl_client_info.Client_code = tbl_contact_info.Main_Id JOIN tbl_address_all 
+                ON tbl_contact_info.Main_Id = tbl_address_all.Main_Id JOIN tbl_client_details 
+                ON tbl_client_details.Client_code=tbl_client_info.Client_code 
+                where tbl_address_all.Address_name='Mailing Address'  group by tbl_contact_info.ContactId";
          $query=$this->db->query($sql);
          return $query->result();
     }
@@ -152,6 +153,17 @@ class ClientModel extends CI_Model{
          return $query->result();
     }
     
+    function getclientLead()
+    {
+        $this->load->database();
+        $sql="SELECT distinct tbl_address_all.*,tbl_client_details.*
+        ,tbl_client_info.* FROM tbl_client_details JOIN tbl_client_info 
+        ON tbl_client_details.Client_code = tbl_client_info.Client_code 
+        JOIN tbl_address_all ON tbl_client_details.Client_code = tbl_address_all.Main_Id
+         where tbl_address_all.Address_name='Mailing Address' and tbl_client_details.Client_status=3";
+         $query=$this->db->query($sql);
+         return $query->result();
+    }
     function getclientInactive()
     {
         $this->load->database();
@@ -210,28 +222,31 @@ class ClientModel extends CI_Model{
 
         
      }
-     
+     ////////////////////////////////////////////////////////
      function contactdetails($id)
      {
         $this->load->database();
-        $sql="select tbl_client_details.*, tbl_address_all.*,tbl_contact_info.*,
-              tbl_client_info.FirstName,tbl_client_info.Id,tbl_client_info.LastName
-              from tbl_client_details JOIN tbl_address_all  ON tbl_client_details.Client_code=tbl_address_all.Main_Id
-              JOIN tbl_contact_info ON tbl_client_details.Client_code=tbl_contact_info.Main_Id JOIN tbl_client_info ON 
-              tbl_client_details.Client_code=tbl_client_info.Client_code where tbl_address_all.Address_name='Mailing Address' 
-              and  tbl_contact_info.ContactId=".$id."
-               group by tbl_contact_info.ContactId";
+        $sql="select tbl_client_details.*, tbl_address_all.*,tbl_contact_info.*, tbl_client_info.*
+              from tbl_client_info JOIN tbl_address_all  ON tbl_client_info.Client_code=tbl_address_all.Main_Id
+              JOIN tbl_contact_info ON tbl_client_info.Client_code=tbl_contact_info.Main_Id Join 
+              tbl_client_details on tbl_client_details.Client_code=tbl_client_info.Client_code
+               where tbl_address_all.Address_name='Mailing Address'  and 
+                tbl_address_all.Address_Id=".$id." and tbl_client_info.Id=6
+              group by  tbl_address_all.Address_Id";
         $query=$this->db->query($sql);
          //return $query;
        return $query->result();
      }
     
-    function addnewcontact($info,$contact,$address1)
+    function addnewcontact($info,$contact,$address1,$clientDetail,$code)
      { 
         $address1['Address_name'] = "Mailing Address";
         $this->db->insert('tbl_client_info', $info);
         $this->db->insert('tbl_contact_info', $contact);
         $this->db->insert('tbl_address_all', $address1);  
+        
+        $this->db->where(array('Client_code' => $code));
+        $this->db->update('tbl_contact_details',$clientDetail);
      }
    
    function updateClientcontact($client_id,$id,$contact_id,$add_id,$info,$contact,$address)
@@ -313,7 +328,7 @@ class ClientModel extends CI_Model{
    {
         $this->load->database();
          $this->db->insert('tbl_client_resource',$addresources);
-         }
+   }
    
      
 }
