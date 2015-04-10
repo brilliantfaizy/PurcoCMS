@@ -142,7 +142,7 @@ getclienttype();
                             <td><input class="myfield" placeholder="" name="key1" id="key1" type="text" /></td>
                             
                             <td>Description :</td>
-                             <td><input class="myfield" placeholder="" name="description" id="description"  type="text" /></td>
+                             <td><input class="myfield" placeholder="" name="description" id="description" type="text" /></td>
                         </tr>
                         
                     

@@ -102,22 +102,19 @@
                             data: GetFormValues('notes'),
                             type: "POST",
                             success: function(data) {
-                              //console.log(data);
-                                      $("#successnotes").html(JSON.parse(data).msg);  
+                                    $("#successnotes").html(JSON.parse(data).msg);  
                                     $("#successnotes").show();
                                     $('#btnaddnote').hide();
                                     $('#btnupdatenote').hide();
                                     setTimeout(function() {
                                     $("#cat").val($("#cat option:first").val());
-                                     $("#notesdis").val('');
-                                      $("#dis").val('');
+                                    $("#notesdis").val('');
+                                    $("#dis").val('');
                                     $("#successnotes").hide();  
-                                     $('#btnaddnote').show();
-                                    // getnotes();  
+                                    $('#btnaddnote').show();
                                     }, 2000);
                                     
                                      getnotesall();
-                                
                                     return false;         
                                 }, error: function(data){
                                     
@@ -826,9 +823,9 @@ function getresources() {
                  
                 <td></td>
                 <td>  <input  placeholder=""  type="hidden" name="client_id" id="client_id" value="" />
-                    <input  placeholder=""  type="hidden" name="code" id="code" value="" /> 
-                    <input  placeholder=""  type="hidden" name="add_Id" id="add_Id" value="" />
-                   <input  placeholder=""  type="hidden" name="Contact_id" value="" id="Contact_id" />  </td>
+                      <input  placeholder=""  type="hidden" name="code" id="code" value="" /> 
+                      <input  placeholder=""  type="hidden" name="add_Id" id="add_Id" value="" />
+                      <input  placeholder=""  type="hidden" name="Contact_id" value="" id="Contact_id" />  </td>
                  <td>Title:</td>
                 <td>  <input class="myfield" placeholder=""   type="text" name="title" id="title" value=""  /></td>
                <td><a href="">Address</a></td>

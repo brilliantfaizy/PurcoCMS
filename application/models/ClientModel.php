@@ -8,6 +8,7 @@ class ClientModel extends CI_Model{
      }
      function insert_users($details,$info,$contact,$address1,$address2)
      {
+         $this->load->database();
         $this->db->insert('tbl_client_details', $details);
         $address1['Address_name'] = "Mailing Address";
         $address2['Address_name'] = "Residential Address";
@@ -212,17 +213,14 @@ class ClientModel extends CI_Model{
          $this->load->database();
          $this->db->where(array('Main_Id' => $id));
          $this->db->update('tbl_contact_info',$contact);
-        
-        $this->db->where(array('Client_code' => $code,'Id'=>$id));
+         $this->db->where(array('Client_code' => $code,'Id'=>$id));
          $this->db->update('tbl_client_info',$client);
-        
-        
          $this->db->where(array('Main_Id' => $id,'Address_name' => 'Mailing Address'));
          $this->db->update('tbl_address_all',$address);
 
         
      }
-     ////////////////////////////////////////////////////////
+    
      function contactdetails($id)
      {
         $this->load->database();
@@ -230,11 +228,10 @@ class ClientModel extends CI_Model{
               from tbl_client_info JOIN tbl_address_all  ON tbl_client_info.Client_code=tbl_address_all.Main_Id
               JOIN tbl_contact_info ON tbl_client_info.Client_code=tbl_contact_info.Main_Id Join 
               tbl_client_details on tbl_client_details.Client_code=tbl_client_info.Client_code
-               where tbl_address_all.Address_name='Mailing Address'  and 
-                tbl_address_all.Address_Id=".$id." and tbl_client_info.Id=6
+              where tbl_address_all.Address_name='Mailing Address'  and 
+              tbl_address_all.Address_Id=".$id." and tbl_client_info.Id=6
               group by  tbl_address_all.Address_Id";
-        $query=$this->db->query($sql);
-         //return $query;
+       $query=$this->db->query($sql);
        return $query->result();
      }
     

@@ -23,10 +23,10 @@
 				description: {
 					required: "Please enter a Description"
 				}
-			},submitHandler: function addAdditionalInfo()
+			},submitHandler: function addpaymentorigin()
                {
                     $.ajax({
-                            url: "<?php echo $base; ?>/index.php/AddotionalInfoController/AddAdditionalInfo",
+                            url: "<?php echo $base; ?>/index.php/PaymentOriginController/Addpaymentorigin",
                             data: GetFormValues('signupForm'),
                             type: "POST",
                             success: function(data) {
@@ -40,7 +40,7 @@
                                     $("#partyadd").hide();
                                     $('#btnaddparty').show();  
                                     }, 2000);
-                                    getAdditionalInfo();
+                                    getpaymentorigin();
                                     // getnotesall();
                                     return false;         
                                 }, error: function(data){
@@ -56,9 +56,9 @@
 	});
      
     
-     function updateAdditionalInfo(){
+     function updatepaymentorigin(){
                     $.ajax({
-                    url:"<?php echo $base; ?>/index.php/AddotionalInfoController/updateAdditionalInfo",    
+                    url:"<?php echo $base; ?>/index.php/PaymentOriginController/updatepaymentorigin",    
                      data: GetFormValues('signupForm'),
                     type: "POST",
                     success: function(data){
@@ -75,7 +75,7 @@
                                     $('#btnaddparty').show();
                                     $("#updatetype").hide(); 
                                     }, 2000);
-                     getAdditionalInfo();
+                     getpaymentorigin();
                 } , error: function(data){
                                     
                                     alert(data);  
@@ -88,50 +88,17 @@
                  return false;
                 }
      
-      function FilterAdditionalInfo(thiss){ 
-        
-                    $.ajax({
-                    url:"<?php echo $base; ?>/index.php/AddotionalInfoController/FilterAdditionalInfo",    
-                    data: {filterID:$(thiss).val(),typeId:$(thiss).attr("name")},
-                    type: "POST",
-                    success: function(data){
-                    var myobj;
-                    myobj = JSON.parse(data);
-                    console.log(myobj);
-                    // getAdditionalInfo();
-                     
-                } , error: function(data){
-                                    
-                                    alert(data);  
-                                    
-                                }
-                     
-                  
-              
-                });
-                 return false;
-                }
-     
-     function getAdditionalInfo() {
-        
-     
-        
-     var TableData = '<tr><th>Key</th><th>Description</th><th>Filter</th><th>Action</th></tr>';
+     function getpaymentorigin() {
+     var TableData = '<tr><th>Key</th><th>Description</th><th>Action</th></tr>';
 
     $.ajax({
-        url: "<?php echo $base; ?>/index.php/AddotionalInfoController/getAdditionalInfo",
+        url: "<?php echo $base; ?>/index.php/PaymentOriginController/getpaymentorigin",
         type:'POST',
-       
+        //data:{data},
         success: function(data) {
-          
-           for (var i = 0; i<JSON.parse(data).length; i++) {
-              var filterVal=JSON.parse(data)[i].Filter;
-                     
-              
-                   TableData += '<tr><td>' + JSON.parse(data)[i].Key + '</td><td>' + JSON.parse(data)[i].Description + '</td><td><select onchange="FilterAdditionalInfo(this); return false;" class="myfield filter" name="'+JSON.parse(data)[i].Id+'"><option value="0">Select</option><option value="1">Capitalize</option><option value="2">Currency</option><option value="3">Date</option><option value="4">SSN</option><option value="5">Number</option></select></td><td><a href="#" onclick="editAdditionalInfo('+JSON.parse(data)[i].Id+'); return false;">Edit</a> <a href="" onclick="deleteAdditionalInfo('+JSON.parse(data)[i].Id+'); return false;" > Delete</a></td></tr>';
+           for (var i = 0; i < JSON.parse(data).length; i++) {
+                   TableData += '<tr><td>' + JSON.parse(data)[i].Key + '</td><td>' + JSON.parse(data)[i].Description + '</td><td><a href="#" onclick="editpaymentorigin('+JSON.parse(data)[i].Id+'); return false;">Edit</a> <a href="" onclick="deletepaymentorigin('+JSON.parse(data)[i].Id+'); return false;" > Delete</a></td></tr>';
         }
-        
-     
             $(".Grid table").html(TableData);
 
         },
@@ -151,10 +118,10 @@ function viewadd()
     $('#btnupdateparty').hide(); 
     
 }
-function editAdditionalInfo(id){
+function editpaymentorigin(id){
                  $('#signupForm').show();
                     $.ajax({
-                    url:"<?php echo $base; ?>/index.php/AddotionalInfoController/editAdditionalInfo",    
+                    url:"<?php echo $base; ?>/index.php/PaymentOriginController/editpaymentorigin",    
                      data: {id: id},
                     type: "POST",
                     success: function(data){
@@ -174,18 +141,18 @@ function editAdditionalInfo(id){
                 
                 }
                 
-getAdditionalInfo();
+getpaymentorigin();
 
-function deleteAdditionalInfo(id)
+function deletepaymentorigin(id)
 {
       var result = confirm("Want to delete?");
         if (result) {
            $.ajax({
           type: "GET",
-          url: "<?php echo $base;?>/index.php/AddotionalInfoController/deleteAdditionalInfo/"+id,
+          url: "<?php echo $base;?>/index.php/PaymentOriginController/deletepaymentorigin/"+id,
           success: function(response) {
 
-          getAdditionalInfo();
+          getpaymentorigin();
 
        }
     });
@@ -215,12 +182,12 @@ function deleteAdditionalInfo(id)
  <div id="innerMenu">
  
                 <ul>
-                    <li><a class="innerMenuActive" href="#" onclick="viewadd(); return false;">Add Involved Party Additional Information</a> </li>
+                    <li><a class="innerMenuActive" href="#" onclick="viewadd(); return false;">Add Payment Origin</a> </li>
                 </ul>
 
 
             </div>
-    <div class="FormFields">
+    <div class="FormFields" >
 
         <form action="" id="signupForm" method="post" style="display: none;">
           
@@ -244,10 +211,10 @@ function deleteAdditionalInfo(id)
               </td>
                     <td></td>
                     <td><div id="btnaddparty">  
-                    <input type="submit" class="medium button BtnBlack" name="partytype" value="Add Additional Info" />
+                    <input type="submit" class="medium button BtnBlack" name="partytype" value="Add Payment Origin" />
                  </div>
                  <div id="btnupdateparty">  
-                    <input type="button" class="medium button BtnBlack" onclick="updateAdditionalInfo(); return false;" name="updatepartytype1" value="Update Additional Info" />
+                    <input type="button" class="medium button BtnBlack" onclick="updatepaymentorigin(); return false;" name="updatepartytype1" value="Update Payment Origin" />
                  </div>
                          </td>
                 </tr>
@@ -257,13 +224,13 @@ function deleteAdditionalInfo(id)
 
     </div>
 
-   <div class="Grid">
+  
+        <div class="Grid">
             <table  cellspacing="0" cellpadding="10">
 
 
             </table>
         </div>
-   
 
 </div>
 <?php $this->load->view('footer'); ?>

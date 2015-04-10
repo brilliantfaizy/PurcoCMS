@@ -1,10 +1,10 @@
 <?php
 
 
-class InvolvedPartyController extends CI_Controller{
+class PaymentOriginController extends CI_Controller{
     
-      public $activeMenu = 'InvolvedPartyController';
-    function InvolvedPartyController()
+     public $activeMenu = 'PaymentOriginController';
+    function PaymentOriginController()
     {
         parent::__construct();
          $this->load->model('mainModel');
@@ -12,19 +12,17 @@ class InvolvedPartyController extends CI_Controller{
         $this->mainModel->checkSession();
         
     }
-  
-      
-      function involved()
+    function paymentorigin()
     {
        $data['base'] = $this->config->item('base_url');
-       $data['css'] = $this->config->item('css');
-       $this->load->view('Automobile/InvolvedPartyView',$data);
+        $data['css'] = $this->config->item('css');
+         $this->load->view('PaymentOriginView',$data);
     }
     
-    function AddInvolvedPartyType()
+      function Addpaymentorigin()
     {
         $msg=array();
-        $this->load->model('InvolvedPartyModel');
+        $this->load->model('PaymentOriginModel');
         $date =gmdate("Y-m-d h:i:s",time()+(5*3600));
       
         $data = array(
@@ -33,26 +31,26 @@ class InvolvedPartyController extends CI_Controller{
              'LastModified'      => $date
              
         );
-         $this->InvolvedPartyModel ->AddInvolvedPartyType($data);
+         $this->PaymentOriginModel ->Addpaymentorigin($data);
          $msg['msg']="Record Inserted Successfully";
          echo json_encode($msg);
     }
     
-    function getTypeOfPartyAll()
+    function getpaymentorigin()
     {
-        $this->load->model('InvolvedPartyModel');
-        $data= $this->InvolvedPartyModel->getTypeOfPartyAll();
+        $this->load->model('PaymentOriginModel');
+        $data= $this->PaymentOriginModel->getpaymentorigin();
         echo json_encode($data);
     }
     
-    function editpartytype()
+    function editpaymentorigin()
     {
         $id=$this->input->post('id');
-        $this->load->model('InvolvedPartyModel');
-        $data=$this->InvolvedPartyModel->editpartytype($id);
+        $this->load->model('PaymentOriginModel');
+        $data=$this->PaymentOriginModel->editpaymentorigin($id);
         echo json_encode($data);
     }
-    function updatepartytype()
+    function updatepaymentorigin()
     {
         
         $id=$this->input->post('typeId');
@@ -66,21 +64,20 @@ class InvolvedPartyController extends CI_Controller{
              
         );
         
-        $this->load->model('InvolvedPartyModel');
-        $data=$this->InvolvedPartyModel->updatepartytype($id,$data);
+        $this->load->model('PaymentOriginModel');
+        $data=$this->PaymentOriginModel->updatepaymentorigin($id,$data);
         $msg['msg']="Updated";
         echo json_encode($msg);
     }
     
-    public function deletepartytype()
+    public function deletepaymentorigin()
     {
         $msg=array();
         $id=$this->uri->segment(3);
-        $this->load->model('InvolvedPartyModel');
-        $delete=$this->InvolvedPartyModel->deletepartytype($id);
+        $this->load->model('PaymentOriginModel');
+        $delete=$this->PaymentOriginModel->deletepaymentorigin($id);
         $msg['msg']="Deleted";
         echo json_encode($msg);
    }
-  
 }
 ?>

@@ -1,10 +1,10 @@
 <?php
 
 
-class InvolvedPartyController extends CI_Controller{
+class AddContactInfoTypeController extends CI_Controller{
     
-      public $activeMenu = 'InvolvedPartyController';
-    function InvolvedPartyController()
+     public $activeMenu = 'AddContactInfoTypeController';
+    function AddContactInfoTypeController()
     {
         parent::__construct();
          $this->load->model('mainModel');
@@ -12,19 +12,17 @@ class InvolvedPartyController extends CI_Controller{
         $this->mainModel->checkSession();
         
     }
-  
-      
-      function involved()
+    function contactinfo()
     {
        $data['base'] = $this->config->item('base_url');
-       $data['css'] = $this->config->item('css');
-       $this->load->view('Automobile/InvolvedPartyView',$data);
+        $data['css'] = $this->config->item('css');
+         $this->load->view('ContactInfoType',$data);
     }
     
-    function AddInvolvedPartyType()
+      function AddContactInfoType()
     {
         $msg=array();
-        $this->load->model('InvolvedPartyModel');
+        $this->load->model('ContactInfoTypeModel');
         $date =gmdate("Y-m-d h:i:s",time()+(5*3600));
       
         $data = array(
@@ -33,26 +31,26 @@ class InvolvedPartyController extends CI_Controller{
              'LastModified'      => $date
              
         );
-         $this->InvolvedPartyModel ->AddInvolvedPartyType($data);
+         $this->ContactInfoTypeModel ->AddContactInfoType($data);
          $msg['msg']="Record Inserted Successfully";
          echo json_encode($msg);
     }
     
-    function getTypeOfPartyAll()
+    function getContactInfoType()
     {
-        $this->load->model('InvolvedPartyModel');
-        $data= $this->InvolvedPartyModel->getTypeOfPartyAll();
+        $this->load->model('ContactInfoTypeModel');
+        $data= $this->ContactInfoTypeModel->getContactInfoType();
         echo json_encode($data);
     }
     
-    function editpartytype()
+    function editContactInfoType()
     {
         $id=$this->input->post('id');
-        $this->load->model('InvolvedPartyModel');
-        $data=$this->InvolvedPartyModel->editpartytype($id);
+        $this->load->model('ContactInfoTypeModel');
+        $data=$this->ContactInfoTypeModel->editContactInfoType($id);
         echo json_encode($data);
     }
-    function updatepartytype()
+    function updateContactInfoType()
     {
         
         $id=$this->input->post('typeId');
@@ -66,21 +64,20 @@ class InvolvedPartyController extends CI_Controller{
              
         );
         
-        $this->load->model('InvolvedPartyModel');
-        $data=$this->InvolvedPartyModel->updatepartytype($id,$data);
+        $this->load->model('ContactInfoTypeModel');
+        $data=$this->ContactInfoTypeModel->updateContactInfoType($id,$data);
         $msg['msg']="Updated";
         echo json_encode($msg);
     }
     
-    public function deletepartytype()
+    public function deleteContactInfoType()
     {
         $msg=array();
         $id=$this->uri->segment(3);
-        $this->load->model('InvolvedPartyModel');
-        $delete=$this->InvolvedPartyModel->deletepartytype($id);
+        $this->load->model('ContactInfoTypeModel');
+        $delete=$this->ContactInfoTypeModel->deleteContactInfoType($id);
         $msg['msg']="Deleted";
         echo json_encode($msg);
    }
-  
 }
 ?>

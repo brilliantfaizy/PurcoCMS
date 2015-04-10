@@ -1,6 +1,6 @@
 
 //input Max Length
-$("input").attr("maxlength", 30);
+//$("input").attr("maxlength", 30);
 
 
 //Show Date Picker

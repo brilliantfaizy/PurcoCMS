@@ -1,30 +1,26 @@
 <?php
-
-
-class InvolvedPartyController extends CI_Controller{
+class GeneralJournalController extends CI_Controller{
     
-      public $activeMenu = 'InvolvedPartyController';
-    function InvolvedPartyController()
+     public $activeMenu = 'GeneralJournalController';
+    function GeneralJournalController()
     {
         parent::__construct();
-         $this->load->model('mainModel');
+        $this->load->model('mainModel');
         $this->load->helper('url');
         $this->mainModel->checkSession();
         
     }
-  
-      
-      function involved()
+    function GernalJournal()
     {
        $data['base'] = $this->config->item('base_url');
-       $data['css'] = $this->config->item('css');
-       $this->load->view('Automobile/InvolvedPartyView',$data);
+        $data['css'] = $this->config->item('css');
+         $this->load->view('GeneralJournalNote',$data);
     }
     
-    function AddInvolvedPartyType()
+      function AddGeneralJournal()
     {
         $msg=array();
-        $this->load->model('InvolvedPartyModel');
+        $this->load->model('GeneralJournalNoteModel');
         $date =gmdate("Y-m-d h:i:s",time()+(5*3600));
       
         $data = array(
@@ -33,26 +29,26 @@ class InvolvedPartyController extends CI_Controller{
              'LastModified'      => $date
              
         );
-         $this->InvolvedPartyModel ->AddInvolvedPartyType($data);
+         $this->GeneralJournalNoteModel ->AddGeneralJournal($data);
          $msg['msg']="Record Inserted Successfully";
          echo json_encode($msg);
     }
     
-    function getTypeOfPartyAll()
+    function getGeneralJournal()
     {
-        $this->load->model('InvolvedPartyModel');
-        $data= $this->InvolvedPartyModel->getTypeOfPartyAll();
+        $this->load->model('GeneralJournalNoteModel');
+        $data= $this->GeneralJournalNoteModel->getGeneralJournal();
         echo json_encode($data);
     }
     
-    function editpartytype()
+    function editGeneralJournal()
     {
         $id=$this->input->post('id');
-        $this->load->model('InvolvedPartyModel');
-        $data=$this->InvolvedPartyModel->editpartytype($id);
+        $this->load->model('GeneralJournalNoteModel');
+        $data=$this->GeneralJournalNoteModel->editGeneralJournal($id);
         echo json_encode($data);
     }
-    function updatepartytype()
+    function updateGeneralJournal()
     {
         
         $id=$this->input->post('typeId');
@@ -66,21 +62,20 @@ class InvolvedPartyController extends CI_Controller{
              
         );
         
-        $this->load->model('InvolvedPartyModel');
-        $data=$this->InvolvedPartyModel->updatepartytype($id,$data);
+        $this->load->model('GeneralJournalNoteModel');
+        $data=$this->GeneralJournalNoteModel->updateGeneralJournal($id,$data);
         $msg['msg']="Updated";
         echo json_encode($msg);
     }
     
-    public function deletepartytype()
+    public function deleteGeneralJournal()
     {
         $msg=array();
         $id=$this->uri->segment(3);
-        $this->load->model('InvolvedPartyModel');
-        $delete=$this->InvolvedPartyModel->deletepartytype($id);
+        $this->load->model('GeneralJournalNoteModel');
+        $delete=$this->GeneralJournalNoteModel->deleteGeneralJournal($id);
         $msg['msg']="Deleted";
         echo json_encode($msg);
    }
-  
 }
 ?>

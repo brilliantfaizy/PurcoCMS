@@ -61,10 +61,7 @@ class ClientController extends CI_Controller
          $this->load->model('ClientModel');
         $data['query']=$this->ClientModel->getstates();
         $data['employee']=$this->ClientModel->getemployee();
-        $this->load->view('ClientAll', $data);
-        
-        
-        
+        $this->load->view('ClientAll', $data);     
     }
     function clientsearch()
     {
@@ -72,8 +69,8 @@ class ClientController extends CI_Controller
         $data['base']            = $this->config->item('base_url');
         $data['css']             = $this->config->item('css');
         $data['innerMenuActive'] = 'clientsearch';
-         $data['innerTabsActive'] = '';
-         $this->load->model('ClientModel');
+        $data['innerTabsActive'] = '';
+        $this->load->model('ClientModel');
         $data['query']=$this->ClientModel->getstates();
         $data['employee']=$this->ClientModel->getemployee();
         $data['ctype']=$this->ClientModel->getclienttype();
@@ -109,36 +106,28 @@ class ClientController extends CI_Controller
     
     function clientinactive()
     {
-        
         $data['base']            = $this->config->item('base_url');
         $data['css']             = $this->config->item('css');
         $data['innerMenuActive'] = 'clientinactive';
         $data['innerTabsActive'] = '';
-        $this->load->view('ClientInactive', $data);
-          
+        $this->load->view('ClientInactive', $data);    
     }
     function clientinfile()
     {
-        
         $data['base']            = $this->config->item('base_url');
         $data['css']             = $this->config->item('css');
         $data['innerMenuActive'] = 'clientinfile';
         $data['innerTabsActive'] = '';
         $this->load->view('AddFile', $data);
-         
-        
     }
     
     function clientjournal()
     {
-        
         $data['base']            = $this->config->item('base_url');
         $data['css']             = $this->config->item('css');
         $data['innerTabsActive'] = 'clientjournal';
         $data['innerMenuActive'] = '';
         $this->load->view('ClientJournal', $data);
-         
-        
     }
     
     function clienttype()
@@ -165,7 +154,7 @@ class ClientController extends CI_Controller
          $date = date("Y-m-d h:i:s");
         //$date=DATE_FORMAT(NOW(),'%Y-%m-%d %h:%i:%s');
         $details = array(
-             'Client_code'               => $this->input->post('client_code'),
+             'Client_code'              => $this->input->post('client_code'),
              'Client_name'              => $this->input->post('clientname'),
              'Client_website'           => $this->input->post('website'),
              'Client_type'              => $this->input->post('type1'),
@@ -187,7 +176,7 @@ class ClientController extends CI_Controller
              'LastModifiedDate' => $date
         );  
         $contact = array(
-            'Main_Id'      => $this->input->post('client_code'),
+            'Main_Id'          => $this->input->post('client_code'),
             'Phone_no'         => $this->input->post('mdayphone'),
             'Fax_no'           => $this->input->post('mfaxno'),
             'Email_address'    => $this->input->post('pemail'),
@@ -199,7 +188,6 @@ class ClientController extends CI_Controller
             'Address2'       => $this->input->post('maddress2'),
             'City'           => $this->input->post('mcity'),
             'State'          => $this->input->post('mstate'),
-            //'Country'        => $this->input->post('city'),
             'Postal_code'    => $this->input->post('mzip'),
             'Last_modified'  => $date
           
@@ -210,7 +198,6 @@ class ClientController extends CI_Controller
             'Address2'       => $this->input->post('paddress2'),
             'City'           => $this->input->post('pcity'),
             'State'          => $this->input->post('pstate'),
-            //'Country'        => $this->input->post('city'),
             'Postal_code'    => $this->input->post('pzip'),
             'Last_modified'  =>$date
         );    

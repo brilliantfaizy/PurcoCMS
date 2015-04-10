@@ -9,26 +9,15 @@ function getclientActive() {
 
     $.ajax({
         url: "<?php echo $base; ?>/index.php/ClientController/getclientLead",
-        success: function(data) {
-           
-          //console.log(data);
-          
+        success: function(data) {          
                 for (var i = 0; i < JSON.parse(data).length; i++) {
-                 
-                    TableData += '<tr><td>' + JSON.parse(data)[i].Client_name + '</td><td>' + JSON.parse(data)[i].Client_code + '</td><td>' + JSON.parse(data)[i].City +' , '+ JSON.parse(data)[i].State +'</td><td></td><td></td><td></td></tr>';
+                TableData += '<tr><td>' + JSON.parse(data)[i].Client_name + '</td><td>' + JSON.parse(data)[i].Client_code + '</td><td>' + JSON.parse(data)[i].City +' , '+ JSON.parse(data)[i].State +'</td><td></td><td></td><td></td></tr>';
 
                 }
-            
-
             $(".Grid table").html(TableData);
-
-            //alert("Submitted successfully");
-
         },
         error: function() {
-
             alert("There is error while fetch");
-
         }
     });
 
