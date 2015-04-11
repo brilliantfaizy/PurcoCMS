@@ -24,7 +24,6 @@
 	background-color: #444444;
 	text-decoration: none;
 }
-
 .tab-menu li a:hover {
 	background-color: #444444;
 }
@@ -46,14 +45,58 @@
 
 .tab-content {
 	position: relative;
-	width: 98%;	
+	width: 96%;	
 	overflow: auto;
 	margin-bottom: 2.5em;
 	padding: 20px;
 	border-left: 1px solid #ccf;
 	border-bottom: 1px solid #ccf;
 	background-color: #f5f5f5;
-}</style>
+}
+
+#tab1-menu {
+	list-style-type: none;
+	overflow: hidden;
+	margin: 2.5em 0 0 0;
+	padding: 0;
+}
+
+#tab1-menu li {
+	display: inline;
+	float: left;
+}
+
+#tab1-menu li a {
+	display: block;
+	padding: 10px 18px;
+    border-top: 1px solid #9E9D9D;
+    border-left: 1px solid #8C8C8C;
+    border-right: 1px solid #757775;
+    color: #ffffff;
+    background-color: #8C8989;
+	text-decoration: none;
+}
+#tab1-menu li a:hover {
+	background-color: #8C8989;
+}
+
+#tab1-menu li.active a {
+	color: #222222;
+	background-color: #f5f5f5;
+	border-top: 1px solid #ccf;
+	border-left: 1px solid #ccf;
+	border-right: 1px solid #ccf;
+}
+
+#tab1-menu li.active a:hover {
+	color: #222222;
+	background-color: #f5f5f5;
+	text-decoration: none;
+	cursor: default;
+}
+
+
+</style>
 <script>
 	$().ready(function() {
 		// validate the comment form when it is submitted
@@ -247,7 +290,7 @@
                 function dropdown(){
                  
                    var dropdownVal = $("#contacts option:selected").val();
-                
+              
                  console.log(dropdownVal);
                     $.ajax({
                     url:"<?php echo $base; ?>/index.php/ClientController/buildDropCities",    
@@ -371,6 +414,7 @@
                 $("#contactform").hide();
                 $("#addcontact").hide();
                 $('#btnupdatenote').hide();
+                $("#locationone").hide();
                 getnotesall(); 
                 getresources();  
    $("#journal").on('submit',(function(e) {
@@ -457,6 +501,23 @@ function getnotesall() {
     });
 
 
+}
+
+function innerDivShow()
+{
+    	$("#innerdiv").show();
+        	$("#Adclient").hide();
+}
+
+function showinnerDiv()
+{
+    $("#innerdiv").hide();
+   $("#Adclient").show();
+}
+function showLocationDiv()
+{
+	$("#locationone").show();
+    
 }
 
 function getresources() {
@@ -804,7 +865,8 @@ function getresources() {
                     <tr> <td><select class="myfield" id="contacts" style="width:128px;" name="contacts" onchange="dropdown();">
                  <option>Select</option>
                  <?php  foreach($contact as $cname){?>
-                 <option value="<?php echo $cname->Address_Id;?>"><?php echo $cname->Client_name;?></option>
+               
+                 <option value="<?php echo $cname->ContactId;?>"><?php echo $cname->Client_name;?></option>
                  <?php }?>
                </select></td></tr>
                     </table>
@@ -1247,9 +1309,8 @@ function getresources() {
           <tr></tr>
           </table>
           </form>
-         <div class="Grid11" id="Grid11" style="  margin: -3% 0% 0% 0%;width: 87%;">
+         <div class="Grid11" id="Grid11" style="margin: -3% 0% 0% 0%;width: 87%;">
           <table cellspacing="10" cellpadding="10" style="width:87%;">
-          
           </table>
           </div>
         </div>
@@ -1261,10 +1322,296 @@ function getresources() {
 		</div>
 
     </div>
-<div id="innerMenu1">
+    <div class="FormFields">
+<div id="innerMenu1" style="background-color: #8B8383;">
 <ul><li style="margin: 7px 0px 0px 60px;"><select name="location" id="location" class="myfield">
 <option>-------Select Location-------</option></select></li>
+<li style="float: right;margin: 0% 11% 0% 0%;color: white;"><a onclick="showLocationDiv(); return false;" href="#">Add Location</a></li>
 </ul>
+</div>
+
+<div id="locationone">
+
+<div class="tabs" id="tab">
+       <ul class="tab-menu" id="tab1-menu">
+			<li><a href="#tab-11">General</a></li>
+			<li><a href="#tab-12">Disbursment Rule</a></li>
+			<li><a href="#tab-13">Summary Data</a></li>
+  	        <li><a href="#tab-14">Accounting</a></li>
+			<li><a href="#tab-15">Clain Letters</a></li>
+			<li><a href="#tab-16">Resource</a></li>
+  	       <li><a href="#tab-17">History</a></li>
+		</ul>
+        
+        	<div class="tab-content" id="tab-11">
+             <div class="FormFields">
+
+        <form action="" id="" method="post">
+		  <table class="FieldsTable" cellpadding="6">
+                <tr>
+                <td>Display Name:</td>
+                <td>
+                 <input  placeholder=""  type="hidden" name="code" id="code1"  />
+                  <input class="myfield" placeholder=""  type="text" name="displayclientname"   />
+                  </td>
+                    </tr>
+                <tr>
+                <td>Name:</td>
+                <td>
+                 <input class="myfield" placeholder=""  type="text" name="generalname"   />
+                  </td>
+                  <tr>
+                <td>Contract Percent:</td>
+                <td>
+                 <input class="myfield" placeholder=""  type="text" name="contractpercent"   />
+                  </td>
+                    </tr>
+                    <tr>
+                <td>Default Contact:</td>
+                <td>
+                 <input class="myfield" placeholder=""  type="text" name="defaultContact"   />
+                  </td>
+                    </tr>
+                    </tr>
+                 <tr>
+                 <td>Employee Contact:</td>
+                <td>  <input class="myfield" placeholder=""  type="text" name="employeecontact" /></td>
+                </tr>
+                <tr>
+                <td></td></tr>
+                 <tr>
+                <td></td></tr>
+                 <tr>
+                <th colspan="4">Mailing Address</th>
+                </tr>
+                 <tr>
+                 <td>Line 1:</td>
+                <td>  <input class="myfield" placeholder=""  type="text" name="address1"  /></td>
+                </tr>
+                 <tr>
+                 <td>Line 2:</td>
+                <td>  <input class="myfield" placeholder=""  type="text" name="address2"  /></td>
+               </tr>
+                 <tr>
+                 <td>City:</td>
+                <td>  <input class="myfield" placeholder=""  type="text" name="city"  /></td>
+                </tr>
+                 <tr>
+                 <td>State:</td>
+                <td> <select name="state" id="state" class="myfield"> <option value>Select</option>
+                               </select> </td>
+                </tr>
+                 <tr>
+                 <td>Zip:</td>
+                <td>  <input class="myfield" placeholder=""  type="text" name="zip"  /></td>
+                </tr>
+                 <tr>
+                 <td>Phone No.:</td>
+                <td>  <input class="myfield" placeholder=""  type="text" name="phone" /></td>
+               </tr>
+                 <tr>
+                 <td>Fax No.:</td>
+                <td>  <input class="myfield" placeholder=""  type="text" name="fax" /></td>
+                </tr>
+                <tr><td> <span id="success" style="display:none; color:#0C0">All the records are Updated!</span></td><td><input type="submit" name="btncontact"  class="BtnBlack medium button" value="Update" /></td></tr>
+            </table>
+			</form>
+
+    </div>
+		</div>
+		<div class="tab-content" id="tab-12">
+		<div class="FormFields">
+      
+            	<table class="FieldsTable" cellpadding="6">
+                <tr>
+                <td><input type="button" name="Adclient" id="Adclient" onclick="innerDivShow(); return false;" style="margin: 0px;" class="button BtnBlack medium" value="Client Option"/>
+               <div class="innerdiv" id="innerdiv" style="display: none;">
+                <a href="#" onclick="showinnerDiv(); return false;" >Close</a><br />
+                <select style="width:100%;margin-bottom: 7px;" class="myfield" name="time"></select>
+                <select style="width:100%;margin-bottom: 7px;" class="myfield" name="orignal"></select>
+                <select style="width:100%;" class="myfield" name="All"></select></div></td>
+                <td></td>
+                <td>Amount Cap:</td>
+                <td>  <input class="myfield" placeholder="" style="width: 90%;" type="text" name="amountCap" /></td>
+                
+                <td>Amount Type:</td>
+                <td>  <select class="myfield"  style="width:90%;" name="amounttype" ></select></td>
+                    </tr>
+               <tr>
+                <td>To Purco %:</td>
+                <td>  <input class="myfield" placeholder=""   style="width:90%;" type="text" name="toPurco" /></td>
+                
+                <td>Min Threshold:</td>
+                <td>  <input class="myfield" placeholder=""  style="width:90%;"  type="text" name="minthreshold" /></td>
+                
+                <td>To Purco %:</td>
+                <td> <input class="myfield" placeholder="" style="width:90%;" type="text" name="ToPurCo" /></td>
+                    </tr>
+                 <tr>
+                <td>To Client %:</td>
+                <td>  <input class="myfield" placeholder=""  style="width:90%;" type="text" name="toClient" /></td>
+                
+                <td>Max Threshold:</td>
+                <td>  <input class="myfield" placeholder=""  style="width:90%;" type="text" name="maxthreshold" /></td>
+                
+                <td>To Client %:</td>
+                <td> <input class="myfield" placeholder=""  style="width:90%;" type="text" name="ToClient" /></td>
+                    </tr>
+                
+                <tr>
+                <td>Claim # Boundary:</td>
+                <td>  <input class="myfield" placeholder=""  style="width:90%;" type="text" name="toClient" /></td>
+                
+                <td></td>
+                <td>  <input type="button" name="Adrules" id="Adrules" style="margin: 0px;  float: left;" class="button BtnBlack medium" value="Add Rules"/></td>
+                
+                   <td></td>
+                <td> <input type="button" name="Adclienttypeamount" id="Adclienttypeamount" style="margin: 0px;   float: left;" class="button BtnBlack medium" value="Add Client Type Amount"/></td>
+                    </tr>
+                  </table>
+        </div>
+		
+		</div>
+		
+		
+        <div class="tab-content" id="tab-13">
+        
+        <div class="FormFields">
+        <table cellspacing="10">
+        <select name="summarydata" id="summarydata" style="margin-left: 2%;" class="myfield"></select>
+        <input type="button" style="float: none;margin: 2% 0% 0% 2%;" class="button BtnBlack medium" name="add" value="+"/>
+         </table>
+         <div  id="Grid">
+        <table cellpadding="10" cellspacing="0">
+        <tr><th>Order</th><th>Order</th></tr>
+        <tr><td></td><td></td></tr>
+        </table>
+        </div>
+        </div>
+        
+        
+</div>
+			
+		
+        <div class="tab-content" id="tab-14">
+			
+		<div class="FormFields">
+        <table cellspacing="10" cellpadding="10">
+        <tr><td></td>
+        <td>Enale Payment Origin</td></tr>
+        <tr><td><input type="checkbox" name="chek1"/></td>
+        <td>Body Shop Paid Direct</td></tr>
+        <tr><td><input type="checkbox" name="chek2"/></td>
+        <td>CHECK ON HOLD</td></tr>
+        <tr><td><input type="checkbox" name="chek3"/></td>
+        <td>Chargeback</td></tr>
+        <tr><td><input type="checkbox" name="chek4"/></td>
+        <td>Client Charged on CC</td></tr>
+        <tr><td><input type="checkbox" name="chek5"/></td>
+        <td>Client Paid Direct</td></tr>
+        <tr><td><input type="checkbox" name="chek6"/></td>
+        <td>Collection Item</td></tr>
+        <tr><td><input type="checkbox" name="chek7"/></td>
+        <td>Re-Deposite</td></tr>
+        <tr><td><input type="checkbox" name="chek8"/></td>
+        <td>Reimbursed Trust Account</td></tr>
+        <tr><td><input type="checkbox" name="chek9"/></td>
+        <td>Returned Check</td></tr>
+        <tr><td><input type="checkbox" name="chek10"/></td>
+        <td>PurCo Charged CC</td></tr>
+        <tr><td><input type="checkbox" name="chek11"/></td>
+        <td>PurCo Trust Account</td></tr>
+        <tr><td><input type="checkbox" name="chek12"/></td>
+        <td>Towing CoPaid Direct</td></tr>
+        <tr><td><input type="checkbox" name="chek13"/></td>
+        <td>Trust Acct Correction</td></tr>
+        <tr><td><input type="checkbox" name="chek14"/></td>
+        <td>Wire Transfer</td></tr>
+        <tr><td><input type="checkbox" name="chek15"/></td>
+        <td>Hertz Trust</td></tr>
+        <tr><td><input type="checkbox" name="chek16"/></td>
+        <td>Hertz Credit Card</td></tr>
+        <tr><td><input type="checkbox" name="chek17"/></td>
+        <td>Hertz Wire Transfer</td></tr>
+        <tr><td><input type="checkbox" name="chek18"/></td>
+        <td>Hertz Chargeback</td></tr>
+        <tr><td><input type="checkbox" name="chek19"/></td>
+        <td>Hertz Returned Check</td></tr>
+        <tr><td><input type="checkbox" name="chek20"/></td>
+        <td>Hertz Trust Acct Correction</td></tr>
+        <tr><td><input type="checkbox" name="chek21"/></td>
+        <td>Hertz Client Paid Direct</td></tr>
+        <tr><td><input type="checkbox" name="chek22"/></td>
+        <td>Hertz Client Charged on CC</td></tr>
+        <tr><td></td>
+        <td><input type="button" class="button BtnBlack medium" name="accounting" value="Save Change" /></td></tr>
+        </table>
+        </div>
+			
+		
+		</div>
+		<div class="tab-content" id="tab-15">
+		
+		</div>
+        <div class="tab-content" id="tab-16">
+		<div class="FormFields">
+        <table cellspacing="10" cellpadding="10">
+        <tr>
+        <td>Resources:</td>
+        <td><input type="file" name="resource"/></td>
+        <td>Enable Client State Proliferation:</td>
+        <td><input type="text" name="proliferation" class="myfield" /> </td>
+        </tr>
+        
+        <tr>
+        <td>Resource Type:</td>
+        <td><input type="text" name="resourcestype" class="myfield" /></td>
+        <td>Name:</td>
+        <td><input type="text" name="name1" class="myfield" /></td>
+        </tr>
+        
+          <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><input type="button" name="upload" class="button BtnBlack medium" value="Upload Resources" /></td>
+        </tr>
+        </table>
+        
+        <div id="Grid">
+        <table cellspacing="0" cellpadding="10">
+        <tr>
+        <th>Type</th>
+        <th>Filename</th>
+        <th>Name</th>
+        <th>Display</th>
+        <th>Website</th>
+        </tr>
+        </table></div>
+        
+        </div>
+      
+		</div>
+         <div class="tab-content" id="tab-17">
+		
+			<div class="FormFields">
+        <table cellspacing="10">
+        <tr><td>Category:</td>
+        <td><select name="category" id="category" style="margin-left: 2%;" class="myfield"></select></td></tr>
+       
+    
+         </table>
+         <div  id="Grid">
+        <table cellpadding="10" cellspacing="0">
+        <tr><th>Date</th><th>Who</th><th>Subject</th><th>Description</th><th>Action</th></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td></tr>
+        </table>
+        </div>
+        </div>
+		</div>
+
+    </div>
+    </div>
 </div>
 
 </div>

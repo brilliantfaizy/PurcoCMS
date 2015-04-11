@@ -83,7 +83,7 @@
                                     setTimeout(function() {
                                     $("#key1").val('');
                                     $("#description").val('');
-                                     $("#order").val('');
+                                    $("#order").val('');
                                     $("#parent").val($("#parent option:first").val());
                                     $(".editbtnclick1").hide();
                                     $("#updatenotes1").hide();  
@@ -133,7 +133,7 @@ function viewadd()
     $("#key1").val('');
     $("#description").val('');
     $('#btnaddparty').show(); 
-     $(".editbtnclick1").hide();
+    $(".editbtnclick1").hide();
     $('#btnupdateparty').hide(); 
     
 }
@@ -331,7 +331,7 @@ function deleteamountType(id)
                     <input type="submit" class="medium button BtnBlack" name="partytype" value="Add Amount Type" />
                  </div>
                  <div id="btnupdateparty">  
-                    <input type="button" class="medium button BtnBlack" onclick="updateamountType(); return false;" name="updatepartytype1" value="Update Amount Type" />
+                 <input type="button" class="medium button BtnBlack" onclick="updateamountType(); return false;" name="updatepartytype1" value="Update Amount Type" />
                  </div>
                          </td>
                 </tr>

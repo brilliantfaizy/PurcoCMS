@@ -341,8 +341,26 @@ ul{
     
            
 }
+#Grid{
+    
+    
+    background-color: #ffffff;
+    -webkit-box-shadow: 1px 1px 8px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    1px 1px 8px 0px rgba(50, 50, 50, 0.75);
+    box-shadow:         1px 1px 8px 0px rgba(50, 50, 50, 0.75);
+    width: 100%;
+    
+    margin-top: 20px;
+    padding-bottom: 10px;
+    
+           
+}
 
 .Grid table{
+    
+    width: 100%;
+}
+#Grid table{
     
     width: 100%;
 }
@@ -397,6 +415,22 @@ ul{
     background-color: #efefef; 
 }
 .Grid table tr:nth-child(even) td{
+    
+    
+}
+
+#Grid table th{
+    
+    background-color: #464646;
+    border: none;
+    color:#fff;
+    text-align: left;
+}
+
+#Grid table tr:nth-child(odd) td{
+    background-color: #efefef; 
+}
+#Grid table tr:nth-child(even) td{
     
     
 }
@@ -463,6 +497,21 @@ ul{
    
 }
 
+
+#Grid td a {
+    
+    text-decoration: none;
+    color:#464646;
+    margin-right: 10px;
+    
+    
+}
+
+#Grid td a:hover {
+    
+    text-decoration: underline;
+   
+}
 
 #PurcoLogo{
     

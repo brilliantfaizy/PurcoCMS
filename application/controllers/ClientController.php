@@ -613,43 +613,8 @@ public function addclientResources(){
                     $this->ClientModel->addclientResource($addresources);
                     $msg['msg']="Added";
                     echo json_encode($msg);
-    }
-                
-                //$file=$this->upload->do_upload("Rfile");
-//                
-//				if($file)
-//				{
-//				    $file_info = $this->upload->data();
-//					$data1 = array('upload_data' =>$file_info);
-//                   $filepath='../../../../../uploads/resources/'. $file_info['file_name'];
-//                    $filename = $file_info['file_name'];
-//                    
-//                     $date = date("Y-m-d h:i:s");
-//                    $addresources = array(
-//            
-//                        'Type'           => $this->input->post('Rtype'),
-//                        'Client_code'    => $this->input->post('code'),
-//                        'Rname'          => $this->input->post('Rname'),
-//                        'File'           => $filename,
-//                        'Filepath'       => $filepath,
-//                        'LastModified'   => $date
-//                         ); 
-//                    $this->load->model('ClientModel');
-//                    $this->ClientModel->addclientResource($addresources);
-//                    $msg['msg']="Added";
-//                    echo json_encode($msg);
-//                    
-//				}
-//				else
-//				{
-//				$error = array('error' => $this->upload->display_errors());
-//			//	$this->load->view('file_view', $error);
-//				}    
-}
-
-        
-
- 
+    }             
+              }
    
 }
 

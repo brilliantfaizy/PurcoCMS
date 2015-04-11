@@ -1,5 +1,4 @@
 <?php
-
 class AmountTypeModel extends CI_Model{
     
      function AmountTypeModel()
@@ -13,7 +12,6 @@ class AmountTypeModel extends CI_Model{
         $this->db->insert('tbl_amount_type', $data);
         
      }
-     
      function getamountType()
      {
          $this->load->database();
