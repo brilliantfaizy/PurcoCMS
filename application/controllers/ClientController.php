@@ -32,6 +32,7 @@ class ClientController extends CI_Controller
         $data['query']=$this->ClientModel->editClient($id,$cid,$client);
         $data['contact']=$this->ClientModel->getcontactname($id);
         $data['cntctDetails']=$this->ClientModel->contactdetails($cid);
+        $data['journalgeneral']=$this->ClientModel->getclientgeneraljournal();
         $this->load->view('ClientEdit', $data);
       //  $this->load->view('fileupload', $data);
         
@@ -61,7 +62,7 @@ class ClientController extends CI_Controller
          $this->load->model('ClientModel');
         $data['query']=$this->ClientModel->getstates();
         $data['employee']=$this->ClientModel->getemployee();
-        $this->load->view('ClientAll', $data);     
+        $this->load->view('ClientAll', $data);
     }
     function clientsearch()
     {
@@ -176,33 +177,35 @@ class ClientController extends CI_Controller
              'LastModifiedDate' => $date
         );  
         $contact = array(
-            'Main_Id'          => $this->input->post('client_code'),
-            'Phone_no'         => $this->input->post('mdayphone'),
-            'Fax_no'           => $this->input->post('mfaxno'),
-            'Email_address'    => $this->input->post('pemail'),
-            'Mobile'           => $this->input->post('mmobileno')
-         );  
-        $address1 = array(
-            'Main_Id'      => $this->input->post('client_code'),
+            'Client_code'    => $this->input->post('client_code'),
+            'Phone_no'       => $this->input->post('mdayphone'),
+            'Fax_no'         => $this->input->post('mfaxno'),
+            'Email_address'  => $this->input->post('pemail'),
+            'Mobile_no'         => $this->input->post('mmobileno'),
             'Address1'       => $this->input->post('maddress1'),
             'Address2'       => $this->input->post('maddress2'),
             'City'           => $this->input->post('mcity'),
             'State'          => $this->input->post('mstate'),
             'Postal_code'    => $this->input->post('mzip'),
-            'Last_modified'  => $date
-          
+            'Last_Modified'  => $date
          );  
-        $address2 = array(
-            'Main_Id'      => $this->input->post('client_code'),
+        $address1 = array(
+            'Client_code'    => $this->input->post('client_code'),
+            'Phone_no'       => $this->input->post('pphone'),
+            'Fax_no'         => $this->input->post('pfaxno'),
+            'Email_address'  => $this->input->post('pemail'),
+            'Mobile_no'         => $this->input->post('pmobileno'),
             'Address1'       => $this->input->post('paddress1'),
             'Address2'       => $this->input->post('paddress2'),
             'City'           => $this->input->post('pcity'),
             'State'          => $this->input->post('pstate'),
             'Postal_code'    => $this->input->post('pzip'),
-            'Last_modified'  =>$date
-        );    
+            'Last_Modified'  => $date
+          
+         );  
+          
 
-        $this->ClientModel->insert_users($details,$info,$contact,$address1,$address2);
+        $this->ClientModel->insert_users($details,$info,$contact,$address1);
         $msg['msg']="Record Inserted Successfully";
          echo json_encode($msg);
    
@@ -330,27 +333,26 @@ class ClientController extends CI_Controller
     {
         $msg=array();
         $id=$this->input->post('code');
-        $add_id=$this->input->post('add_Id');
+        
         $contact_id=$this->input->post('Contact_id');
         $client_id=$this->input->post('client_id');
         $date = date("Y-m-d h:i:s");
-        $contact=array(
-        'Phone_no'     =>$this->input->post('phone'),
-        'Fax_no'       =>$this->input->post('fax')
-        );
+        
         $address=array(
+        'Phone_no'      =>$this->input->post('phone'),
+        'Fax_no'        =>$this->input->post('fax'),
         'Address1'      =>$this->input->post('address1'),
         'Address2'      =>$this->input->post('address2'),
         'City'          =>$this->input->post('city'),
         'State'         =>$this->input->post('state'),
         'Postal_code'   =>$this->input->post('zip'),
-        'Last_modified'  =>$date
+        'Last_modified' =>$date
         );
         $client=array(
         'LastModifiedDate'  =>$date
         );
         $this->load->model('ClientModel');
-        $this->ClientModel->updateClient($id,$contact,$address,$client,$id);
+        $this->ClientModel->updateClient($id,$address,$client,$client_id);
         $msg['msg']="Updated";
         echo json_encode($msg);
     }
@@ -386,27 +388,24 @@ class ClientController extends CI_Controller
              'LastModifiedDate' => $date
         );  
         $contact = array(
-            'Main_Id'          => $code,
-            'Phone_no'         => $this->input->post('dphn'),
-            'Fax_no'           => $this->input->post('fax'),
-            'Email_address'    => $this->input->post('email'),
-            'Mobile'           => $this->input->post('mobile')
+            'Client_code'     => $code,
+            'Phone_no'        => $this->input->post('dphn'),
+            'Fax_no'          => $this->input->post('fax'),
+            'Email_address'   => $this->input->post('email'),
+            'Mobile_no'       => $this->input->post('mobile'),
+            'Address1'        => $this->input->post('address1'),
+            'Address2'        => $this->input->post('address2'),
+            'City'            => $this->input->post('city'),
+            'State'           => $this->input->post('state'),
+            'Postal_code'     => $this->input->post('zip'),
+            'Last_Modified'   => $date
          );  
-        $address1 = array(
-            'Main_Id'        => $code,
-            'Address1'       => $this->input->post('address1'),
-            'Address2'       => $this->input->post('address2'),
-            'City'           => $this->input->post('city'),
-            'State'          => $this->input->post('state'),
-            'Postal_code'    => $this->input->post('zip'),
-            'Last_modified'  => $date
-          
-         );  
+       
            
         $clientDetail= array(
             'LastModifiedDate' =>$date
         );
-        $this->ClientModel->addnewcontact($info,$contact,$address1,$clientDetail,$code);
+        $this->ClientModel->addnewcontact($info,$contact,$clientDetail,$code);
         $msg['msg']="Record Inserted Successfully";
          echo json_encode($msg);
    
@@ -417,7 +416,6 @@ class ClientController extends CI_Controller
     {
         $msg=array();
         $id=$this->input->post('code');
-        $add_id=$this->input->post('add_Id');
         $contact_id=$this->input->post('Contact_id');
         $client_id=$this->input->post('client_id');
         $date = date("Y-m-d h:i:s");
@@ -433,18 +431,17 @@ class ClientController extends CI_Controller
             'Phone_no'         => $this->input->post('dphn'),
             'Fax_no'           => $this->input->post('fax'),
             'Email_address'    => $this->input->post('email'),
-            'Mobile'           => $this->input->post('mobile')
+            'Mobile_no'        => $this->input->post('mobile'),
+            'Address1'         =>$this->input->post('address1'),
+            'Address2'         =>$this->input->post('address2'),
+            'City'             =>$this->input->post('city'),
+            'State'            =>$this->input->post('state'),
+            'Postal_code'      =>$this->input->post('zip'),
+            'Last_Modified'    => $date
          );  
-        $address=array(
-        'Address1'      =>$this->input->post('address1'),
-        'Address2'      =>$this->input->post('address2'),
-        'City'          =>$this->input->post('city'),
-        'State'         =>$this->input->post('state'),
-        'Postal_code'   =>$this->input->post('zip'),
-        'Last_modified'  => $date
-        );
+        
         $this->load->model('ClientModel');
-        $this->ClientModel->updateClientcontact($client_id,$id,$contact_id,$add_id,$info,$contact,$address);
+        $this->ClientModel->updateClientcontact($client_id,$id,$contact_id,$info,$contact);
         $msg['msg']="Updated";
         echo json_encode($msg);
     }
@@ -452,11 +449,11 @@ class ClientController extends CI_Controller
     function deleteClient()
     {
         
-        $addId=$this->input->post('addId');
+        
         $contactId=$this->input->post('contactId');
         $Id=$this->input->post('Id');
         $this->load->model('ClientModel');
-        $this->ClientModel->deleteClient($contactId,$addId,$Id);
+        $this->ClientModel->deleteClient($contactId,$Id);
         // echo json_encode($data);
         
     }

@@ -255,7 +255,7 @@
                       return false;
                 } 
                
-               function addcontact()
+               function addcontact1()
                {
                 
                    
@@ -280,7 +280,7 @@
                function deleteclientdata()
                {
                     var contact_id = $("#Contact_id").val();
-                    var add_id = $("#add_Id").val();
+                   
                     var client_id = $("#client_id").val();
                   console.log(contact_id);
 
@@ -312,7 +312,7 @@
                        document.getElementById("dphn").value=myobj.data[0]['Phone_no'];
                        document.getElementById("fax").value=myobj.data[0]['Fax_no'];  
                        document.getElementById("address2").value=myobj.data[0]['Address2'];
-                       document.getElementById("mobile").value=myobj.data[0]['Mobile'];
+                       document.getElementById("mobile").value=myobj.data[0]['Mobile_no'];
                        document.getElementById("state").value=myobj.data[0]['State'];
                        document.getElementById("email").value=myobj.data[0]['Email_address']; 
                        document.getElementById("zip").value=myobj.data[0]['Postal_code'];   
@@ -322,7 +322,7 @@
                            
                        document.getElementById("code").value=myobj.data[0]['Client_code'];
                        document.getElementById("client_id").value=myobj.data[0]['Id'];
-                       document.getElementById("add_Id").value=myobj.data[0]['Address_Id'];
+                       
                        document.getElementById("Contact_id").value=myobj.data[0]['ContactId'];
                          
                       }
@@ -886,7 +886,7 @@ function getresources() {
                 <td></td>
                 <td>  <input  placeholder=""  type="hidden" name="client_id" id="client_id" value="" />
                       <input  placeholder=""  type="hidden" name="code" id="code" value="" /> 
-                      <input  placeholder=""  type="hidden" name="add_Id" id="add_Id" value="" />
+                      
                       <input  placeholder=""  type="hidden" name="Contact_id" value="" id="Contact_id" />  </td>
                  <td>Title:</td>
                 <td>  <input class="myfield" placeholder=""   type="text" name="title" id="title" value=""  /></td>
@@ -985,7 +985,7 @@ function getresources() {
                 <td></td>
                     <td>  <input  placeholder=""  type="hidden"  name="client_id" value="<?php echo $row->Id;?>" />
                     <input  placeholder=""  type="hidden" name="code"  value="<?php echo $row->Client_code;?>" /> 
-                    <input  placeholder=""  type="hidden" name="add_Id"  value="<?php echo $row->Address_Id;?>" />
+                   
                    <input  placeholder=""  type="hidden" name="Contact_id" value="<?php echo $row->ContactId;?>"  />  </td>
                  <td>Title:</td>
                 <td>  <input class="myfield" placeholder=""   type="text" name="title" id="title" value="<?php echo $details->Client_name;?>"  /></td>
@@ -1019,7 +1019,7 @@ function getresources() {
                  <td></td>
                     <td></td>
                  <td>Mobile No.:</td>
-                <td>  <input class="myfield" placeholder=""  type="text" name="mobile" id="mobile" value="<?php echo $details->Mobile;?>"  /></td>
+                <td>  <input class="myfield" placeholder=""  type="text" name="mobile" id="mobile" value="<?php echo $details->Mobile_no;?>"  /></td>
                <td>City:</td>
                 <td><input class="myfield" placeholder=""  type="text" name="city" id="city" value="<?php echo $details->City;?>"  /></td>
                 
@@ -1084,7 +1084,7 @@ function getresources() {
                     <td> </td>
                  <td>Title:</td>
                 <td>  <input  type="hidden" name="code" id="code" value="<?php echo $row->Client_code;?>" />
-                <input class="myfield" placeholder=""   type="text" name="title"  value="" ; /></td>
+                <input class="myfield" placeholder=""   type="text" name="title"  value=""  /></td>
                <td><a href="">Address</a></td>
                 <td>(Mailing)</td>
                 
@@ -1149,7 +1149,7 @@ function getresources() {
                <td></td>
                <td></td>
                 <span id="success1" style="display:none; color:#0C0">All the records are Updated!</span><td>
-               <input type="submit" name="submit" class="BtnBlack medium button" onclick="addcontact(); return false;" value="Add Contact"/></td></tr>
+               <input type="submit" name="submit" class="BtnBlack medium button" onclick="addcontact1(); return false;" value="Add Contact"/></td></tr>
                
                  
                   </table>
@@ -1240,8 +1240,13 @@ function getresources() {
             <td><input type="text" class="myfield" name="time" id="time" value="<?php echo gmdate("h:i:s",time()+(5*3600)); ?>" disabled=""/></td>
             </tr>
             <tr>
+      
             <td>General:</td>
-            <td><select class="myfield" name="general" id="general" ></select></td>
+            <td><select class="myfield" name="general" id="general" >
+            <?php foreach($journalgeneral as $jNote){ ?>
+            <option value="<?php echo $jNote->Key; ?>" ><?php echo $jNote->Key; ?></option>
+            <?php } ?>
+            </select></td>
             </tr>
             <tr>
             <td>Attachment:</td>

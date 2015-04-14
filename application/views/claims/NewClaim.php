@@ -17,10 +17,12 @@
 
     <div class="FormFields">
     
-         <table style="width: 100%;">
+         <table cellspacing="8" cellpadding="10" style="width: 100%;">
                 <tr>
-                    <td style="width: 50%;">
-                        <table>
+                    <td  style="width: 50%;">
+                        <table cellspacing="8" cellpadding="10">
+                        <tr><td></td></tr>
+                         <tr><td></td></tr>
                             <tr>
                                 <td>Client:</td>
                                 <td>
@@ -31,40 +33,41 @@
                             <tr>
                                 <td></td>
                                 <td>
-                                    <input type="text" class="myfield" style="height: 101px;" name="claim" /> </td>
+                                    <select name='color[]' style="height: 99px;" class="myfield" size="4" multiple>
+                                    <?php foreach($client as $c){ ?>
+                                            <option value='<?php echo $c->Client_code; ?>'><?php echo $c->Client_name; ?></option>
+                                            <?php }?>
+                                           
+                                             </select> </td>
                             </tr>
 
                             <tr>
-                                <td>Location:</td>
+                             <td>Assigned Employee:</td>
                                 <td>
-                                    <input type="text" class="myfield" name="claim" /> </td>
+                                    <input type="text" class="myfield" name="claim" value="AT&T Programmers" /> 
+                                    </td>
+                                
                             </tr>
                             <tr>
                                 <td></td>
                                 <td>
-                                    <input type="text" style="height: 101px;" class="myfield" name="claim" /> </td>
+                                            <select name='color[]' style="height: 99px;" class="myfield" size="4" multiple>
+                                             <?php foreach($employee as $e){ ?>
+                                            <option value='<?php echo $e->Emp_Id; ?>'><?php echo $e->LegalName; ?></option>
+                                            <?php }?>
+                                             </select> </td>
                             </tr>
                             <tr>
                                 <td>Vehicle:</td>
                                 <td>
                                     <input type="text" class="myfield" name="claim" /> </td>
                             </tr>
-                            <tr>
-                                <td>Client Claim #:</td>
-                                <td>
-                                    <input type="text" class="myfield" name="claim" /> </td>
-                            </tr>
-                            <tr>
-                                <td>Date of Loss:</td>
-                                <td>
-                                    <input type="text" class="myfield" name="claim" /> </td>
-                                <td><img src="<?php echo " $base/images/calenderblueIcon.png "; ?>" /></td>
-                            </tr>
+                            
                         </table>
                     </td>
                     <td style="width: 50%;">
 
-                        <table>
+                        <table style="  margin: 0% 0% -2% 0%">
 
                             <tr>
 
@@ -73,17 +76,25 @@
                             </tr>
 
                             <tr>
-
-                                <td>Assigned Employee:</td>
+                            <td>Location:</td>
                                 <td>
-                                    <input type="text" class="myfield" name="claim" value="AT&T Programmers" /> </td>
+                                    <input type="text" class="myfield" name="claim" /> </td>
+
+                               
                             </tr>
 
                             <tr>
 
                                 <td></td>
                                 <td>
-                                    <input type="text" class="myfield" style="height: 101px;" name="claim" /> </td>
+                                           <select name='color[]' style="height: 106px;" class="myfield" size="4" multiple>
+                                            <option value='blue'>Blue</option>
+                                            <option value='green'>Green</option>
+                                            <option value='red'>Red</option>
+                                            <option value='yellow'>Yelllow</option>
+                                            <option value='' selected>Select a Color </option>
+                                            <option value='white'>White</option>
+                                             </select></td>
                             </tr>
 
                             <tr>
@@ -95,10 +106,10 @@
 
                             <tr>
 
-                                <td>Received #:</td>
+                                <td>Received Date:</td>
                                 <td>
                                     <input type="text" class="myfield" name="claim" /> </td>
-                                <td><img src="<?php echo " $base/images/calenderblueIcon.png "; ?>" /></td>
+                                <td><img onclick="showpicker();" class=" fdatepicker" src="<?php echo " $base/images/calenderblueIcon.png "; ?>" /></td>
                             </tr>
 
                             <tr>
@@ -107,7 +118,17 @@
                                 <td>
                                     <input type="text" class="myfield" name="claim" /> </td>
                             </tr>
-
+                            <tr>
+                                <td>Client Claim #:</td>
+                                <td>
+                                    <input type="text" class="myfield" name="claim" /> </td>
+                            </tr>
+                            <tr>
+                                <td>Date of Loss:</td>
+                                <td>
+                                    <input  type="text" class="myfield" name="claim" /> </td>
+                                <td><img onclick="showpicker();" class=" fdatepicker" src="<?php echo " $base/images/calenderblueIcon.png "; ?>" /></td>
+                            </tr>
 
 
 
@@ -145,7 +166,12 @@
                                 <td>Year:</td>
                                 <td>
                                     <select name="state" class="myfield">
-                                        <option>2015</option>
+                                    <option>Select Year</option>
+                                        <option>2020</option><option>2019</option><option>2017</option><option>2016</option>
+                                        <option>2015</option><option>2014</option><option>2013</option><option>2012</option>
+                                        <option>2011</option><option>2010</option><option>2009</option><option>2008</option>
+                                        <option>2007</option><option>2006</option><option>2005</option><option>2004</option>
+                                        <option>2003</option><option>2002</option>
                                     </select>
                                 </td>
 
@@ -205,7 +231,12 @@
                                 <td>LDW status:</td>
                                 <td>
                                     <select name="state" class="myfield">
-                                        <option>None</option>
+                                    <option>None</option>
+                                        <option>LDW</option>
+                                        <option>Partial</option>
+                                        <option>Violated</option>
+                                        <option>Free-LDW</option>
+                                    
                                     </select>
                                 </td>
 
@@ -221,7 +252,7 @@
                                 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                                 <td>Damage:</td>
                                 <td>
-                                    <input class="myfield" placeholder="" name="firstname" type="text" />
+                                    <textarea class="myfield" style="  height: 40px;" name="firstname"  ></textarea>
                                 </td>
 
 
@@ -244,7 +275,7 @@
                                 </td>
                                 <td>Overview:</td>
                                 <td>
-                                    <input class="myfield" placeholder="" name="firstname" type="text" />
+                                      <textarea class="myfield" style="  height: 40px;" name="firstname"  ></textarea>
                                 </td>
 
 
@@ -269,7 +300,7 @@
                                 <td>&nbsp;</td>
                                 <td>Information Needed:</td>
                                 <td>
-                                    <input class="myfield" placeholder="" name="firstname" type="text" />
+                                      <textarea class="myfield" style="  height: 40px;" name="firstname"  ></textarea>
                                 </td>
 
 
@@ -293,7 +324,7 @@
                                 <td>&nbsp;</td>
                                 <td>Story:</td>
                                 <td>
-                                    <input class="myfield" placeholder="" name="firstname" type="text" />
+                                     <textarea class="myfield" style="  height: 40px;" name="firstname"  ></textarea>
                                 </td>
 
 
@@ -361,6 +392,8 @@
                 <td>
                     <select name="state" class="myfield">
                         <option>Open/Need Information(IO)</option>
+                          <option>Open And Being Work(OO)</option>
+                            <option>Open/Review(OR)</option>
                     </select>
                     </select>
                 </td>
@@ -402,8 +435,11 @@
             <tr>
                 <td>Amounts:</td>
                 <td>
+                
                     <select name="state" class="myfield">
-                        <option>MSPRC</option>
+                         <?php foreach($amount as $a){ ?>
+                                            <option value='<?php echo $a->Key; ?>'><?php echo $a->Description; ?></option>
+                                            <?php }?>
                     </select>
                 </td>
                 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>

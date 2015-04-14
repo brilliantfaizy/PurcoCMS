@@ -19,6 +19,10 @@ class ClaimController extends CI_Controller{
         $data['css'] = $this->config->item('css');
         $data['innerTabsActive'] = 'newclaim';
         $data['innerMenuActive'] = '';
+        $this->load->model('ClaimModel');
+        $data['client'] = $this->ClaimModel->getclient();
+        $data['employee'] = $this->ClaimModel->getemployee();
+        $data['amount'] = $this->ClaimModel->getamount();
         $this->load->view('claims/NewClaim',$data);
     }
     function searchallclaim()

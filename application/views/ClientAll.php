@@ -11,7 +11,6 @@ function getclientall() {
         url: "<?php echo $base; ?>/index.php/ClientController/getClientAll",
         success: function(data) {
            
-          //console.log(data);
           
                 for (var i = 0; i < JSON.parse(data).length; i++) {
                  
