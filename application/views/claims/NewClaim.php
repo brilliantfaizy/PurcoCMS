@@ -20,6 +20,35 @@ function filldropdown()
 });
 }
 
+function getclaim()
+{
+     document.getElementById("claim1").value= $("#claim option:selected").text();
+     
+      var dropdownVal = $("#claim option:selected").val();
+      var options="<option></option>";
+    $.ajax({
+         url: "<?php echo $base; ?>/index.php/ClaimController/getclaim",
+         type: "POST",
+         data: {id: dropdownVal},
+        success: function(data) {
+        console.log(data);
+             for(var i=0;i<JSON.parse(data).length; i++)
+             {
+                    options += "<option value='"+  JSON.parse(data)[i].Sub_client +"'>" + JSON.parse(data)[i].Sub_client +"</option>";              
+             }
+
+                 $("#location").html(options);
+    }
+});
+}
+function getemployee()
+{
+       document.getElementById("emp").value= $("#employee option:selected").text();
+}
+function getlocation()
+{
+       document.getElementById("location1").value= $("#location option:selected").text();
+}
 
 
 
@@ -53,14 +82,14 @@ function filldropdown()
                             <tr>
                                 <td>Client:</td>
                                 <td>
-                                    <input type="text" class="myfield" name="claim" />
+                                    <input type="text" class="myfield" name="claim1" id="claim1" />
                                 </td>
                             </tr>
 
                             <tr>
                                 <td></td>
                                 <td>
-                                    <select name='claim[]' style="height: 99px;" class="myfield" size="4" multiple>
+                                    <select name='claim[]' id="claim" onchange="getclaim();"  style="height: 99px;" class="myfield" size="4" multiple>
                                     <?php foreach($client as $c){ ?>
                                             <option value='<?php echo $c->Client_code; ?>'><?php echo $c->Client_name; ?></option>
                                             <?php }?>
@@ -71,14 +100,14 @@ function filldropdown()
                             <tr>
                              <td>Assigned Employee:</td>
                                 <td>
-                                    <input type="text" class="myfield" name="claim" value="AT&T Programmers" /> 
+                                    <input type="text" class="myfield" name="emp" id="emp"  /> 
                                     </td>
                                 
                             </tr>
                             <tr>
                                 <td></td>
                                 <td>
-                                            <select name='employee[]' style="height: 99px;" class="myfield" size="4" multiple>
+                                            <select name='employee[]' onchange="getemployee();" id="employee" style="height: 99px;" class="myfield" size="4" multiple>
                                              <?php foreach($employee as $e){ ?>
                                             <option value='<?php echo $e->Emp_Id; ?>'><?php echo $e->LegalName; ?></option>
                                             <?php }?>
@@ -104,20 +133,15 @@ function filldropdown()
                             <tr>
                             <td>Location:</td>
                                 <td>
-                                    <input type="text" class="myfield" name="claim" /> </td>
+                                    <input type="text" class="myfield" name="location1" id="location1" /> </td>
                             </tr>
 
                             <tr>
 
                                 <td></td>
                                 <td>
-                                            <select name='location[]' style="height: 106px;" class="myfield" size="4" multiple>
-                                            <option value='blue'>Blue</option>
-                                            <option value='green'>Green</option>
-                                            <option value='red'>Red</option>
-                                            <option value='yellow'>Yelllow</option>
-                                            <option value='' selected>Select a Color </option>
-                                            <option value='white'>White</option>
+                                            <select name='location[]' onchange="getlocation();" id="location" style="height: 106px;" class="myfield" size="4" multiple>
+                                            
                                             </select></td>
                             </tr>
                             <tr>

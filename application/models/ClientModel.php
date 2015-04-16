@@ -337,6 +337,52 @@ class ClientModel extends CI_Model{
          $this->db->insert('tbl_client_resource',$addresources);
    }
    
+   function InsertLocation($data,$contact)
+   {
+        $this->load->database();
+        $this->db->insert('tbl_sub_client_details',$data);
+        $contact['Address_name'] = "Mailing Address";
+        $this->db->insert('tbl_client_contact_info',$contact);
+   }
+   function getcontact($id)
+   {
+        $this->load->database();
+        $sql="select tbl_client_contact_info.* , tbl_client_info.* from 
+             tbl_client_contact_info Join tbl_client_info on 
+             tbl_client_info.Client_code=tbl_client_contact_info.Client_code 
+             where tbl_client_contact_info.Client_code='".$id."' and 
+             tbl_client_contact_info.Address_name='Mailing Address' group by 
+             tbl_client_contact_info.ContactId";
+        $query=$this->db->query($sql);
+      
+        return $query->result();
+   }
+   function getlocation($id)
+   {
+        $this->load->database();
+        $sql="select * from tbl_sub_client_details where Client_code='".$id."'";
+        $query=$this->db->query($sql);
+        return $query->result();
+   }
+   function locationedit($id)
+   {
+       $this->load->database();
+       $sql="select tbl_sub_client_details.*, tbl_client_contact_info.*
+            from tbl_sub_client_details Join tbl_client_contact_info on 
+            tbl_sub_client_details.Sub_client=tbl_client_contact_info.Client_code
+            where tbl_sub_client_details.Sub_client='".$id."'";
+       $query=$this->db->query($sql);
+       return $query->result();
+   }
+   function UpdateLocation($id,$data,$contact)
+   {
+         $this->load->database();
+         $this->db->where('Sub_client',$id);
+         $this->db->update('tbl_sub_client_details',$data);
+         $this->db->where('Client_code',$id);
+         $this->db->update('tbl_client_contact_info',$contact);
+         
+   }
      
 }
 ?>

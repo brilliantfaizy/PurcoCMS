@@ -21,6 +21,13 @@ class ClaimController extends CI_Controller{
         $data=$this->ClaimModel->fillmodel($id);
         echo json_encode($data);
     }
+    function getclaim()
+    {
+         $id=$this->input->post('id');
+        $this->load->model('ClaimModel');
+        $data=$this->ClaimModel->getclaim($id);
+        echo json_encode($data);
+    }
     
     function newclaim()
     {

@@ -73,5 +73,12 @@ class ClaimModel extends CI_Model{
              $query=$this->db->query($sql);
              return $query->result();
       }
+      function getclaim($id)
+      {
+            $this->load->database();
+             $sql="select * from tbl_sub_client_details where Client_code='".$id."'";
+             $query=$this->db->query($sql);
+             return $query->result();
+      }
 }
 ?>

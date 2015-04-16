@@ -145,7 +145,7 @@
                             data: GetFormValues('notes'),
                             type: "POST",
                             success: function(data) {
-                                    $("#successnotes").html(JSON.parse(data).msg);  
+                                     // $("#successnotes").html(JSON.parse(data).msg);  
                                     $("#successnotes").show();
                                     $('#btnaddnote').hide();
                                     $('#btnupdatenote').hide();
@@ -199,9 +199,9 @@
                             data: GetFormValues('signupForm'),
                             type: "POST",
                             success: function(data) {
-                                console.log(data);
+                               //  $("#success").html(JSON.parse(data).msg);  
                                    // alert(JSON.parse(data).msg);
-                                    $("#success").show();          
+                                 $("#success").show();          
                                  }, error: function(data){
                                     
                                     alert(data);  
@@ -219,9 +219,9 @@
                             data: GetFormValues('addcontactinfo'),
                             type: "POST",
                             success: function(data) {
-                                console.log(data);
+                                    // $("#success2").html(JSON.parse(data).msg);  
                                    // alert(JSON.parse(data).msg);
-                                    $("#success2").show();
+                               $("#success2").show();
                                    
                                 
                                 }, error: function(data){
@@ -240,9 +240,9 @@
                             data: GetFormValues('addcontactinfo1'),
                             type: "POST",
                             success: function(data) {
-                                console.log(data);
+                                //   $("#success3").html(JSON.parse(data).msg);  
                                    
-                                    $("#success3").show();
+                                $("#success3").show();
                                  
                                 
                                 }, error: function(data){
@@ -264,8 +264,9 @@
                             data: GetFormValues('contactnew'),
                             type: "POST",
                             success: function(data) {
-                                console.log(data);
-                                    $("#success1").show();          
+                                  //   $("#success1").html(JSON.parse(data).msg);  
+                               $("#success1").show();   
+                                           
                                 }, error: function(data){
                                     
                                     alert(data);  
@@ -276,13 +277,161 @@
                       return false;
                }
                
+               
+               function UpdateLocation()
+               {
+                
+                 $.ajax({
+                            url: "<?php echo $base; ?>/index.php/ClientController/UpdateLocation",
+                            data: GetFormValues('locationform'),
+                            type: "POST",
+                            success: function(data) {
+                              //   $("#locationmsg").html(JSON.parse(data).msg);  
+                                 $("#btnlocationupdate").hide();
+                                    $("#locationmsg").show(); 
+                                   setTimeout(function() {
+                                    $("#locationmsg").hide();  
+                                    $("#btnlocationupdate").show();
+                        
+                                    }, 2000);
+                                    //filllocation();      
+                                }, error: function(data){
+                                    
+                                    alert(data);  
+                                    
+                                }
+                            }); 
+                      
+                      return false;
+               }
+                function locationedit(){
+                 
+                   var dropdownVal = $("#location option:selected").val();
+                    $.ajax({
+                    url:"<?php echo $base; ?>/index.php/ClientController/locationedit",    
+                     data: {id: dropdownVal},
+                    type: "POST",
+                    success: function(data){
+                        showLocationDiv();
+                  $("#btnlocationupdate").show();
+                        $("#btnlocationcntct").hide();
+                    var myobj1;
+                    
+                      myobj1 = JSON.parse(data);
+                    
+                       document.getElementById("generalname").disabled = true;
+                      
+                       document.getElementById("generalname").value=myobj1[0]['Sub_client'];
+                         document.getElementById("generalname1").value=myobj1[0]['Sub_client'];
+                       document.getElementById("displayclientname").value=myobj1[0]['Display_name'];
+                       document.getElementById("contractpercent").value=myobj1[0]['Contract_percent'];
+                       document.getElementById("defaultContact").value=myobj1[0]['Default_Contact'];  
+                       document.getElementById("employeecontact").value=myobj1[0]['Employee_contact'];
+                       
+                       document.getElementById("laddress1").value=myobj1[0]['Address1'];
+                       document.getElementById("laddress2").value=myobj1[0]['Address2'];
+                       document.getElementById("lcity").value=myobj1[0]['City']; 
+                       document.getElementById("lstate").value=myobj1[0]['State'];   
+                       document.getElementById("lzip").value=myobj1[0]['Postal_code']; 
+                       document.getElementById("lphone").value=myobj1[0]['Phone_no'];
+                       document.getElementById("lfax").value=myobj1[0]['Fax_no'];
+                      }
+                     
+                    });
+               
+                
+                }
+               function InsertLocation()
+               { 
+                    $.ajax({
+                            url: "<?php echo $base; ?>/index.php/ClientController/InsertLocation",
+                            data: GetFormValues('locationform'),
+                            type: "POST",
+                            success: function(data) {
+                               
+                                     //$("#locationmsg").html(JSON.parse(data).msg);  
+                              $("#locationmsg").show();
+                        $("#btnlocationcntct").hide();
+                                    
+                                     setTimeout(function() {
+                                    $("#locationmsg").hide();  
+                                    $("#btnlocationcntct").show();
+                                  clr();
+                                    }, 2000);
+                                    
+                         filllocation();    
+                       
+                                     
+                                }, error: function(data){
+                                    
+                                    alert(data);  
+                                    
+                                }
+                            }); 
+                      
+                      return false;
+               }
+              function clr()
+              {
+                $("#employeecontact").val($("#employeecontact option:first").val());
+                $("#defaultContact").val($("#defaultContact option:first").val());
+                document.getElementById("generalname").value="";
+                document.getElementById("generalname1").value="";
+                document.getElementById("displayclientname").value="";
+                document.getElementById("contractpercent").value="";      
+                document.getElementById("laddress1").value="";
+                document.getElementById("laddress2").value="";
+                document.getElementById("lcity").value=""; 
+                document.getElementById("lstate").value="";   
+                document.getElementById("lzip").value=""; 
+                document.getElementById("lphone").value="";
+                document.getElementById("lfax").value="";
+              }
+               
+function filldropdown()
+{
+    var code=$("#code").val();
+   var options = "<option>Select</option>";
+    $.ajax({
+    url: "<?php echo $base; ?>/index.php/ClientController/getcontact",
+    type: "POST",
+    data:{code:code},
+    success: function(data) {
+      
+    for(var i=0;i<JSON.parse(data).length; i++)
+    {
+        options += "<option value='"+  JSON.parse(data)[i].ContactId +"'>" + JSON.parse(data)[i].FirstName +"</option>";              
+    }
+    $("#defaultContact").html(options);
+    }
+    });
+}
+function filllocation()
+{
+    var code=$("#code").val();
+   var options = "<option>Select</option>";
+    $.ajax({
+    url: "<?php echo $base; ?>/index.php/ClientController/getlocation",
+    type: "POST",
+    data:{code:code},
+    success: function(data) {
+       
+    for(var i=0;i<JSON.parse(data).length; i++)
+    {
+        options += "<option value='"+  JSON.parse(data)[i].Sub_client +"'>" + JSON.parse(data)[i].Sub_client +"</option>";              
+    }
+    $("#location").html(options);
+    }
+    });
+}
+
          
                function deleteclientdata()
                {
                     var contact_id = $("#Contact_id").val();
                    
                     var client_id = $("#client_id").val();
-                  console.log(contact_id);
+                
 
                }
               
@@ -295,16 +444,16 @@
                      data: {id: dropdownVal},
                     type: "POST",
                     success: function(data){
-                    console.log(data);
+                   
                     var myobj;
                     
                       myobj = JSON.parse(data);
-                     console.log(myobj);
+                    
                          
                            $("#contactform1").hide();
                        $("#contactform").hide();
                          $("#addcontact").show();
-                      console.log(myobj);
+                    
                        document.getElementById("title").value=myobj.data[0]['Client_name'];
                        document.getElementById("address1").value=myobj.data[0]['Address1'];
                        document.getElementById("dphn").value=myobj.data[0]['Phone_no'];
@@ -317,10 +466,8 @@
                        document.getElementById("city").value=myobj.data[0]['City']; 
                        document.getElementById("Contact_id").value=myobj.data[0]['ContactId'];
                        document.getElementById("Cname").value=myobj.data[0]['FirstName']+' '+myobj.data[0]['LastName'];                        
-                           
                        document.getElementById("code").value=myobj.data[0]['Client_code'];
                        document.getElementById("client_id").value=myobj.data[0]['Id'];
-                       
                        document.getElementById("Contact_id").value=myobj.data[0]['ContactId'];
                          
                       }
@@ -329,6 +476,7 @@
                
                 
                 }
+            
                 
                  function editnotes(id){
                  
@@ -336,18 +484,15 @@
                     url:"<?php echo $base; ?>/index.php/ClientController/editnotes",    
                      data: {id: id},
                     type: "POST",
-                    success: function(data){
-                   
+                    success: function(data){ 
                     var myobj;
-                    
                       myobj = JSON.parse(data);
-                    
                       document.getElementById("dis").value=myobj[0].Notes_type_key;
                       document.getElementById("notesdis").value=myobj[0].Notes_type_description;  
                       var optin=myobj[0].category;
 		              $('#cat').val(optin);
                       document.getElementById("noteId").value=myobj[0].Id;
-                      console.log(myobj[0].Id);
+                     
                       $('#btnaddnote').hide();
                       $('#btnupdatenote').show();
                       
@@ -359,8 +504,6 @@
                 }
                 
                   function updatenotes(){
-                 
-                
                     $.ajax({
                     url:"<?php echo $base; ?>/index.php/ClientController/updatenotes",    
                      data: GetFormValues('notes'),
@@ -369,10 +512,10 @@
                    
                     var myobj;
                     myobj = JSON.parse(data);
-                    console.log(myobj);
-                     $("#updatenotes").show();  
+                   //   $("#updatenotes").html(JSON.parse(data).msg);  
+                  $("#updatenotes").show();  
                   $('#btnaddnote').hide();
-                   //$("#updatenotes").hide();  
+                  
                                     $('#btnupdatenote').hide();
                                     setTimeout(function() {
                                     $("#cat").val($("#cat option:first").val());
@@ -380,7 +523,7 @@
                                       $("#dis").val('');
                                     $("#updatenotes").hide();  
                                      $('#btnaddnote').show();
-                                    // getnotes();  
+                                   
                                     }, 2000);
                     
                 } , error: function(data){
@@ -415,6 +558,8 @@
                 $("#locationone").hide();
                 getnotesall(); 
                 getresources();  
+                filldropdown();
+                filllocation();
    $("#journal").on('submit',(function(e) {
         e.preventDefault();
         $.ajax({
@@ -427,6 +572,7 @@
             processData:false,
             success: function(data)
             {
+                    // $("#journalmsg").html(JSON.parse(data).msg);  
                  $('#journalmsg').show();
                  setTimeout(function() {
                                     $("#general").val($("#cat option:first").val());
@@ -444,7 +590,7 @@
     
     
     
-   ////////////////// 
+   
     $("#resources").on('submit',(function(e) {
         e.preventDefault();
         $.ajax({
@@ -457,6 +603,7 @@
             processData:false,
             success: function(data)
             {
+                //  $("#resourcemsg").html(JSON.parse(data).msg);  
                  $('#resourcemsg').show();
                  setTimeout(function() {
                                     $("#Rtype").val('');
@@ -517,7 +664,6 @@ function showLocationDiv()
 	$("#locationone").show();
     
 }
-
 function getresources() {
     var TableData;
     $.ajax({
@@ -1327,7 +1473,7 @@ function getresources() {
     </div>
     <div class="FormFields">
 <div id="innerMenu1" style="background-color: #8B8383;">
-<ul><li style="margin: 7px 0px 0px 60px;"><select name="location" id="location" class="myfield">
+<ul><li style="margin: 7px 0px 0px 60px;"><select name="location" onchange="locationedit(); return false;" id="location" class="myfield">
 <option>-------Select Location-------</option></select></li>
 <li style="float: right;margin: 0% 11% 0% 0%;color: white;"><a onclick="showLocationDiv(); return false;" href="#">Add Location</a></li>
 </ul>
@@ -1341,7 +1487,7 @@ function getresources() {
 			<li><a href="#tab-12">Disbursment Rule</a></li>
 			<li><a href="#tab-13">Summary Data</a></li>
   	        <li><a href="#tab-14">Accounting</a></li>
-			<li><a href="#tab-15">Clain Letters</a></li>
+			<li><a href="#tab-15">Claim Letters</a></li>
 			<li><a href="#tab-16">Resource</a></li>
   	       <li><a href="#tab-17">History</a></li>
 		</ul>
@@ -1349,36 +1495,42 @@ function getresources() {
         	<div class="tab-content" id="tab-11">
              <div class="FormFields">
 
-        <form action="" id="" method="post">
+        <form action="" id="locationform" method="post">
 		  <table class="FieldsTable" cellpadding="6">
                 <tr>
                 <td>Display Name:</td>
                 <td>
-                 <input  placeholder=""  type="hidden" name="code" id="code1"  />
-                  <input class="myfield" placeholder=""  type="text" name="displayclientname"   />
+                 <input  placeholder=""  type="hidden" name="code" id="code" value="<?php  echo $row->Client_code;?>" />
+                  <input class="myfield" placeholder=""  type="text" name="displayclientname" id="displayclientname" value="" />
                   </td>
                     </tr>
                 <tr>
                 <td>Name:</td>
                 <td>
-                 <input class="myfield" placeholder=""  type="text" name="generalname"   />
+                 <input class="myfield" placeholder="" type="text" name="generalname" value="" id="generalname"  />
+                 <input class="myfield" placeholder="" type="hidden" name="generalname1" value="" id="generalname1"  />
+                
                   </td>
                   <tr>
                 <td>Contract Percent:</td>
                 <td>
-                 <input class="myfield" placeholder=""  type="text" name="contractpercent"   />
+                 <input class="myfield" placeholder="" type="text" name="contractpercent" value="" id="contractpercent"  />
                   </td>
                     </tr>
                     <tr>
                 <td>Default Contact:</td>
                 <td>
-                 <input class="myfield" placeholder=""  type="text" name="defaultContact"   />
+                 <select class="myfield"  name="defaultContact" id="defaultContact"></select>
                   </td>
-                    </tr>
-                    </tr>
+                 </tr>
+                 </tr>
                  <tr>
                  <td>Employee Contact:</td>
-                <td>  <input class="myfield" placeholder=""  type="text" name="employeecontact" /></td>
+                <td>  <select class="myfield"  name="employeecontact" id="employeecontact">
+                <option>Select</option>
+                <?php  foreach($employee as $e){ ?>
+                <option value="<?php echo $e->Emp_Id;?>"><?php echo $e->LegalName;?></option>
+                <?php }?></select></td>
                 </tr>
                 <tr>
                 <td></td></tr>
@@ -1389,34 +1541,38 @@ function getresources() {
                 </tr>
                  <tr>
                  <td>Line 1:</td>
-                <td>  <input class="myfield" placeholder=""  type="text" name="address1"  /></td>
+                <td>  <input class="myfield" placeholder=""  type="text" name="address1" value="" id="laddress1" /></td>
                 </tr>
                  <tr>
                  <td>Line 2:</td>
-                <td>  <input class="myfield" placeholder=""  type="text" name="address2"  /></td>
+                <td>  <input class="myfield" placeholder=""  type="text" name="address2" value=""  id="laddress2"/></td>
                </tr>
                  <tr>
                  <td>City:</td>
-                <td>  <input class="myfield" placeholder=""  type="text" name="city"  /></td>
+                <td>  <input class="myfield" placeholder=""  type="text" name="city" value="" id="lcity"  /></td>
                 </tr>
                  <tr>
                  <td>State:</td>
-                <td> <select name="state" id="state" class="myfield"> <option value>Select</option>
-                               </select> </td>
+                <td> <select name="state" id="lstate" class="myfield"> <option >Select</option>
+                <?php foreach($state as $s){?>
+                <option value="<?php echo $s->State_full;?>"><?php echo $s->State_full;?></option>
+                <?php }?></select> </td>
                 </tr>
                  <tr>
                  <td>Zip:</td>
-                <td>  <input class="myfield" placeholder=""  type="text" name="zip"  /></td>
+                <td>  <input class="myfield" placeholder=""  type="text" name="zip" value="" id="lzip" /></td>
                 </tr>
                  <tr>
                  <td>Phone No.:</td>
-                <td>  <input class="myfield" placeholder=""  type="text" name="phone" /></td>
+                <td>  <input class="myfield" placeholder=""  type="text" name="phone" value="" id="lphone"/></td>
                </tr>
                  <tr>
                  <td>Fax No.:</td>
-                <td>  <input class="myfield" placeholder=""  type="text" name="fax" /></td>
+                <td>  <input class="myfield" placeholder=""  type="text" name="fax" value="" id="lfax" /></td>
                 </tr>
-                <tr><td> <span id="success" style="display:none; color:#0C0">All the records are Updated!</span></td><td><input type="submit" name="btncontact"  class="BtnBlack medium button" value="Update" /></td></tr>
+                <tr><td> <span id="locationmsg" style="display:none; color:#0C0">Done!</span></td>
+                <td><input type="submit" name="btnlocationcntct" id="btnlocationcntct" onclick="InsertLocation(); return false;"  class="BtnBlack medium button" value="Save" />
+                <input type="submit" name="btnlocationupdate" id="btnlocationupdate" style="display: none;" onclick="UpdateLocation(); return false;"  class="BtnBlack medium button" value="Update" /></td></tr>
             </table>
 			</form>
 

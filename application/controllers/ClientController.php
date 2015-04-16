@@ -32,6 +32,7 @@ class ClientController extends CI_Controller
         $data['query']=$this->ClientModel->editClient($id,$cid,$client);
         $data['contact']=$this->ClientModel->getcontactname($id);
         $data['cntctDetails']=$this->ClientModel->contactdetails($cid);
+        $data['employee']=$this->ClientModel->getemployee();
         $data['journalgeneral']=$this->ClientModel->getclientgeneraljournal();
         $this->load->view('ClientEdit', $data);
       //  $this->load->view('fileupload', $data);
@@ -611,8 +612,92 @@ public function addclientResources(){
                     $msg['msg']="Added";
                     echo json_encode($msg);
     }             
-              }
-   
+}
+
+function InsertLocation()
+{
+    $msg=array();
+        $code=$this->input->post('code');
+        $date = date("Y-m-d h:i:s");
+          
+        $data = array(
+             'Sub_client'        => $this->input->post('generalname'),
+             'Client_code'       => $code,
+             'Display_name'      => $this->input->post('displayclientname'),
+             'Contract_percent'  => $this->input->post('contractpercent'),
+             'Default_Contact'   => $this->input->post('defaultContact'),
+             'Employee_contact'  => $this->input->post('employeecontact'),
+             'LastModified'      => $date
+        );  
+        $contact = array(
+            'Client_code'      => $this->input->post('generalname'),
+            'Address1'         => $this->input->post('address1'),
+            'Address2'         => $this->input->post('address2'),
+            'City'             => $this->input->post('city'),
+            'State'            => $this->input->post('state'),
+            'Postal_code'      => $this->input->post('zip'),
+            'Phone_no'         => $this->input->post('phone'),
+            'Fax_no'           => $this->input->post('fax'),
+            'Last_Modified'    => $date
+         );  
+        
+        $this->load->model('ClientModel');
+        $this->ClientModel->InsertLocation($data,$contact);
+        $msg['msg']="Inserted";
+        echo json_encode($msg);
+} 
+
+function getcontact()
+{
+    $id=$this->input->post('code');
+    $this->load->model('ClientModel');
+    $data=$this->ClientModel->getcontact($id);
+    echo json_encode($data);
+}  
+
+function getlocation()
+{
+    $id=$this->input->post('code');
+    $this->load->model('ClientModel');
+    $data=$this->ClientModel->getlocation($id);
+    echo json_encode($data);
+}
+function locationedit()
+{
+    $id=$this->input->post('id');
+    $this->load->model('ClientModel');
+    $data=$this->ClientModel->locationedit($id);
+     echo json_encode($data);
+}
+function UpdateLocation()
+{
+    $id=$this->input->post('generalname1');
+     $msg=array();
+        $date = date("Y-m-d h:i:s");
+          
+        $data = array(
+             'Display_name'      => $this->input->post('displayclientname'),
+             'Contract_percent'  => $this->input->post('contractpercent'),
+             'Default_Contact'   => $this->input->post('defaultContact'),
+             'Employee_contact'  => $this->input->post('employeecontact'),
+             'LastModified'      => $date
+        );  
+        $contact = array(
+            'Address1'         => $this->input->post('address1'),
+            'Address2'         => $this->input->post('address2'),
+            'City'             => $this->input->post('city'),
+            'State'            => $this->input->post('state'),
+            'Postal_code'      => $this->input->post('zip'),
+            'Phone_no'         => $this->input->post('phone'),
+            'Fax_no'           => $this->input->post('fax'),
+            'Last_Modified'    => $date
+         );  
+        
+        $this->load->model('ClientModel');
+        $this->ClientModel->UpdateLocation($id,$data,$contact);
+        $msg['msg']="Update";
+        echo json_encode($msg);
+}
 }
 
 ?>
