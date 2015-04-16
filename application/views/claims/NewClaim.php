@@ -1,4 +1,31 @@
 <?php $this->load->view('header'); ?>
+<script>
+function filldropdown()
+{ 
+    var dropdownVal = $("#make option:selected").val();
+      var options="<option>None</option>" ;
+    $.ajax({
+         url: "<?php echo $base; ?>/index.php/ClaimController/fillmodel",
+         type: "POST",
+         data: {id: dropdownVal},
+        success: function(data) {
+
+             for(var i=0;i<JSON.parse(data).length; i++)
+             {
+                    options += "<option value='"+  JSON.parse(data)[i].Model_Id +"'>" + JSON.parse(data)[i].Model +"</option>";              
+             }
+
+                 $("#model").html(options);
+    }
+});
+}
+
+
+
+
+</script>
+
+
 <div id="content">
 
     <div id="innerMenu">
@@ -33,7 +60,7 @@
                             <tr>
                                 <td></td>
                                 <td>
-                                    <select name='color[]' style="height: 99px;" class="myfield" size="4" multiple>
+                                    <select name='claim[]' style="height: 99px;" class="myfield" size="4" multiple>
                                     <?php foreach($client as $c){ ?>
                                             <option value='<?php echo $c->Client_code; ?>'><?php echo $c->Client_name; ?></option>
                                             <?php }?>
@@ -51,7 +78,7 @@
                             <tr>
                                 <td></td>
                                 <td>
-                                            <select name='color[]' style="height: 99px;" class="myfield" size="4" multiple>
+                                            <select name='employee[]' style="height: 99px;" class="myfield" size="4" multiple>
                                              <?php foreach($employee as $e){ ?>
                                             <option value='<?php echo $e->Emp_Id; ?>'><?php echo $e->LegalName; ?></option>
                                             <?php }?>
@@ -74,31 +101,26 @@
                                 <td>Client Contact <img style="vertical-align: bottom; margin-left: 10px;" src="<?php echo " $base/images/lockblackIcon.png "; ?>" /></td>
                                 <td></td>
                             </tr>
-
                             <tr>
                             <td>Location:</td>
                                 <td>
                                     <input type="text" class="myfield" name="claim" /> </td>
-
-                               
                             </tr>
 
                             <tr>
 
                                 <td></td>
                                 <td>
-                                           <select name='color[]' style="height: 106px;" class="myfield" size="4" multiple>
+                                            <select name='location[]' style="height: 106px;" class="myfield" size="4" multiple>
                                             <option value='blue'>Blue</option>
                                             <option value='green'>Green</option>
                                             <option value='red'>Red</option>
                                             <option value='yellow'>Yelllow</option>
                                             <option value='' selected>Select a Color </option>
                                             <option value='white'>White</option>
-                                             </select></td>
+                                            </select></td>
                             </tr>
-
                             <tr>
-
                                 <td>RA#:</td>
                                 <td>
                                     <input type="text" class="myfield" name="claim" value="1/31/2015" /> </td>
@@ -165,7 +187,7 @@
                                 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                                 <td>Year:</td>
                                 <td>
-                                    <select name="state" class="myfield">
+                                    <select name="year" id="year" class="myfield">
                                     <option>Select Year</option>
                                         <option>2020</option><option>2019</option><option>2017</option><option>2016</option>
                                         <option>2015</option><option>2014</option><option>2013</option><option>2012</option>
@@ -185,8 +207,11 @@
                                 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                                 <td>Make:</td>
                                 <td>
-                                    <select name="state" class="myfield">
+                                    <select name="make" id="make" onchange="filldropdown(); return false;" class="myfield">
                                         <option>None</option>
+                                        <?php foreach($make as $m){?>
+                                         <option value="<?php echo $m->Id;?>"><?php echo $m->Make;?></option>
+                                        <?php }?>
                                     </select>
                                 </td>
 
@@ -200,7 +225,7 @@
                                 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                                 <td>Model:</td>
                                 <td>
-                                    <select name="state" class="myfield">
+                                    <select name="model" id="model" class="myfield">
                                         <option>None</option>
                                     </select>
                                 </td>
@@ -230,7 +255,7 @@
                                 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                                 <td>LDW status:</td>
                                 <td>
-                                    <select name="state" class="myfield">
+                                    <select name="LDW_status" id="LDW_status" class="myfield">
                                     <option>None</option>
                                         <option>LDW</option>
                                         <option>Partial</option>
@@ -390,7 +415,7 @@
                 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                 <td>Status</td>
                 <td>
-                    <select name="state" class="myfield">
+                    <select name="status" id="status" class="myfield">
                         <option>Open/Need Information(IO)</option>
                           <option>Open And Being Work(OO)</option>
                             <option>Open/Review(OR)</option>

@@ -13,6 +13,15 @@ class ClaimController extends CI_Controller{
         $this->mainModel->checkSession();
         
     }
+    
+    function fillmodel()
+    {
+        $id=$this->input->post('id');
+        $this->load->model('ClaimModel');
+        $data=$this->ClaimModel->fillmodel($id);
+        echo json_encode($data);
+    }
+    
     function newclaim()
     {
         $data['base'] = $this->config->item('base_url');
@@ -23,6 +32,7 @@ class ClaimController extends CI_Controller{
         $data['client'] = $this->ClaimModel->getclient();
         $data['employee'] = $this->ClaimModel->getemployee();
         $data['amount'] = $this->ClaimModel->getamount();
+        $data['make']=$this->ClaimModel->getmake();
         $this->load->view('claims/NewClaim',$data);
     }
     function searchallclaim()
@@ -116,6 +126,7 @@ class ClaimController extends CI_Controller{
         $data['innerTabsActive'] = 'overview';
          $this->load->view('claims/ClaimSalvageView',$data);
     }
+    
         
 }
 ?>

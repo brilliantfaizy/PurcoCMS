@@ -290,8 +290,6 @@
                 function dropdown(){
                  
                    var dropdownVal = $("#contacts option:selected").val();
-              
-                 console.log(dropdownVal);
                     $.ajax({
                     url:"<?php echo $base; ?>/index.php/ClientController/buildDropCities",    
                      data: {id: dropdownVal},

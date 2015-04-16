@@ -5,7 +5,7 @@
        $('#btnupdateparty').hide();
 		$("#signupForm").validate({
 		   rules: {
-				key: {
+				key1: {
 					required: true	
 				},
 			
@@ -17,11 +17,10 @@
                       required:true,
                       number:true
                 }
-               
 			},
 			messages: {
 			
-				key: {
+				key1: {
 					required: "Please add key!!"
 				
 				},
@@ -32,10 +31,10 @@
                     required:"Please enter an Order.",
                     number:"Use numbers only"
                 }
-			},submitHandler: function addJCE()
+			},submitHandler: function addClaimStatus()
                {
                     $.ajax({
-                            url: "<?php echo $base; ?>/index.php/JournalCannedController/AddJCE",
+                            url: "<?php echo $base; ?>/index.php/ClaimStatusController/AddClaimStatus",
                             data: GetFormValues('signupForm'),
                             type: "POST",
                             success: function(data) {
@@ -44,14 +43,13 @@
                                     $('#btnaddparty').hide();
                                     $('#btnupdateparty').hide();
                                     setTimeout(function() {
-                                    $("#key").val('');
+                                    $("#key1").val('');
                                     $("#description").val('');
                                     $("#order").val('');
-                                    $("#message").val('');
                                     $("#partyadd").hide();
                                     $('#btnaddparty').show();  
                                     }, 2000);
-                                    getJCE();
+                                    getClaimStatus();
                                     // getnotesall();
                                     return false;         
                                 }, error: function(data){
@@ -67,9 +65,9 @@
 	});
      
     
-     function updateJCE(){
+     function updateClaimStatus(){
                     $.ajax({
-                    url:"<?php echo $base; ?>/index.php/JournalCannedController/updateJCE",    
+                    url:"<?php echo $base; ?>/index.php/ClaimStatusController/updateClaimStatus",    
                      data: GetFormValues('signupForm'),
                     type: "POST",
                     success: function(data){
@@ -80,15 +78,14 @@
                   $('#btnaddnote').hide();
                                     $('#btnupdateparty').hide();
                                     setTimeout(function() {
-                                    $("#key").val('');
+                                    $("#key1").val('');
                                     $("#description").val('');
                                     $("#order").val('');
-                                    $("#message").val('');
                                     $("#updatenotes1").hide();  
                                     $('#btnaddparty').show();
                                     $("#updatetype").hide(); 
                                     }, 2000);
-                     getJCE();
+                     getClaimStatus();
                 } , error: function(data){
                                     
                                     alert(data);  
@@ -101,16 +98,38 @@
                  return false;
                 }
      
-      
+      function FilterClaimStatus(thiss){ 
+        
+                    $.ajax({
+                    url:"<?php echo $base; ?>/index.php/ClaimStatusController/FilterClaimStatus",    
+                    data: {filterID:$(thiss).val(),typeId:$(thiss).attr("name")},
+                    type: "POST",
+                    success: function(data){
+                    var myobj;
+                    myobj = JSON.parse(data);
+                    console.log(myobj);
+                    // getAdditionalInfo();
+                     
+                } , error: function(data){
+                                    
+                                    alert(data);  
+                                    
+                                }
+                     
+                  
+              
+                });
+                 return false;
+                }
      
-     function getJCE() {
+     function getClaimStatus() {
         
      
         
-     var TableData = '<tr><th>Key</th><th>Description</th><th>Message</th><th>Order</th><th>Action</th></tr>';
+     var TableData = '<tr><th>Key</th><th>Description</th><th>Order</th><th>Action</th></tr>';
 
     $.ajax({
-        url: "<?php echo $base; ?>/index.php/JournalCannedController/getJCE",
+        url: "<?php echo $base; ?>/index.php/ClaimStatusController/getClaimStatus",
         type:'POST',
        
         success: function(data) {
@@ -119,7 +138,7 @@
               var filterVal=JSON.parse(data)[i].Filter;
                      
               
-                   TableData += '<tr><td>' + JSON.parse(data)[i].Key + '</td><td>' + JSON.parse(data)[i].Description + '</td><td>' + JSON.parse(data)[i].Message + '</td><td>' + JSON.parse(data)[i].Order + '</td><td><a href="#" onclick="editJCE('+JSON.parse(data)[i].Id+'); return false;">Edit</a> <a href="" onclick="deleteJCE('+JSON.parse(data)[i].Id+'); return false;" > Delete</a></td></tr>';
+                   TableData += '<tr><td>' + JSON.parse(data)[i].Key + '</td><td>' + JSON.parse(data)[i].Description + '</td><td>' + JSON.parse(data)[i].Order + '</td><td><a href="#" onclick="editClaimStatus('+JSON.parse(data)[i].Id+'); return false;">Edit</a> <a href="" onclick="deleteClaimStatus('+JSON.parse(data)[i].Id+'); return false;" > Delete</a></td></tr>';
         }
         
      
@@ -136,27 +155,25 @@
 function viewadd()
 {
     $('#signupForm').show();
-    $("#key").val('');
+    $("#key1").val('');
     $("#description").val('');
     $("#order").val('');
-      $("#message").val('');
     $('#btnaddparty').show(); 
     $('#btnupdateparty').hide(); 
     
 }
-function editJCE(id){
+function editClaimStatus(id){
                  $('#signupForm').show();
                     $.ajax({
-                    url:"<?php echo $base; ?>/index.php/JournalCannedController/editJCE",    
+                    url:"<?php echo $base; ?>/index.php/ClaimStatusController/editClaimStatus",    
                      data: {id: id},
                     type: "POST",
                     success: function(data){
                     var myobj;
                       myobj = JSON.parse(data);
-                      document.getElementById("key").value=myobj[0].Key;
+                      document.getElementById("key1").value=myobj[0].Key;
                       document.getElementById("description").value=myobj[0].Description;
                       document.getElementById("order").value=myobj[0].Order; 
-                      document.getElementById("message").value=myobj[0].Message; 
                       document.getElementById("typeId").value=myobj[0].Id; 
                       console.log(myobj[0].Id);
                       $('#btnaddparty').hide();
@@ -169,18 +186,18 @@ function editJCE(id){
                 
                 }
                 
-getJCE();
+getClaimStatus();
 
-function deleteJCE(id)
+function deleteClaimStatus(id)
 {
       var result = confirm("Want to delete?");
         if (result) {
            $.ajax({
           type: "GET",
-          url: "<?php echo $base;?>/index.php/JournalCannedController/deleteJCE/"+id,
+          url: "<?php echo $base;?>/index.php/ClaimStatusController/deleteClaimStatus/"+id,
           success: function(response) {
 
-          getJCE();
+          getClaimStatus();
 
        }
     });
@@ -210,7 +227,7 @@ function deleteJCE(id)
  <div id="innerMenu">
  
                 <ul>
-                    <li><a class="innerMenuActive" href="#" onclick="viewadd(); return false;">Add Journal Canned Entry</a> </li>
+                    <li><a class="innerMenuActive" href="#" onclick="viewadd(); return false;">Add Claim Status</a> </li>
                 </ul>
 
 
@@ -224,57 +241,28 @@ function deleteJCE(id)
                 <tr>
                     <td>Key:</td><td>
                     <input type="hidden" id="typeId" name="typeId"/>
-                        <input type="text" class="myfield" name="key" id="key" />
+                        <input type="text" class="myfield" name="key1" id="key1" />
                     </td>
                     <td>Description:</td><td>
                         <input type="text" class="myfield" name="description" maxlength="50"  id="description" />
                     </td>
                     
                 </tr>
-                 <tr>
-                    <td>Viewable By:</td>
-                    <td>
-                        <select class="myfield" name="viewable" id="viewable" >
-                        <option>Client</option>
-                         <option>Purco</option>
-                          <option>Everyone</option>
-                        </select>
+                
+                <tr>
+                <td>Order:</td><td>
+                        <input type="text" class="myfield" name="order" maxlength="50"  id="order" />
                     </td>
-                 
-                     <td>Message:</td>
-                    <td rowspan="4">
-                        <textarea  class="myfield" name="message" style="height: 107px; width: 310px;" id="message"></textarea>
-                    </td>
-                </tr>
-                <tr>
-                      <td>Order:</td>
-                    <td>
-                        <input type="text" class="myfield" name="order" id="order" />
-                    </td>
-                    
-                </tr>
-               
-                <tr>
-                <td></td> <td></td><td></td>
-                    <td></td>
-                   
-                </tr>
-                <tr>
-                <td></td> <td></td><td></td>
-                    <td></td>
-                   
-                </tr>
-                <tr>
-              
-                <td> 
+                <td> <span id="partyadd" style="display:none; color:#0C0">Record Added!</span>
+                <span id="updatetype" style="display:none; color:#0C0">Record Updated!</span>
+                
               </td>
-                   <td><span id="partyadd" style="display:none; color:#0C0">Record Added!</span>
-                <span id="updatetype" style="display:none; color:#0C0">Record Updated!</span></td><td></td> 
+                    
                     <td><div id="btnaddparty">  
-                    <input type="submit" class="medium button BtnBlack" name="partytype" value="Add Journal Canned Entry" />
+                    <input type="submit" class="medium button BtnBlack" name="partytype" value="Add Claim Status" />
                  </div>
                  <div id="btnupdateparty">  
-                    <input type="button" class="medium button BtnBlack" onclick="updateJCE(); return false;" name="updatepartytype1" value="Update Journal Canned Entry" />
+                    <input type="button" class="medium button BtnBlack" onclick="updateClaimStatus(); return false;" name="updatepartytype1" value="Update Claim Status" />
                  </div>
                          </td>
                 </tr>
