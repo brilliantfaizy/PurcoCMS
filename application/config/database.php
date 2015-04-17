@@ -49,9 +49,9 @@ $active_group = 'default';
 $active_record = TRUE;
 
 $db['default']['hostname'] = 'sql3.freemysqlhosting.net';
-$db['default']['username'] = 'sql372067';
-$db['default']['password'] = 'vN6*uP8!';
-$db['default']['database'] = 'sql372067';
+$db['default']['username'] = 'sql374291';
+$db['default']['password'] = 'fA1%eB2%';
+$db['default']['database'] = 'sql374291';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;
